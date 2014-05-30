@@ -12,7 +12,6 @@
 		62BDC4991934704C00CF7520 /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
 		62BDC4A01934704C00CF7520 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC49F1934704C00CF7520 /* XCTest.framework */; };
 		62BDC4A11934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
-		62BDC4A31934704C00CF7520 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4A21934704C00CF7520 /* UIKit.framework */; };
 		62BDC4A61934704C00CF7520 /* libopenplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC48E1934704C00CF7520 /* libopenplayer.a */; };
 		62BDC4AC1934704C00CF7520 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62BDC4AA1934704C00CF7520 /* InfoPlist.strings */; };
 		62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4AD1934704C00CF7520 /* openplayerTests.m */; };
@@ -51,7 +50,6 @@
 		62BDC4981934704C00CF7520 /* openplayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayer.m; sourceTree = "<group>"; };
 		62BDC49E1934704C00CF7520 /* openplayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openplayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		62BDC4A21934704C00CF7520 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		62BDC4A91934704C00CF7520 /* openplayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openplayerTests-Info.plist"; sourceTree = "<group>"; };
 		62BDC4AB1934704C00CF7520 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		62BDC4AD1934704C00CF7520 /* openplayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayerTests.m; sourceTree = "<group>"; };
@@ -59,7 +57,6 @@
 		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
 		992278981938751C0005DB1F /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisPlayer.h; sourceTree = "<group>"; };
 		992278991938751C0005DB1F /* VorbisPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VorbisPlayer.m; sourceTree = "<group>"; };
-		9922789C1938760F0005DB1F /* openplayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "openplayer-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +74,6 @@
 			files = (
 				62BDC4A61934704C00CF7520 /* libopenplayer.a in Frameworks */,
 				62BDC4A01934704C00CF7520 /* XCTest.framework in Frameworks */,
-				62BDC4A31934704C00CF7520 /* UIKit.framework in Frameworks */,
 				62BDC4A11934704C00CF7520 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,7 +105,6 @@
 			children = (
 				62BDC4911934704C00CF7520 /* Foundation.framework */,
 				62BDC49F1934704C00CF7520 /* XCTest.framework */,
-				62BDC4A21934704C00CF7520 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -131,7 +126,6 @@
 		62BDC4941934704C00CF7520 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9922789C1938760F0005DB1F /* openplayer-Info.plist */,
 				62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */,
 			);
 			name = "Supporting Files";

@@ -14,5 +14,6 @@
 
 -(id)initWithURL:(NSURL *)url error:(NSError **)error;
 -(NSData *)readAllBytesWithError:(NSError **)error;
+-(NSData *)readBytesForLength:(NSUInteger)length error:(NSError **)error;
 -(void)stopStream;
 @end
