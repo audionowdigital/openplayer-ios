@@ -18,8 +18,6 @@
 		62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4AD1934704C00CF7520 /* openplayerTests.m */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
-		992278A0193876200005DB1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9922789E193876200005DB1F /* AppDelegate.m */; };
-		992278A1193876200005DB1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9922789F193876200005DB1F /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,9 +60,6 @@
 		992278981938751C0005DB1F /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisPlayer.h; sourceTree = "<group>"; };
 		992278991938751C0005DB1F /* VorbisPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VorbisPlayer.m; sourceTree = "<group>"; };
 		9922789C1938760F0005DB1F /* openplayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "openplayer-Info.plist"; sourceTree = "<group>"; };
-		9922789D193876200005DB1F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		9922789E193876200005DB1F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9922789F193876200005DB1F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,9 +117,6 @@
 		62BDC4931934704C00CF7520 /* openplayer */ = {
 			isa = PBXGroup;
 			children = (
-				9922789D193876200005DB1F /* AppDelegate.h */,
-				9922789E193876200005DB1F /* AppDelegate.m */,
-				9922789F193876200005DB1F /* main.m */,
 				992278961938751C0005DB1F /* StreamConnection.h */,
 				992278971938751C0005DB1F /* StreamConnection.m */,
 				992278981938751C0005DB1F /* VorbisPlayer.h */,
@@ -244,8 +236,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				992278A1193876200005DB1F /* main.m in Sources */,
-				992278A0193876200005DB1F /* AppDelegate.m in Sources */,
 				9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */,
 				62BDC4991934704C00CF7520 /* openplayer.m in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
