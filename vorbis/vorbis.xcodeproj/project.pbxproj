@@ -14,8 +14,6 @@
 		62ED4DA1193739AA00CF5BA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4D91193739AA00CF5BA8 /* Foundation.framework */; };
 		62ED4DA3193739AA00CF5BA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4DA2193739AA00CF5BA8 /* UIKit.framework */; };
 		62ED4DA6193739AA00CF5BA8 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4D8E193739AA00CF5BA8 /* libvorbis.a */; };
-		62ED4DAC193739AB00CF5BA8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62ED4DAA193739AB00CF5BA8 /* InfoPlist.strings */; };
-		62ED4DAE193739AB00CF5BA8 /* vorbisTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4DAD193739AB00CF5BA8 /* vorbisTests.m */; };
 		62ED4EDD193757D300CF5BA8 /* codec.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ED4E80193757D300CF5BA8 /* codec.h */; };
 		62ED4EDE193757D300CF5BA8 /* vorbisenc.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ED4E83193757D300CF5BA8 /* vorbisenc.h */; };
 		62ED4EDF193757D300CF5BA8 /* vorbisfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ED4E84193757D300CF5BA8 /* vorbisfile.h */; };
@@ -124,9 +122,6 @@
 		62ED4D9E193739AA00CF5BA8 /* vorbisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vorbisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ED4D9F193739AA00CF5BA8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		62ED4DA2193739AA00CF5BA8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		62ED4DA9193739AB00CF5BA8 /* vorbisTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vorbisTests-Info.plist"; sourceTree = "<group>"; };
-		62ED4DAB193739AB00CF5BA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		62ED4DAD193739AB00CF5BA8 /* vorbisTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vorbisTests.m; sourceTree = "<group>"; };
 		62ED4E78193757D300CF5BA8 /* Android.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
 		62ED4E79193757D300CF5BA8 /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		62ED4E7A193757D300CF5BA8 /* CHANGES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGES; sourceTree = "<group>"; };
@@ -267,7 +262,6 @@
 				62ED4F2319376BDB00CF5BA8 /* libogg */,
 				62ED4E77193757D300CF5BA8 /* libvorbis */,
 				62ED4D93193739AA00CF5BA8 /* vorbis */,
-				62ED4DA7193739AA00CF5BA8 /* vorbisTests */,
 				62ED4D90193739AA00CF5BA8 /* Frameworks */,
 				62ED4D8F193739AA00CF5BA8 /* Products */,
 			);
@@ -306,24 +300,6 @@
 			isa = PBXGroup;
 			children = (
 				62ED4D95193739AA00CF5BA8 /* vorbis-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		62ED4DA7193739AA00CF5BA8 /* vorbisTests */ = {
-			isa = PBXGroup;
-			children = (
-				62ED4DAD193739AB00CF5BA8 /* vorbisTests.m */,
-				62ED4DA8193739AB00CF5BA8 /* Supporting Files */,
-			);
-			path = vorbisTests;
-			sourceTree = "<group>";
-		};
-		62ED4DA8193739AB00CF5BA8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				62ED4DA9193739AB00CF5BA8 /* vorbisTests-Info.plist */,
-				62ED4DAA193739AB00CF5BA8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -670,7 +646,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62ED4DAC193739AB00CF5BA8 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,7 +690,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62ED4DAE193739AB00CF5BA8 /* vorbisTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,17 +702,6 @@
 			targetProxy = 62ED4DA4193739AA00CF5BA8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		62ED4DAA193739AB00CF5BA8 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				62ED4DAB193739AB00CF5BA8 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		62ED4DAF193739AB00CF5BA8 /* Debug */ = {
@@ -904,6 +867,7 @@
 				62ED4DB3193739AB00CF5BA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		62ED4DB4193739AB00CF5BA8 /* Build configuration list for PBXNativeTarget "vorbisTests" */ = {
 			isa = XCConfigurationList;
@@ -912,6 +876,7 @@
 				62ED4DB6193739AB00CF5BA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -16,6 +16,10 @@
 		62BDC4A61934704C00CF7520 /* libopenplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC48E1934704C00CF7520 /* libopenplayer.a */; };
 		62BDC4AC1934704C00CF7520 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62BDC4AA1934704C00CF7520 /* InfoPlist.strings */; };
 		62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4AD1934704C00CF7520 /* openplayerTests.m */; };
+		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
+		9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
+		992278A0193876200005DB1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9922789E193876200005DB1F /* AppDelegate.m */; };
+		992278A1193876200005DB1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9922789F193876200005DB1F /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,14 @@
 		62BDC4A91934704C00CF7520 /* openplayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openplayerTests-Info.plist"; sourceTree = "<group>"; };
 		62BDC4AB1934704C00CF7520 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		62BDC4AD1934704C00CF7520 /* openplayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayerTests.m; sourceTree = "<group>"; };
+		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
+		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
+		992278981938751C0005DB1F /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisPlayer.h; sourceTree = "<group>"; };
+		992278991938751C0005DB1F /* VorbisPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VorbisPlayer.m; sourceTree = "<group>"; };
+		9922789C1938760F0005DB1F /* openplayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "openplayer-Info.plist"; sourceTree = "<group>"; };
+		9922789D193876200005DB1F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9922789E193876200005DB1F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9922789F193876200005DB1F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +122,13 @@
 		62BDC4931934704C00CF7520 /* openplayer */ = {
 			isa = PBXGroup;
 			children = (
+				9922789D193876200005DB1F /* AppDelegate.h */,
+				9922789E193876200005DB1F /* AppDelegate.m */,
+				9922789F193876200005DB1F /* main.m */,
+				992278961938751C0005DB1F /* StreamConnection.h */,
+				992278971938751C0005DB1F /* StreamConnection.m */,
+				992278981938751C0005DB1F /* VorbisPlayer.h */,
+				992278991938751C0005DB1F /* VorbisPlayer.m */,
 				62BDC4961934704C00CF7520 /* openplayer.h */,
 				62BDC4981934704C00CF7520 /* openplayer.m */,
 				62BDC4941934704C00CF7520 /* Supporting Files */,
@@ -120,6 +139,7 @@
 		62BDC4941934704C00CF7520 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9922789C1938760F0005DB1F /* openplayer-Info.plist */,
 				62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -224,7 +244,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				992278A1193876200005DB1F /* main.m in Sources */,
+				992278A0193876200005DB1F /* AppDelegate.m in Sources */,
+				9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */,
 				62BDC4991934704C00CF7520 /* openplayer.m in Sources */,
+				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +429,7 @@
 				62BDC4B31934704C00CF7520 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		62BDC4B41934704C00CF7520 /* Build configuration list for PBXNativeTarget "openplayerTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +438,7 @@
 				62BDC4B61934704C00CF7520 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
