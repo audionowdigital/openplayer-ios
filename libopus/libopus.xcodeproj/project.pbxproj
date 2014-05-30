@@ -1342,10 +1342,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/radhoo/Work/audionow/libs_common/libogg/include,
-					/Users/radhoo/Work/audionow/libs_common/libopus/silk,
-					/Users/radhoo/Work/audionow/libs_common/libopus/celt,
-					/Users/radhoo/Work/audionow/libs_common/libopus/include,
+					../../libs_common/libogg/include,
+					../../libs_common/libopus/silk,
+					../../libs_common/libopus/celt,
+					../../libs_common/libopus/include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1382,10 +1382,10 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/Users/radhoo/Work/audionow/libs_common/libogg/include,
-					/Users/radhoo/Work/audionow/libs_common/libopus/silk,
-					/Users/radhoo/Work/audionow/libs_common/libopus/celt,
-					/Users/radhoo/Work/audionow/libs_common/libopus/include,
+					../../libs_common/libogg/include,
+					../../libs_common/libopus/silk,
+					../../libs_common/libopus/celt,
+					../../libs_common/libopus/include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
