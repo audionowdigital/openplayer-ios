@@ -7,7 +7,12 @@
 		<key>openplayer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+		<key>openplayerdemo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>62BDC49D1934704C00CF7520</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>992278ED1938C2060005DB1F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>992279051938C2060005DB1F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

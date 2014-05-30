@@ -38,6 +38,16 @@
                ReferencedContainer = "container:openplayer.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "992279051938C2060005DB1F"
+               BuildableName = "openplayerdemoTests.xctest"
+               BlueprintName = "openplayerdemoTests"
+               ReferencedContainer = "container:openplayer.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
