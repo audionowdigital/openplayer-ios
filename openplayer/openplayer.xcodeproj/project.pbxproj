@@ -1,0 +1,446 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
+		62BDC4971934704C00CF7520 /* openplayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62BDC4961934704C00CF7520 /* openplayer.h */; };
+		62BDC4991934704C00CF7520 /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
+		62BDC4A01934704C00CF7520 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC49F1934704C00CF7520 /* XCTest.framework */; };
+		62BDC4A11934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
+		62BDC4A31934704C00CF7520 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4A21934704C00CF7520 /* UIKit.framework */; };
+		62BDC4A61934704C00CF7520 /* libopenplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC48E1934704C00CF7520 /* libopenplayer.a */; };
+		62BDC4AC1934704C00CF7520 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62BDC4AA1934704C00CF7520 /* InfoPlist.strings */; };
+		62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4AD1934704C00CF7520 /* openplayerTests.m */; };
+		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
+		9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
+		992278A0193876200005DB1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9922789E193876200005DB1F /* AppDelegate.m */; };
+		992278A1193876200005DB1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9922789F193876200005DB1F /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		62BDC4A41934704C00CF7520 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 62BDC4861934704B00CF7520 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62BDC48D1934704C00CF7520;
+			remoteInfo = openplayer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		62BDC48C1934704C00CF7520 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				62BDC4971934704C00CF7520 /* openplayer.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openplayer-Prefix.pch"; sourceTree = "<group>"; };
+		62BDC4961934704C00CF7520 /* openplayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openplayer.h; sourceTree = "<group>"; };
+		62BDC4981934704C00CF7520 /* openplayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayer.m; sourceTree = "<group>"; };
+		62BDC49E1934704C00CF7520 /* openplayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openplayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		62BDC4A21934704C00CF7520 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		62BDC4A91934704C00CF7520 /* openplayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openplayerTests-Info.plist"; sourceTree = "<group>"; };
+		62BDC4AB1934704C00CF7520 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		62BDC4AD1934704C00CF7520 /* openplayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayerTests.m; sourceTree = "<group>"; };
+		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
+		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
+		992278981938751C0005DB1F /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisPlayer.h; sourceTree = "<group>"; };
+		992278991938751C0005DB1F /* VorbisPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VorbisPlayer.m; sourceTree = "<group>"; };
+		9922789C1938760F0005DB1F /* openplayer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "openplayer-Info.plist"; sourceTree = "<group>"; };
+		9922789D193876200005DB1F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9922789E193876200005DB1F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9922789F193876200005DB1F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		62BDC48B1934704C00CF7520 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62BDC49B1934704C00CF7520 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62BDC4A61934704C00CF7520 /* libopenplayer.a in Frameworks */,
+				62BDC4A01934704C00CF7520 /* XCTest.framework in Frameworks */,
+				62BDC4A31934704C00CF7520 /* UIKit.framework in Frameworks */,
+				62BDC4A11934704C00CF7520 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		62BDC4851934704B00CF7520 = {
+			isa = PBXGroup;
+			children = (
+				62BDC4931934704C00CF7520 /* openplayer */,
+				62BDC4A71934704C00CF7520 /* openplayerTests */,
+				62BDC4901934704C00CF7520 /* Frameworks */,
+				62BDC48F1934704C00CF7520 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		62BDC48F1934704C00CF7520 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				62BDC48E1934704C00CF7520 /* libopenplayer.a */,
+				62BDC49E1934704C00CF7520 /* openplayerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		62BDC4901934704C00CF7520 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62BDC4911934704C00CF7520 /* Foundation.framework */,
+				62BDC49F1934704C00CF7520 /* XCTest.framework */,
+				62BDC4A21934704C00CF7520 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		62BDC4931934704C00CF7520 /* openplayer */ = {
+			isa = PBXGroup;
+			children = (
+				9922789D193876200005DB1F /* AppDelegate.h */,
+				9922789E193876200005DB1F /* AppDelegate.m */,
+				9922789F193876200005DB1F /* main.m */,
+				992278961938751C0005DB1F /* StreamConnection.h */,
+				992278971938751C0005DB1F /* StreamConnection.m */,
+				992278981938751C0005DB1F /* VorbisPlayer.h */,
+				992278991938751C0005DB1F /* VorbisPlayer.m */,
+				62BDC4961934704C00CF7520 /* openplayer.h */,
+				62BDC4981934704C00CF7520 /* openplayer.m */,
+				62BDC4941934704C00CF7520 /* Supporting Files */,
+			);
+			path = openplayer;
+			sourceTree = "<group>";
+		};
+		62BDC4941934704C00CF7520 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9922789C1938760F0005DB1F /* openplayer-Info.plist */,
+				62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		62BDC4A71934704C00CF7520 /* openplayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				62BDC4AD1934704C00CF7520 /* openplayerTests.m */,
+				62BDC4A81934704C00CF7520 /* Supporting Files */,
+			);
+			path = openplayerTests;
+			sourceTree = "<group>";
+		};
+		62BDC4A81934704C00CF7520 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				62BDC4A91934704C00CF7520 /* openplayerTests-Info.plist */,
+				62BDC4AA1934704C00CF7520 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		62BDC48D1934704C00CF7520 /* openplayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62BDC4B11934704C00CF7520 /* Build configuration list for PBXNativeTarget "openplayer" */;
+			buildPhases = (
+				62BDC48A1934704C00CF7520 /* Sources */,
+				62BDC48B1934704C00CF7520 /* Frameworks */,
+				62BDC48C1934704C00CF7520 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = openplayer;
+			productName = openplayer;
+			productReference = 62BDC48E1934704C00CF7520 /* libopenplayer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		62BDC49D1934704C00CF7520 /* openplayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62BDC4B41934704C00CF7520 /* Build configuration list for PBXNativeTarget "openplayerTests" */;
+			buildPhases = (
+				62BDC49A1934704C00CF7520 /* Sources */,
+				62BDC49B1934704C00CF7520 /* Frameworks */,
+				62BDC49C1934704C00CF7520 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				62BDC4A51934704C00CF7520 /* PBXTargetDependency */,
+			);
+			name = openplayerTests;
+			productName = openplayerTests;
+			productReference = 62BDC49E1934704C00CF7520 /* openplayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		62BDC4861934704B00CF7520 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AudioNowDigital;
+			};
+			buildConfigurationList = 62BDC4891934704B00CF7520 /* Build configuration list for PBXProject "openplayer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 62BDC4851934704B00CF7520;
+			productRefGroup = 62BDC48F1934704C00CF7520 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				62BDC48D1934704C00CF7520 /* openplayer */,
+				62BDC49D1934704C00CF7520 /* openplayerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		62BDC49C1934704C00CF7520 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62BDC4AC1934704C00CF7520 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		62BDC48A1934704C00CF7520 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				992278A1193876200005DB1F /* main.m in Sources */,
+				992278A0193876200005DB1F /* AppDelegate.m in Sources */,
+				9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */,
+				62BDC4991934704C00CF7520 /* openplayer.m in Sources */,
+				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62BDC49A1934704C00CF7520 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		62BDC4A51934704C00CF7520 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62BDC48D1934704C00CF7520 /* openplayer */;
+			targetProxy = 62BDC4A41934704C00CF7520 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		62BDC4AA1934704C00CF7520 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62BDC4AB1934704C00CF7520 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		62BDC4AF1934704C00CF7520 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		62BDC4B01934704C00CF7520 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		62BDC4B21934704C00CF7520 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/openplayer.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		62BDC4B31934704C00CF7520 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/openplayer.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		62BDC4B51934704C00CF7520 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "openplayerTests/openplayerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		62BDC4B61934704C00CF7520 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				INFOPLIST_FILE = "openplayerTests/openplayerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		62BDC4891934704B00CF7520 /* Build configuration list for PBXProject "openplayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62BDC4AF1934704C00CF7520 /* Debug */,
+				62BDC4B01934704C00CF7520 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62BDC4B11934704C00CF7520 /* Build configuration list for PBXNativeTarget "openplayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62BDC4B21934704C00CF7520 /* Debug */,
+				62BDC4B31934704C00CF7520 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62BDC4B41934704C00CF7520 /* Build configuration list for PBXNativeTarget "openplayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62BDC4B51934704C00CF7520 /* Debug */,
+				62BDC4B61934704C00CF7520 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 62BDC4861934704B00CF7520 /* Project object */;
+}
