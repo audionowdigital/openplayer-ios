@@ -86,8 +86,8 @@
     
     NSError* error = nil;
 #if 1 // This plays the ogg file
-    //NSURL* oggUrl = [[NSBundle mainBundle] URLForResource:@"Rondo_Alla_Turka" withExtension:@".ogg"];
-    NSURL* oggUrl = [NSURL URLWithString:@"http://icecast1.pulsradio.com:80/mxHD.ogg"];
+    NSURL* oggUrl = [[NSBundle mainBundle] URLForResource:@"Rondo_Alla_Turka" withExtension:@".ogg"];
+    //NSURL* oggUrl = [NSURL URLWithString:@"http://icecast1.pulsradio.com:80/mxHD.ogg"];
     
 //    [[NSBundle mainBundle] URLForResource:@"Rondo_Alla_Turka" withExtension:@".ogg"];
     IDZOggVorbisFileDecoder* decoder = [[IDZOggVorbisFileDecoder alloc] initWithContentsOfURL:oggUrl error:&error];

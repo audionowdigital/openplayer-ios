@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		62ED4F4A19376C1F00CF5BA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4F4919376C1F00CF5BA8 /* Foundation.framework */; };
+		62ED4F4F19376C1F00CF5BA8 /* opus.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62ED4F4E19376C1F00CF5BA8 /* opus.h */; };
+		62ED4F5119376C1F00CF5BA8 /* opus.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4F5019376C1F00CF5BA8 /* opus.m */; };
+		62ED4F5819376C1F00CF5BA8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4F5719376C1F00CF5BA8 /* XCTest.framework */; };
+		62ED4F5919376C1F00CF5BA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4F4919376C1F00CF5BA8 /* Foundation.framework */; };
+		62ED4F5B19376C1F00CF5BA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4F5A19376C1F00CF5BA8 /* UIKit.framework */; };
+		62ED4F5E19376C1F00CF5BA8 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4F4619376C1F00CF5BA8 /* libopus.a */; };
+		62ED4F6419376C1F00CF5BA8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62ED4F6219376C1F00CF5BA8 /* InfoPlist.strings */; };
+		62ED4F6619376C1F00CF5BA8 /* opusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4F6519376C1F00CF5BA8 /* opusTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		62ED4F5C19376C1F00CF5BA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 62ED4F3E19376C1F00CF5BA8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62ED4F4519376C1F00CF5BA8;
+			remoteInfo = opus;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		62ED4F4419376C1F00CF5BA8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				62ED4F4F19376C1F00CF5BA8 /* opus.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		62ED4F4619376C1F00CF5BA8 /* libopus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopus.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		62ED4F4919376C1F00CF5BA8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		62ED4F4D19376C1F00CF5BA8 /* opus-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "opus-Prefix.pch"; sourceTree = "<group>"; };
+		62ED4F4E19376C1F00CF5BA8 /* opus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = opus.h; sourceTree = "<group>"; };
+		62ED4F5019376C1F00CF5BA8 /* opus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = opus.m; sourceTree = "<group>"; };
+		62ED4F5619376C1F00CF5BA8 /* opusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = opusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		62ED4F5719376C1F00CF5BA8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		62ED4F5A19376C1F00CF5BA8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		62ED4F6119376C1F00CF5BA8 /* opusTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "opusTests-Info.plist"; sourceTree = "<group>"; };
+		62ED4F6319376C1F00CF5BA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		62ED4F6519376C1F00CF5BA8 /* opusTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = opusTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		62ED4F4319376C1F00CF5BA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62ED4F4A19376C1F00CF5BA8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62ED4F5319376C1F00CF5BA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62ED4F5819376C1F00CF5BA8 /* XCTest.framework in Frameworks */,
+				62ED4F5B19376C1F00CF5BA8 /* UIKit.framework in Frameworks */,
+				62ED4F5E19376C1F00CF5BA8 /* libopus.a in Frameworks */,
+				62ED4F5919376C1F00CF5BA8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		62ED4F3D19376C1F00CF5BA8 = {
+			isa = PBXGroup;
+			children = (
+				62ED4F4B19376C1F00CF5BA8 /* opus */,
+				62ED4F5F19376C1F00CF5BA8 /* opusTests */,
+				62ED4F4819376C1F00CF5BA8 /* Frameworks */,
+				62ED4F4719376C1F00CF5BA8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		62ED4F4719376C1F00CF5BA8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				62ED4F4619376C1F00CF5BA8 /* libopus.a */,
+				62ED4F5619376C1F00CF5BA8 /* opusTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		62ED4F4819376C1F00CF5BA8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62ED4F4919376C1F00CF5BA8 /* Foundation.framework */,
+				62ED4F5719376C1F00CF5BA8 /* XCTest.framework */,
+				62ED4F5A19376C1F00CF5BA8 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		62ED4F4B19376C1F00CF5BA8 /* opus */ = {
+			isa = PBXGroup;
+			children = (
+				62ED4F4E19376C1F00CF5BA8 /* opus.h */,
+				62ED4F5019376C1F00CF5BA8 /* opus.m */,
+				62ED4F4C19376C1F00CF5BA8 /* Supporting Files */,
+			);
+			path = opus;
+			sourceTree = "<group>";
+		};
+		62ED4F4C19376C1F00CF5BA8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				62ED4F4D19376C1F00CF5BA8 /* opus-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		62ED4F5F19376C1F00CF5BA8 /* opusTests */ = {
+			isa = PBXGroup;
+			children = (
+				62ED4F6519376C1F00CF5BA8 /* opusTests.m */,
+				62ED4F6019376C1F00CF5BA8 /* Supporting Files */,
+			);
+			path = opusTests;
+			sourceTree = "<group>";
+		};
+		62ED4F6019376C1F00CF5BA8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				62ED4F6119376C1F00CF5BA8 /* opusTests-Info.plist */,
+				62ED4F6219376C1F00CF5BA8 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		62ED4F4519376C1F00CF5BA8 /* opus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62ED4F6919376C1F00CF5BA8 /* Build configuration list for PBXNativeTarget "opus" */;
+			buildPhases = (
+				62ED4F4219376C1F00CF5BA8 /* Sources */,
+				62ED4F4319376C1F00CF5BA8 /* Frameworks */,
+				62ED4F4419376C1F00CF5BA8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = opus;
+			productName = opus;
+			productReference = 62ED4F4619376C1F00CF5BA8 /* libopus.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		62ED4F5519376C1F00CF5BA8 /* opusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62ED4F6C19376C1F00CF5BA8 /* Build configuration list for PBXNativeTarget "opusTests" */;
+			buildPhases = (
+				62ED4F5219376C1F00CF5BA8 /* Sources */,
+				62ED4F5319376C1F00CF5BA8 /* Frameworks */,
+				62ED4F5419376C1F00CF5BA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				62ED4F5D19376C1F00CF5BA8 /* PBXTargetDependency */,
+			);
+			name = opusTests;
+			productName = opusTests;
+			productReference = 62ED4F5619376C1F00CF5BA8 /* opusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		62ED4F3E19376C1F00CF5BA8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = AudioNowDigital;
+			};
+			buildConfigurationList = 62ED4F4119376C1F00CF5BA8 /* Build configuration list for PBXProject "opus" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 62ED4F3D19376C1F00CF5BA8;
+			productRefGroup = 62ED4F4719376C1F00CF5BA8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				62ED4F4519376C1F00CF5BA8 /* opus */,
+				62ED4F5519376C1F00CF5BA8 /* opusTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		62ED4F5419376C1F00CF5BA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62ED4F6419376C1F00CF5BA8 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		62ED4F4219376C1F00CF5BA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62ED4F5119376C1F00CF5BA8 /* opus.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62ED4F5219376C1F00CF5BA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62ED4F6619376C1F00CF5BA8 /* opusTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		62ED4F5D19376C1F00CF5BA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62ED4F4519376C1F00CF5BA8 /* opus */;
+			targetProxy = 62ED4F5C19376C1F00CF5BA8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		62ED4F6219376C1F00CF5BA8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62ED4F6319376C1F00CF5BA8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		62ED4F6719376C1F00CF5BA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		62ED4F6819376C1F00CF5BA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		62ED4F6A19376C1F00CF5BA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/opus.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "opus/opus-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		62ED4F6B19376C1F00CF5BA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/opus.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "opus/opus-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		62ED4F6D19376C1F00CF5BA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "opus/opus-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "opusTests/opusTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		62ED4F6E19376C1F00CF5BA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "opus/opus-Prefix.pch";
+				INFOPLIST_FILE = "opusTests/opusTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		62ED4F4119376C1F00CF5BA8 /* Build configuration list for PBXProject "opus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62ED4F6719376C1F00CF5BA8 /* Debug */,
+				62ED4F6819376C1F00CF5BA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62ED4F6919376C1F00CF5BA8 /* Build configuration list for PBXNativeTarget "opus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62ED4F6A19376C1F00CF5BA8 /* Debug */,
+				62ED4F6B19376C1F00CF5BA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		62ED4F6C19376C1F00CF5BA8 /* Build configuration list for PBXNativeTarget "opusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62ED4F6D19376C1F00CF5BA8 /* Debug */,
+				62ED4F6E19376C1F00CF5BA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 62ED4F3E19376C1F00CF5BA8 /* Project object */;
+}
