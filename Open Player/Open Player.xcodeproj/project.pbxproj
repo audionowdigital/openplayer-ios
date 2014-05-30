@@ -21,6 +21,7 @@
 		EB9A4EAC193490650037F954 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9A4E8E193490650037F954 /* UIKit.framework */; };
 		EB9A4EB4193490650037F954 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EB9A4EB2193490650037F954 /* InfoPlist.strings */; };
 		EB9A4EB6193490650037F954 /* Open_PlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9A4EB5193490650037F954 /* Open_PlayerTests.m */; };
+		EBC4577B1938621D00A03AE7 /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC4577A1938621D00A03AE7 /* StreamConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		EB9A4EB1193490650037F954 /* Open PlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Open PlayerTests-Info.plist"; sourceTree = "<group>"; };
 		EB9A4EB3193490650037F954 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EB9A4EB5193490650037F954 /* Open_PlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Open_PlayerTests.m; sourceTree = "<group>"; };
+		EBC457791938621D00A03AE7 /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
+		EBC4577A1938621D00A03AE7 /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 		EB9A4E90193490650037F954 /* Open Player */ = {
 			isa = PBXGroup;
 			children = (
+				EBC457791938621D00A03AE7 /* StreamConnection.h */,
+				EBC4577A1938621D00A03AE7 /* StreamConnection.m */,
 				EB9A4E99193490650037F954 /* AppDelegate.h */,
 				EB9A4E9A193490650037F954 /* AppDelegate.m */,
 				EB9A4E9C193490650037F954 /* Main.storyboard */,
@@ -250,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EB9A4EA1193490650037F954 /* ViewController.m in Sources */,
+				EBC4577B1938621D00A03AE7 /* StreamConnection.m in Sources */,
 				EB9A4E9B193490650037F954 /* AppDelegate.m in Sources */,
 				EB9A4E97193490650037F954 /* main.m in Sources */,
 			);
@@ -456,6 +462,7 @@
 				EB9A4EBB193490650037F954 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EB9A4EBC193490650037F954 /* Build configuration list for PBXNativeTarget "Open PlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +471,7 @@
 				EB9A4EBE193490650037F954 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
