@@ -140,7 +140,7 @@ dispatch_queue_t queue;
             self.responseBuffer.length = 0;
         });
         
-        NSLog(@" - read response buffer into internal buffer for %d bytes",self.internalBuffer.length);
+        NSLog(@" - read response buffer into internal buffer for %lu bytes",(unsigned long)self.internalBuffer.length);
     }
     
     // create the return buffer
@@ -162,8 +162,8 @@ dispatch_queue_t queue;
         self.internalBuffer = nil;
     }
     
-    NSLog(@" - read %d bytes from the internal buffer",returnData.length);
-    NSLog(@" - internal buffer droped to %d bytes",self.internalBuffer.length);
+    NSLog(@" - read %lu bytes from the internal buffer",(unsigned long)returnData.length);
+    NSLog(@" - internal buffer droped to %lu bytes",(unsigned long)self.internalBuffer.length);
     
     // return the data
     return returnData;
