@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9906D00D1934B1E7007794C3 /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9906D00C1934B1E7007794C3 /* VorbisPlayer.m */; };
 		EB9A4E8B193490650037F954 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9A4E8A193490650037F954 /* Foundation.framework */; };
 		EB9A4E8D193490650037F954 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9A4E8C193490650037F954 /* CoreGraphics.framework */; };
 		EB9A4E8F193490650037F954 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9A4E8E193490650037F954 /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9906D00B1934B1E7007794C3 /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisPlayer.h; sourceTree = "<group>"; };
+		9906D00C1934B1E7007794C3 /* VorbisPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VorbisPlayer.m; sourceTree = "<group>"; };
 		EB9A4E87193490650037F954 /* Open Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Open Player.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB9A4E8A193490650037F954 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EB9A4E8C193490650037F954 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -119,6 +122,8 @@
 				EB9A4EA0193490650037F954 /* ViewController.m */,
 				EB9A4EA2193490650037F954 /* Images.xcassets */,
 				EB9A4E91193490650037F954 /* Supporting Files */,
+				9906D00B1934B1E7007794C3 /* VorbisPlayer.h */,
+				9906D00C1934B1E7007794C3 /* VorbisPlayer.m */,
 			);
 			path = "Open Player";
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 				EB9A4EA1193490650037F954 /* ViewController.m in Sources */,
 				EB9A4E9B193490650037F954 /* AppDelegate.m in Sources */,
 				EB9A4E97193490650037F954 /* main.m in Sources */,
+				9906D00D1934B1E7007794C3 /* VorbisPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +462,7 @@
 				EB9A4EBB193490650037F954 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EB9A4EBC193490650037F954 /* Build configuration list for PBXNativeTarget "Open PlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +471,7 @@
 				EB9A4EBE193490650037F954 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
