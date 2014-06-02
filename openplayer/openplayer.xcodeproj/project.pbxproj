@@ -12,11 +12,6 @@
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		62BDC4971934704C00CF7520 /* openplayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62BDC4961934704C00CF7520 /* openplayer.h */; };
 		62BDC4991934704C00CF7520 /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
-		62BDC4A01934704C00CF7520 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC49F1934704C00CF7520 /* XCTest.framework */; };
-		62BDC4A11934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
-		62BDC4A61934704C00CF7520 /* libopenplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC48E1934704C00CF7520 /* libopenplayer.a */; };
-		62BDC4AC1934704C00CF7520 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62BDC4AA1934704C00CF7520 /* InfoPlist.strings */; };
-		62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4AD1934704C00CF7520 /* openplayerTests.m */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
 		992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
@@ -26,33 +21,11 @@
 		992278FB1938C2060005DB1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278FA1938C2060005DB1F /* main.m */; };
 		992278FF1938C2060005DB1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278FE1938C2060005DB1F /* AppDelegate.m */; };
 		992279011938C2060005DB1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992279001938C2060005DB1F /* Images.xcassets */; };
-		992279071938C2060005DB1F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC49F1934704C00CF7520 /* XCTest.framework */; };
-		992279081938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
-		992279091938C2060005DB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F21938C2060005DB1F /* UIKit.framework */; };
-		992279111938C2060005DB1F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9922790F1938C2060005DB1F /* InfoPlist.strings */; };
-		992279131938C2060005DB1F /* openplayerdemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 992279121938C2060005DB1F /* openplayerdemoTests.m */; };
 		9922791A1938C2120005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922791B1938C2150005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
 		9922791C1938C2190005DB1F /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
 		9922791F1938C4C80005DB1F /* TestLib.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9922791E1938C4C80005DB1F /* TestLib.mm */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		62BDC4A41934704C00CF7520 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 62BDC4861934704B00CF7520 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 62BDC48D1934704C00CF7520;
-			remoteInfo = openplayer;
-		};
-		9922790A1938C2060005DB1F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 62BDC4861934704B00CF7520 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 992278ED1938C2060005DB1F;
-			remoteInfo = openplayerdemo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		62BDC48C1934704C00CF7520 /* CopyFiles */ = {
@@ -75,11 +48,7 @@
 		62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openplayer-Prefix.pch"; sourceTree = "<group>"; };
 		62BDC4961934704C00CF7520 /* openplayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openplayer.h; sourceTree = "<group>"; };
 		62BDC4981934704C00CF7520 /* openplayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayer.m; sourceTree = "<group>"; };
-		62BDC49E1934704C00CF7520 /* openplayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openplayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		62BDC4A91934704C00CF7520 /* openplayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openplayerTests-Info.plist"; sourceTree = "<group>"; };
-		62BDC4AB1934704C00CF7520 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		62BDC4AD1934704C00CF7520 /* openplayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayerTests.m; sourceTree = "<group>"; };
 		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
 		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
 		992278981938751C0005DB1F /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisPlayer.h; sourceTree = "<group>"; };
@@ -94,10 +63,6 @@
 		992278FD1938C2060005DB1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		992278FE1938C2060005DB1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		992279001938C2060005DB1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		992279061938C2060005DB1F /* openplayerdemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openplayerdemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9922790E1938C2060005DB1F /* openplayerdemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openplayerdemoTests-Info.plist"; sourceTree = "<group>"; };
-		992279101938C2060005DB1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		992279121938C2060005DB1F /* openplayerdemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayerdemoTests.m; sourceTree = "<group>"; };
 		9922791D1938C4C80005DB1F /* TestLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLib.h; sourceTree = "<group>"; };
 		9922791E1938C4C80005DB1F /* TestLib.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestLib.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,16 +77,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62BDC49B1934704C00CF7520 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				62BDC4A61934704C00CF7520 /* libopenplayer.a in Frameworks */,
-				62BDC4A01934704C00CF7520 /* XCTest.framework in Frameworks */,
-				62BDC4A11934704C00CF7520 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		992278EB1938C2060005DB1F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -130,16 +85,6 @@
 				992278F31938C2060005DB1F /* UIKit.framework in Frameworks */,
 				627C7C8E193C61050031B485 /* libopus.a in Frameworks */,
 				992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		992279031938C2060005DB1F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				992279071938C2060005DB1F /* XCTest.framework in Frameworks */,
-				992279091938C2060005DB1F /* UIKit.framework in Frameworks */,
-				992279081938C2060005DB1F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,9 +113,7 @@
 			children = (
 				627C7C88193C60D80031B485 /* libs */,
 				62BDC4931934704C00CF7520 /* openplayer */,
-				62BDC4A71934704C00CF7520 /* openplayerTests */,
 				992278F41938C2060005DB1F /* openplayerdemo */,
-				9922790C1938C2060005DB1F /* openplayerdemoTests */,
 				62BDC4901934704C00CF7520 /* Frameworks */,
 				62BDC48F1934704C00CF7520 /* Products */,
 			);
@@ -180,9 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				62BDC48E1934704C00CF7520 /* libopenplayer.a */,
-				62BDC49E1934704C00CF7520 /* openplayerTests.xctest */,
 				992278EE1938C2060005DB1F /* openplayerdemo.app */,
-				992279061938C2060005DB1F /* openplayerdemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,24 +161,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		62BDC4A71934704C00CF7520 /* openplayerTests */ = {
-			isa = PBXGroup;
-			children = (
-				62BDC4AD1934704C00CF7520 /* openplayerTests.m */,
-				62BDC4A81934704C00CF7520 /* Supporting Files */,
-			);
-			path = openplayerTests;
-			sourceTree = "<group>";
-		};
-		62BDC4A81934704C00CF7520 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				62BDC4A91934704C00CF7520 /* openplayerTests-Info.plist */,
-				62BDC4AA1934704C00CF7520 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		992278F41938C2060005DB1F /* openplayerdemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,24 +185,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9922790C1938C2060005DB1F /* openplayerdemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				992279121938C2060005DB1F /* openplayerdemoTests.m */,
-				9922790D1938C2060005DB1F /* Supporting Files */,
-			);
-			path = openplayerdemoTests;
-			sourceTree = "<group>";
-		};
-		9922790D1938C2060005DB1F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9922790E1938C2060005DB1F /* openplayerdemoTests-Info.plist */,
-				9922790F1938C2060005DB1F /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -300,24 +205,6 @@
 			productReference = 62BDC48E1934704C00CF7520 /* libopenplayer.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		62BDC49D1934704C00CF7520 /* openplayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 62BDC4B41934704C00CF7520 /* Build configuration list for PBXNativeTarget "openplayerTests" */;
-			buildPhases = (
-				62BDC49A1934704C00CF7520 /* Sources */,
-				62BDC49B1934704C00CF7520 /* Frameworks */,
-				62BDC49C1934704C00CF7520 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				62BDC4A51934704C00CF7520 /* PBXTargetDependency */,
-			);
-			name = openplayerTests;
-			productName = openplayerTests;
-			productReference = 62BDC49E1934704C00CF7520 /* openplayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		992278ED1938C2060005DB1F /* openplayerdemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 992279141938C2060005DB1F /* Build configuration list for PBXNativeTarget "openplayerdemo" */;
@@ -335,24 +222,6 @@
 			productReference = 992278EE1938C2060005DB1F /* openplayerdemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		992279051938C2060005DB1F /* openplayerdemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 992279171938C2060005DB1F /* Build configuration list for PBXNativeTarget "openplayerdemoTests" */;
-			buildPhases = (
-				992279021938C2060005DB1F /* Sources */,
-				992279031938C2060005DB1F /* Frameworks */,
-				992279041938C2060005DB1F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9922790B1938C2060005DB1F /* PBXTargetDependency */,
-			);
-			name = openplayerdemoTests;
-			productName = openplayerdemoTests;
-			productReference = 992279061938C2060005DB1F /* openplayerdemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -361,14 +230,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = AudioNowDigital;
-				TargetAttributes = {
-					62BDC49D1934704C00CF7520 = {
-						TestTargetID = 992278ED1938C2060005DB1F;
-					};
-					992279051938C2060005DB1F = {
-						TestTargetID = 992278ED1938C2060005DB1F;
-					};
-				};
 			};
 			buildConfigurationList = 62BDC4891934704B00CF7520 /* Build configuration list for PBXProject "openplayer" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -383,36 +244,18 @@
 			projectRoot = "";
 			targets = (
 				62BDC48D1934704C00CF7520 /* openplayer */,
-				62BDC49D1934704C00CF7520 /* openplayerTests */,
 				992278ED1938C2060005DB1F /* openplayerdemo */,
-				992279051938C2060005DB1F /* openplayerdemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		62BDC49C1934704C00CF7520 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				62BDC4AC1934704C00CF7520 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		992278EC1938C2060005DB1F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				992278F91938C2060005DB1F /* InfoPlist.strings in Resources */,
 				992279011938C2060005DB1F /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		992279041938C2060005DB1F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				992279111938C2060005DB1F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,14 +272,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62BDC49A1934704C00CF7520 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		992278EA1938C2060005DB1F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -450,50 +285,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		992279021938C2060005DB1F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				992279131938C2060005DB1F /* openplayerdemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		62BDC4A51934704C00CF7520 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 62BDC48D1934704C00CF7520 /* openplayer */;
-			targetProxy = 62BDC4A41934704C00CF7520 /* PBXContainerItemProxy */;
-		};
-		9922790B1938C2060005DB1F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 992278ED1938C2060005DB1F /* openplayerdemo */;
-			targetProxy = 9922790A1938C2060005DB1F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		62BDC4AA1934704C00CF7520 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				62BDC4AB1934704C00CF7520 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		992278F71938C2060005DB1F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				992278F81938C2060005DB1F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		9922790F1938C2060005DB1F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				992279101938C2060005DB1F /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -609,46 +407,6 @@
 			};
 			name = Release;
 		};
-		62BDC4B51934704C00CF7520 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/openplayerdemo.app/openplayerdemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "openplayerTests/openplayerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		62BDC4B61934704C00CF7520 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/openplayerdemo.app/openplayerdemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
-				INFOPLIST_FILE = "openplayerTests/openplayerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 		992279151938C2060005DB1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -703,56 +461,6 @@
 			};
 			name = Release;
 		};
-		992279181938C2060005DB1F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/openplayerdemo.app/openplayerdemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayerdemo/openplayerdemo-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/fmoisa/openplayer_ios/openplayer/Frameworks/**",
-				);
-				INFOPLIST_FILE = "openplayerdemoTests/openplayerdemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		992279191938C2060005DB1F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/openplayerdemo.app/openplayerdemo";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayerdemo/openplayerdemo-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Users/fmoisa/openplayer_ios/openplayer/Frameworks/**",
-				);
-				INFOPLIST_FILE = "openplayerdemoTests/openplayerdemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -774,29 +482,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		62BDC4B41934704C00CF7520 /* Build configuration list for PBXNativeTarget "openplayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				62BDC4B51934704C00CF7520 /* Debug */,
-				62BDC4B61934704C00CF7520 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		992279141938C2060005DB1F /* Build configuration list for PBXNativeTarget "openplayerdemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				992279151938C2060005DB1F /* Debug */,
 				992279161938C2060005DB1F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		992279171938C2060005DB1F /* Build configuration list for PBXNativeTarget "openplayerdemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				992279181938C2060005DB1F /* Debug */,
-				992279191938C2060005DB1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
