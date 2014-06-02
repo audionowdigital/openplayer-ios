@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>943F5E80-0F82-437D-85B4-CED75E316DA8</string>
+	<string>2EAB02D3-B066-4D5C-BCFC-8E355FCB1EBE</string>
 	<key>IDESourceControlProjectName</key>
 	<string>openplayer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -16,13 +16,13 @@
 		<string>http://git.audionow.com/git/audionowdigital/openplayer_ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>openplayer/openplayer.xcodeproj/project.xcworkspace</string>
+	<string>openplayer.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>13AFA370-CA13-4F25-9D1B-E44230BF69BF</key>
 		<string>../../libs_common</string>
 		<key>DE4EF55A-4537-4BDF-A884-DE1967176181</key>
-		<string>../../..</string>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>http://git.audionow.com/git/audionowdigital/openplayer_ios.git</string>

@@ -192,7 +192,9 @@
 		62ED5D9A1937901300CF5BA8 /* repacketizer_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CE91937901300CF5BA8 /* repacketizer_demo.c */; };
 		62ED5DB4193884C500CF5BA8 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DAD193884C500CF5BA8 /* bitwise.c */; };
 		62ED5DB5193884C500CF5BA8 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DAE193884C500CF5BA8 /* framing.c */; };
-		62ED5DC519389D7E00CF5BA8 /* OpusDecoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DC419389D7E00CF5BA8 /* OpusDecoder.c */; };
+		99FDFD6A193C8459004FE858 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99FDFD69193C8459004FE858 /* Foundation.framework */; };
+		99FDFD6D193CA541004FE858 /* INativeInterface.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99FDFD68193C826F004FE858 /* INativeInterface.h */; };
+		99FDFD6F193CABF2004FE858 /* OpusDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DC419389D7E00CF5BA8 /* OpusDecoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -212,6 +214,7 @@
 			dstPath = "$(PROJECT_DIR)/../openplayer/libs/libopus";
 			dstSubfolderSpec = 0;
 			files = (
+				99FDFD6D193CA541004FE858 /* INativeInterface.h in CopyFiles */,
 				627C7C94193C66790031B485 /* OpusDecoder.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,8 +497,11 @@
 		62ED5DAF193884C500CF5BA8 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		62ED5DB0193884C500CF5BA8 /* Makefile.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
 		62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
-		62ED5DC419389D7E00CF5BA8 /* OpusDecoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpusDecoder.c; sourceTree = "<group>"; };
+		62ED5DC419389D7E00CF5BA8 /* OpusDecoder.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = OpusDecoder.m; sourceTree = "<group>"; };
 		8B8690F318710A4500F7B10F /* libopus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopus.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		99FDFD68193C826F004FE858 /* INativeInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
+		99FDFD69193C8459004FE858 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		99FDFD6B193CA3D5004FE858 /* libopus-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "libopus-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -503,6 +509,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99FDFD6A193C8459004FE858 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,8 +895,9 @@
 		62ED5DBB193896C600CF5BA8 /* opus */ = {
 			isa = PBXGroup;
 			children = (
-				62ED5DC419389D7E00CF5BA8 /* OpusDecoder.c */,
+				62ED5DC419389D7E00CF5BA8 /* OpusDecoder.m */,
 				62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */,
+				99FDFD68193C826F004FE858 /* INativeInterface.h */,
 			);
 			path = opus;
 			sourceTree = "<group>";
@@ -897,6 +905,7 @@
 		8B8690EA18710A4500F7B10F = {
 			isa = PBXGroup;
 			children = (
+				99FDFD6B193CA3D5004FE858 /* libopus-Prefix.pch */,
 				62ED5DBB193896C600CF5BA8 /* opus */,
 				62ED5D9C193884C500CF5BA8 /* libogg */,
 				62ED5BDE1937901300CF5BA8 /* libopus */,
@@ -917,6 +926,7 @@
 		8B8690F518710A4500F7B10F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				99FDFD69193C8459004FE858 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1113,7 +1123,6 @@
 				62ED5D0B1937901300CF5BA8 /* biquad_alt.c in Sources */,
 				62ED5D9A1937901300CF5BA8 /* repacketizer_demo.c in Sources */,
 				62ED5D8F1937901300CF5BA8 /* mlp_data.c in Sources */,
-				62ED5DC519389D7E00CF5BA8 /* OpusDecoder.c in Sources */,
 				62ED5D271937901300CF5BA8 /* find_pitch_lags_FIX.c in Sources */,
 				62ED5D3B1937901300CF5BA8 /* burg_modified_FLP.c in Sources */,
 				62ED5D901937901300CF5BA8 /* opus.c in Sources */,
@@ -1159,6 +1168,7 @@
 				62ED5CFA1937901300CF5BA8 /* mdct.c in Sources */,
 				62ED5D101937901300CF5BA8 /* code_signs.c in Sources */,
 				62ED5D4F1937901300CF5BA8 /* regularize_correlations_FLP.c in Sources */,
+				99FDFD6F193CABF2004FE858 /* OpusDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1168,14 +1178,28 @@
 		62BC5CEE193C756F009BEFEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					arm64,
+					armv7,
+					armv7s,
+					i386,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64 i386";
 			};
 			name = Debug;
 		};
 		62BC5CEF193C756F009BEFEB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					arm64,
+					armv7,
+					armv7s,
+					i386,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64 i386";
 			};
 			name = Release;
 		};
@@ -1219,7 +1243,7 @@
 					../../libs_common/libopus/celt,
 					../../libs_common/libopus/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1259,7 +1283,7 @@
 					../../libs_common/libopus/celt,
 					../../libs_common/libopus/include,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
