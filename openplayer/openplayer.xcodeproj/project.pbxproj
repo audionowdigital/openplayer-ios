@@ -24,6 +24,7 @@
 		9922791B1938C2150005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
 		9922791C1938C2190005DB1F /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
 		9922791F1938C4C80005DB1F /* TestLib.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9922791E1938C4C80005DB1F /* TestLib.mm */; };
+		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,6 +65,7 @@
 		992279001938C2060005DB1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9922791D1938C4C80005DB1F /* TestLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLib.h; sourceTree = "<group>"; };
 		9922791E1938C4C80005DB1F /* TestLib.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestLib.mm; sourceTree = "<group>"; };
+		99FDFD6E193CA596004FE858 /* INativeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			files = (
 				992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */,
 				992278F31938C2060005DB1F /* UIKit.framework in Frameworks */,
+				99FDFD66193C807B004FE858 /* libopus.a in Frameworks */,
 				992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,6 +103,7 @@
 		627C7C89193C60D80031B485 /* libopus */ = {
 			isa = PBXGroup;
 			children = (
+				99FDFD6E193CA596004FE858 /* INativeInterface.h */,
 				6226D982193C79E50060BDD4 /* libopus.a */,
 				627C7C95193C66DD0031B485 /* OpusDecoder.h */,
 			);

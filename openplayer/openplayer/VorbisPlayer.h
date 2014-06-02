@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StreamConnection.h"
-
+#import "INativeInterface.h"
 
 typedef enum player_state{
     STATE_READY_TO_PLAY = 0,    // player is ready to play, this is the state used also for Pause
@@ -38,19 +38,6 @@ typedef enum decode_status{
 -(void)onPlayerEvent:(PlayerEvent) event withParams:(NSDictionary *)params;
 
 @end
-
-
-@protocol INativeInterface
-
--(int)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount;
--(void)onWritePCMData:(short [])pcmData ofSize:(int)ammount;
--(void)onStartReadingHeader;
--(void)onStart;
--(void)onStop;
-
-@end
-
-
 
 @interface VorbisPlayer : NSObject <INativeInterface>
 {

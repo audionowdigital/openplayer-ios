@@ -1,4 +1,4 @@
-
+#import "INativeInterface.h"
 
 #ifndef _Included_org_xiph_opus_OpusDecoder
 	#define _Included_org_xiph_opus_OpusDecoder
@@ -10,7 +10,7 @@
 	int initJni(int debug0);
 
 	//Starts the decoding from a vorbis bitstream to pcm
-	int readDecodeWriteLoop(/*object OpusDataFeed*/);
+	int readDecodeWriteLoop(id<INativeInterface> callback);
 
 	//Stops the Opus data feed
 	void onStopDecodeFeed(/*jmethodID* stopMethodId*/);

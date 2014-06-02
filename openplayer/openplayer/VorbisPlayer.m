@@ -7,6 +7,7 @@
 //
 
 #import "VorbisPlayer.h"
+#import "OpusDecoder.h"
 
 @interface VorbisPlayer()
 
@@ -76,12 +77,11 @@
         [self sendEvent:PLAYING_FAILED];
     }
     
-    int result;
+    __block int result;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
-        // TODO: call here the native library function to start decoding from inputStream
-        // result = OpusDecoder.readDecodeWriteLoop(decodeFeed);
+        result = readDecodeWriteLoop(self);
         
         // send events on main thread
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -169,7 +169,7 @@
 
 -(void)onStop
 {
-    
+    NSLog(@"Test callback !!!");
 }
 
 -(int)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount

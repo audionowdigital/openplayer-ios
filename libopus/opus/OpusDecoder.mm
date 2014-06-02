@@ -2,15 +2,15 @@
 the jni callbacks. Decodes simple and chained OggOpus files from beginning
 to end. */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-#include <ogg/ogg.h>
-#include <opus.h>
-#include <opus_header.h>
+#import <stdio.h>
+#import <stdlib.h>
+#import <math.h>
+#import <string.h>
+#import <ogg/ogg.h>
+#import <opus.h>
+#import <opus_header.h>
 
-#include "OpusDecoder.h"
+#import "OpusDecoder.h"
 
 /*Define message codes*/
 #define NOT_OPUS_HEADER -1
@@ -262,8 +262,10 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 
 // TODO: Florin, make sure we have those pointer at this point
 // This is the only function we need ot call, assuming we have the interface already configured
-int readDecodeWriteLoop(/* jobject opusDataFeed*/) {
+int readDecodeWriteLoop(id<INativeInterface> callback) {
     fprintf(stderr, "startDecoding called, initing buffers");
+    
+    [callback onStop];
 
 	/*//Create a new java byte array to pass to the opus data feed method
 	jbyteArray jByteArrayReadBuffer = (*env)->NewByteArray(env, BUFFER_LENGTH);
