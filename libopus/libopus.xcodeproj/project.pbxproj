@@ -1224,6 +1224,10 @@
 		8B86911718710A4500F7B10F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+				);
 				DSTROOT = /tmp/libopus.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libopus-Prefix.pch";
@@ -1234,12 +1238,17 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = opus;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
 		8B86911818710A4500F7B10F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv7s,
+				);
 				DSTROOT = /tmp/libopus.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "libopus-Prefix.pch";
@@ -1250,6 +1259,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = opus;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
