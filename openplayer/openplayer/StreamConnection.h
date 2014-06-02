@@ -11,9 +11,12 @@
 @interface StreamConnection : NSObject
 
 @property long long podcastSize;
+@property BOOL connectionTerminated;
+@property (nonatomic,strong) NSError *connectionError;
 
 -(id)initWithURL:(NSURL *)url error:(NSError **)error;
 -(NSData *)readAllBytesWithError:(NSError **)error;
 -(NSData *)readBytesForLength:(NSUInteger)length error:(NSError **)error;
+-(BOOL)seekToPosition:(NSUInteger)position error:(NSError **)error;
 -(void)stopStream;
 @end
