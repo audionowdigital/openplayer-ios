@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		627C7C8D193C60D80031B485 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C7C8C193C60D80031B485 /* libopus.a */; };
-		627C7C8E193C61050031B485 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C7C8C193C60D80031B485 /* libopus.a */; };
+		6226D983193C79E50060BDD4 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		62BDC4971934704C00CF7520 /* openplayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62BDC4961934704C00CF7520 /* openplayer.h */; };
 		62BDC4991934704C00CF7520 /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
@@ -41,7 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		627C7C8C193C60D80031B485 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopus.a; sourceTree = "<group>"; };
+		6226D982193C79E50060BDD4 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopus.a; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				627C7C8D193C60D80031B485 /* libopus.a in Frameworks */,
+				6226D983193C79E50060BDD4 /* libopus.a in Frameworks */,
 				62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,7 +82,6 @@
 			files = (
 				992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */,
 				992278F31938C2060005DB1F /* UIKit.framework in Frameworks */,
-				627C7C8E193C61050031B485 /* libopus.a in Frameworks */,
 				992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,8 +100,8 @@
 		627C7C89193C60D80031B485 /* libopus */ = {
 			isa = PBXGroup;
 			children = (
+				6226D982193C79E50060BDD4 /* libopus.a */,
 				627C7C95193C66DD0031B485 /* OpusDecoder.h */,
-				627C7C8C193C60D80031B485 /* libopus.a */,
 			);
 			path = libopus;
 			sourceTree = "<group>";

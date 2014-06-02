@@ -6,7 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		62BC5CED193C756F009BEFEB /* UniversalLib */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 62BC5CF0193C756F009BEFEB /* Build configuration list for PBXAggregateTarget "UniversalLib" */;
+			buildPhases = (
+				62BC5CF1193C7584009BEFEB /* Run Script */,
+				6226D97F193C77EE0060BDD4 /* CopyFiles */,
+			);
+			dependencies = (
+			);
+			name = UniversalLib;
+			productName = UniversalLib;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
+		6226D981193C78710060BDD4 /* OpusDecoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */; };
 		627C7C92193C630B0031B485 /* libopus.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8B8690F318710A4500F7B10F /* libopus.a */; };
 		627C7C94193C66790031B485 /* OpusDecoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */; };
 		62ED5CEB1937901300CF5BA8 /* arm_celt_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5BE61937901300CF5BA8 /* arm_celt_map.c */; };
@@ -179,10 +195,19 @@
 		62ED5DB4193884C500CF5BA8 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DAD193884C500CF5BA8 /* bitwise.c */; };
 		62ED5DB5193884C500CF5BA8 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DAE193884C500CF5BA8 /* framing.c */; };
 		62ED5DC519389D7E00CF5BA8 /* OpusDecoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DC419389D7E00CF5BA8 /* OpusDecoder.c */; };
-		8B8690F718710A4500F7B10F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8690F618710A4500F7B10F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		6226D97F193C77EE0060BDD4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PROJECT_DIR)/../openplayer/libs/libopus";
+			dstSubfolderSpec = 0;
+			files = (
+				6226D981193C78710060BDD4 /* OpusDecoder.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		627C7C93193C666B0031B485 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -474,9 +499,7 @@
 		62ED5DB0193884C500CF5BA8 /* Makefile.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
 		62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		62ED5DC419389D7E00CF5BA8 /* OpusDecoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpusDecoder.c; sourceTree = "<group>"; };
-		8B26D9B6187230B8008020B5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8B8690F318710A4500F7B10F /* libopus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopus.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B8690F618710A4500F7B10F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,7 +507,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B8690F718710A4500F7B10F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -901,8 +923,6 @@
 		8B8690F518710A4500F7B10F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8B8690F618710A4500F7B10F /* Foundation.framework */,
-				8B26D9B6187230B8008020B5 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -950,9 +970,27 @@
 			projectRoot = "";
 			targets = (
 				8B8690F218710A4500F7B10F /* libopus */,
+				62BC5CED193C756F009BEFEB /* UniversalLib */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		62BC5CF1193C7584009BEFEB /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/Universal-lib\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target libopus ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target libopus -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\necho Output path is: ${UNIVERSAL_OUTPUTFOLDER}/libopus.a\n\necho Build dir is: ${BUILD_DIR}/Universal-lib\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/libopus.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libopus.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libopus.a\"\n\ncp \"${UNIVERSAL_OUTPUTFOLDER}/libopus.a\" \"${PROJECT_DIR}/../openplayer/libs/libopus\"\n\n# Last touch. copy the header files. Just for convenience\n#cp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/usr/local/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8B8690EF18710A4500F7B10F /* Sources */ = {
@@ -1135,6 +1173,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		62BC5CEE193C756F009BEFEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		62BC5CEF193C756F009BEFEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		8B86911418710A4500F7B10F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1270,6 +1322,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		62BC5CF0193C756F009BEFEB /* Build configuration list for PBXAggregateTarget "UniversalLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62BC5CEE193C756F009BEFEB /* Debug */,
+				62BC5CEF193C756F009BEFEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8B8690EE18710A4500F7B10F /* Build configuration list for PBXProject "libopus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
