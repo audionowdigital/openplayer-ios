@@ -30,6 +30,7 @@
 {
     if (self = [super init]) {
         _playerHandler = handler;
+        _state = STATE_STOPPED;
     }
     return self;
 }

@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		6226D983193C79E50060BDD4 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
-		62BDC4971934704C00CF7520 /* openplayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62BDC4961934704C00CF7520 /* openplayer.h */; };
-		62BDC4991934704C00CF7520 /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
 		992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
@@ -22,8 +20,6 @@
 		992279011938C2060005DB1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992279001938C2060005DB1F /* Images.xcassets */; };
 		9922791A1938C2120005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922791B1938C2150005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
-		9922791C1938C2190005DB1F /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
-		9922791F1938C4C80005DB1F /* TestLib.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9922791E1938C4C80005DB1F /* TestLib.mm */; };
 		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +30,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				62BDC4971934704C00CF7520 /* openplayer.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,8 +41,6 @@
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openplayer-Prefix.pch"; sourceTree = "<group>"; };
-		62BDC4961934704C00CF7520 /* openplayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openplayer.h; sourceTree = "<group>"; };
-		62BDC4981934704C00CF7520 /* openplayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openplayer.m; sourceTree = "<group>"; };
 		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
 		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
@@ -148,8 +141,6 @@
 				992278971938751C0005DB1F /* StreamConnection.m */,
 				992278981938751C0005DB1F /* VorbisPlayer.h */,
 				992278991938751C0005DB1F /* VorbisPlayer.m */,
-				62BDC4961934704C00CF7520 /* openplayer.h */,
-				62BDC4981934704C00CF7520 /* openplayer.m */,
 				62BDC4941934704C00CF7520 /* Supporting Files */,
 			);
 			path = openplayer;
@@ -269,7 +260,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */,
-				62BDC4991934704C00CF7520 /* openplayer.m in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,9 +271,7 @@
 				9922791A1938C2120005DB1F /* StreamConnection.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,
 				992278FB1938C2060005DB1F /* main.m in Sources */,
-				9922791F1938C4C80005DB1F /* TestLib.mm in Sources */,
 				9922791B1938C2150005DB1F /* VorbisPlayer.m in Sources */,
-				9922791C1938C2190005DB1F /* openplayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
