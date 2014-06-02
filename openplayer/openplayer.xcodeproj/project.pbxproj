@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		627C7C8D193C60D80031B485 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C7C8C193C60D80031B485 /* libopus.a */; };
+		627C7C8E193C61050031B485 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 627C7C8C193C60D80031B485 /* libopus.a */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		62BDC4971934704C00CF7520 /* openplayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62BDC4961934704C00CF7520 /* openplayer.h */; };
 		62BDC4991934704C00CF7520 /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
@@ -17,7 +19,6 @@
 		62BDC4AE1934704C00CF7520 /* openplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4AD1934704C00CF7520 /* openplayerTests.m */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922789B1938751C0005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
-		992278E91938C1150005DB1F /* Opus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278E81938C1150005DB1F /* Opus.framework */; };
 		992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F01938C2060005DB1F /* CoreGraphics.framework */; };
 		992278F31938C2060005DB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F21938C2060005DB1F /* UIKit.framework */; };
@@ -34,7 +35,6 @@
 		9922791B1938C2150005DB1F /* VorbisPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* VorbisPlayer.m */; };
 		9922791C1938C2190005DB1F /* openplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BDC4981934704C00CF7520 /* openplayer.m */; };
 		9922791F1938C4C80005DB1F /* TestLib.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9922791E1938C4C80005DB1F /* TestLib.mm */; };
-		992279201938C52F0005DB1F /* Opus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278E81938C1150005DB1F /* Opus.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +68,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		627C7C8C193C60D80031B485 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopus.a; sourceTree = "<group>"; };
+		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openplayer-Prefix.pch"; sourceTree = "<group>"; };
@@ -82,7 +84,6 @@
 		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
 		992278981938751C0005DB1F /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisPlayer.h; sourceTree = "<group>"; };
 		992278991938751C0005DB1F /* VorbisPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VorbisPlayer.m; sourceTree = "<group>"; };
-		992278E81938C1150005DB1F /* Opus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Opus.framework; path = Frameworks/Opus.framework; sourceTree = "<group>"; };
 		992278EE1938C2060005DB1F /* openplayerdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openplayerdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		992278F01938C2060005DB1F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		992278F21938C2060005DB1F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -106,8 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				627C7C8D193C60D80031B485 /* libopus.a in Frameworks */,
 				62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */,
-				992278E91938C1150005DB1F /* Opus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,8 +127,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */,
-				992279201938C52F0005DB1F /* Opus.framework in Frameworks */,
 				992278F31938C2060005DB1F /* UIKit.framework in Frameworks */,
+				627C7C8E193C61050031B485 /* libopus.a in Frameworks */,
 				992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,9 +146,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		627C7C88193C60D80031B485 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				627C7C89193C60D80031B485 /* libopus */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		627C7C89193C60D80031B485 /* libopus */ = {
+			isa = PBXGroup;
+			children = (
+				627C7C95193C66DD0031B485 /* OpusDecoder.h */,
+				627C7C8C193C60D80031B485 /* libopus.a */,
+			);
+			path = libopus;
+			sourceTree = "<group>";
+		};
 		62BDC4851934704B00CF7520 = {
 			isa = PBXGroup;
 			children = (
+				627C7C88193C60D80031B485 /* libs */,
 				62BDC4931934704C00CF7520 /* openplayer */,
 				62BDC4A71934704C00CF7520 /* openplayerTests */,
 				992278F41938C2060005DB1F /* openplayerdemo */,
@@ -171,7 +190,6 @@
 		62BDC4901934704C00CF7520 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				992278E81938C1150005DB1F /* Opus.framework */,
 				62BDC4911934704C00CF7520 /* Foundation.framework */,
 				62BDC49F1934704C00CF7520 /* XCTest.framework */,
 				992278F01938C2060005DB1F /* CoreGraphics.framework */,
@@ -561,6 +579,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/libopus",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -577,6 +599,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/libopus",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -632,6 +658,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/**",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openplayerdemo/openplayerdemo-Prefix.pch";
@@ -647,7 +674,7 @@
 				INFOPLIST_FILE = "openplayerdemo/openplayerdemo-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/fmoisa/openplayer_ios/libopus/build/Release-iphoneos",
+					"$(PROJECT_DIR)/libs/libopus",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -664,6 +691,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/**",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openplayerdemo/openplayerdemo-Prefix.pch";
@@ -675,7 +703,7 @@
 				INFOPLIST_FILE = "openplayerdemo/openplayerdemo-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/fmoisa/openplayer_ios/libopus/build/Release-iphoneos",
+					"$(PROJECT_DIR)/libs/libopus",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -770,6 +798,7 @@
 				992279161938C2060005DB1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		992279171938C2060005DB1F /* Build configuration list for PBXNativeTarget "openplayerdemoTests" */ = {
 			isa = XCConfigurationList;
@@ -778,6 +807,7 @@
 				992279191938C2060005DB1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

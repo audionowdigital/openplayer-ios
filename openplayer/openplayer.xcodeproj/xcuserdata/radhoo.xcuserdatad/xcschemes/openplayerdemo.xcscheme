@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "62BDC48D1934704C00CF7520"
-               BuildableName = "libopenplayer.a"
-               BlueprintName = "openplayer"
+               BlueprintIdentifier = "992278ED1938C2060005DB1F"
+               BuildableName = "openplayerdemo.app"
+               BlueprintName = "openplayerdemo"
                ReferencedContainer = "container:openplayer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,27 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "62BDC49D1934704C00CF7520"
-               BuildableName = "openplayerTests.xctest"
-               BlueprintName = "openplayerTests"
-               ReferencedContainer = "container:openplayer.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "992279051938C2060005DB1F"
-               BuildableName = "openplayerdemoTests.xctest"
-               BlueprintName = "openplayerdemoTests"
-               ReferencedContainer = "container:openplayer.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "992278ED1938C2060005DB1F"
+            BuildableName = "openplayerdemo.app"
+            BlueprintName = "openplayerdemo"
+            ReferencedContainer = "container:openplayer.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -59,6 +48,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "992278ED1938C2060005DB1F"
+            BuildableName = "openplayerdemo.app"
+            BlueprintName = "openplayerdemo"
+            ReferencedContainer = "container:openplayer.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -68,6 +66,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "992278ED1938C2060005DB1F"
+            BuildableName = "openplayerdemo.app"
+            BlueprintName = "openplayerdemo"
+            ReferencedContainer = "container:openplayer.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

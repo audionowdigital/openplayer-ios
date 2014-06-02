@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <Opus/OpusDecoder.h>
+#import "OpusDecoder.h"
 
 @implementation AppDelegate
 

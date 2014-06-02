@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		627C7C92193C630B0031B485 /* libopus.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8B8690F318710A4500F7B10F /* libopus.a */; };
+		627C7C94193C66790031B485 /* OpusDecoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */; };
 		62ED5CEB1937901300CF5BA8 /* arm_celt_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5BE61937901300CF5BA8 /* arm_celt_map.c */; };
 		62ED5CEC1937901300CF5BA8 /* armcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5BE71937901300CF5BA8 /* armcpu.c */; };
 		62ED5CEE1937901300CF5BA8 /* bands.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5BF01937901300CF5BA8 /* bands.c */; };
@@ -27,14 +29,6 @@
 		62ED5CFD1937901300CF5BA8 /* pitch.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C121937901300CF5BA8 /* pitch.c */; };
 		62ED5CFE1937901300CF5BA8 /* quant_bands.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C141937901300CF5BA8 /* quant_bands.c */; };
 		62ED5CFF1937901300CF5BA8 /* rate.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C161937901300CF5BA8 /* rate.c */; };
-		62ED5D001937901300CF5BA8 /* test_unit_cwrs32.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C1C1937901300CF5BA8 /* test_unit_cwrs32.c */; };
-		62ED5D011937901300CF5BA8 /* test_unit_dft.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C1D1937901300CF5BA8 /* test_unit_dft.c */; };
-		62ED5D021937901300CF5BA8 /* test_unit_entropy.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C1E1937901300CF5BA8 /* test_unit_entropy.c */; };
-		62ED5D031937901300CF5BA8 /* test_unit_laplace.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C1F1937901300CF5BA8 /* test_unit_laplace.c */; };
-		62ED5D041937901300CF5BA8 /* test_unit_mathops.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C201937901300CF5BA8 /* test_unit_mathops.c */; };
-		62ED5D051937901300CF5BA8 /* test_unit_mdct.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C211937901300CF5BA8 /* test_unit_mdct.c */; };
-		62ED5D061937901300CF5BA8 /* test_unit_rotation.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C221937901300CF5BA8 /* test_unit_rotation.c */; };
-		62ED5D071937901300CF5BA8 /* test_unit_types.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C231937901300CF5BA8 /* test_unit_types.c */; };
 		62ED5D081937901300CF5BA8 /* vq.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C241937901300CF5BA8 /* vq.c */; };
 		62ED5D091937901300CF5BA8 /* A2NLSF.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C341937901300CF5BA8 /* A2NLSF.c */; };
 		62ED5D0A1937901300CF5BA8 /* ana_filt_bank_1.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C351937901300CF5BA8 /* ana_filt_bank_1.c */; };
@@ -184,31 +178,28 @@
 		62ED5D9A1937901300CF5BA8 /* repacketizer_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CE91937901300CF5BA8 /* repacketizer_demo.c */; };
 		62ED5DB4193884C500CF5BA8 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DAD193884C500CF5BA8 /* bitwise.c */; };
 		62ED5DB5193884C500CF5BA8 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DAE193884C500CF5BA8 /* framing.c */; };
-		62ED5DBF193896C600CF5BA8 /* OpusDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		62ED5DC519389D7E00CF5BA8 /* OpusDecoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5DC419389D7E00CF5BA8 /* OpusDecoder.c */; };
-		8B26D9B7187230B8008020B5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B26D9B6187230B8008020B5 /* XCTest.framework */; };
-		8B26D9B8187230B8008020B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8690F618710A4500F7B10F /* Foundation.framework */; };
-		8B26D9D518723542008020B5 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8690F318710A4500F7B10F /* libopus.a */; };
 		8B8690F718710A4500F7B10F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B8690F618710A4500F7B10F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		8B26D9C4187230B8008020B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8B8690EB18710A4500F7B10F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8B8690F218710A4500F7B10F;
-			remoteInfo = libopus;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
+		627C7C93193C666B0031B485 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(PROJECT_DIR)/../openplayer/libs/libopus";
+			dstSubfolderSpec = 0;
+			files = (
+				627C7C94193C66790031B485 /* OpusDecoder.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B8690F118710A4500F7B10F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
+			dstPath = "$(PROJECT_DIR)/../openplayer/libs/libopus";
+			dstSubfolderSpec = 0;
 			files = (
+				627C7C92193C630B0031B485 /* libopus.a in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,14 +263,6 @@
 		62ED5C181937901300CF5BA8 /* stack_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack_alloc.h; sourceTree = "<group>"; };
 		62ED5C191937901300CF5BA8 /* static_modes_fixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = static_modes_fixed.h; sourceTree = "<group>"; };
 		62ED5C1A1937901300CF5BA8 /* static_modes_float.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = static_modes_float.h; sourceTree = "<group>"; };
-		62ED5C1C1937901300CF5BA8 /* test_unit_cwrs32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_cwrs32.c; sourceTree = "<group>"; };
-		62ED5C1D1937901300CF5BA8 /* test_unit_dft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_dft.c; sourceTree = "<group>"; };
-		62ED5C1E1937901300CF5BA8 /* test_unit_entropy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_entropy.c; sourceTree = "<group>"; };
-		62ED5C1F1937901300CF5BA8 /* test_unit_laplace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_laplace.c; sourceTree = "<group>"; };
-		62ED5C201937901300CF5BA8 /* test_unit_mathops.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_mathops.c; sourceTree = "<group>"; };
-		62ED5C211937901300CF5BA8 /* test_unit_mdct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_mdct.c; sourceTree = "<group>"; };
-		62ED5C221937901300CF5BA8 /* test_unit_rotation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_rotation.c; sourceTree = "<group>"; };
-		62ED5C231937901300CF5BA8 /* test_unit_types.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test_unit_types.c; sourceTree = "<group>"; };
 		62ED5C241937901300CF5BA8 /* vq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vq.c; sourceTree = "<group>"; };
 		62ED5C251937901300CF5BA8 /* vq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vq.h; sourceTree = "<group>"; };
 		62ED5C271937901300CF5BA8 /* pitch_sse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pitch_sse.h; sourceTree = "<group>"; };
@@ -491,23 +474,12 @@
 		62ED5DB0193884C500CF5BA8 /* Makefile.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
 		62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		62ED5DC419389D7E00CF5BA8 /* OpusDecoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpusDecoder.c; sourceTree = "<group>"; };
-		8B26D9B5187230B8008020B5 /* libopus Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "libopus Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B26D9B6187230B8008020B5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8B8690F318710A4500F7B10F /* libopus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B8690F618710A4500F7B10F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8B26D9B2187230B8008020B5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8B26D9D518723542008020B5 /* libopus.a in Frameworks */,
-				8B26D9B7187230B8008020B5 /* XCTest.framework in Frameworks */,
-				8B26D9B8187230B8008020B5 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8B8690F018710A4500F7B10F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -586,7 +558,6 @@
 				62ED5C181937901300CF5BA8 /* stack_alloc.h */,
 				62ED5C191937901300CF5BA8 /* static_modes_fixed.h */,
 				62ED5C1A1937901300CF5BA8 /* static_modes_float.h */,
-				62ED5C1B1937901300CF5BA8 /* tests */,
 				62ED5C241937901300CF5BA8 /* vq.c */,
 				62ED5C251937901300CF5BA8 /* vq.h */,
 				62ED5C261937901300CF5BA8 /* x86 */,
@@ -609,21 +580,6 @@
 				62ED5BEF1937901300CF5BA8 /* pitch_arm.h */,
 			);
 			path = arm;
-			sourceTree = "<group>";
-		};
-		62ED5C1B1937901300CF5BA8 /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				62ED5C1C1937901300CF5BA8 /* test_unit_cwrs32.c */,
-				62ED5C1D1937901300CF5BA8 /* test_unit_dft.c */,
-				62ED5C1E1937901300CF5BA8 /* test_unit_entropy.c */,
-				62ED5C1F1937901300CF5BA8 /* test_unit_laplace.c */,
-				62ED5C201937901300CF5BA8 /* test_unit_mathops.c */,
-				62ED5C211937901300CF5BA8 /* test_unit_mdct.c */,
-				62ED5C221937901300CF5BA8 /* test_unit_rotation.c */,
-				62ED5C231937901300CF5BA8 /* test_unit_types.c */,
-			);
-			path = tests;
 			sourceTree = "<group>";
 		};
 		62ED5C261937901300CF5BA8 /* x86 */ = {
@@ -937,7 +893,6 @@
 			isa = PBXGroup;
 			children = (
 				8B8690F318710A4500F7B10F /* libopus.a */,
-				8B26D9B5187230B8008020B5 /* libopus Tests.xctest */,
 			);
 			name = Products;
 			path = "../../Library/Developer/Xcode/DerivedData/openplayer-eteosalobmogpkhfqjxdsncmyuer/Build/Products";
@@ -954,36 +909,7 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		62ED5D9B1938847B00CF5BA8 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				62ED5DBF193896C600CF5BA8 /* OpusDecoder.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		8B26D9B4187230B8008020B5 /* libopus Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8B26D9C8187230B8008020B5 /* Build configuration list for PBXNativeTarget "libopus Tests" */;
-			buildPhases = (
-				8B26D9B1187230B8008020B5 /* Sources */,
-				8B26D9B2187230B8008020B5 /* Frameworks */,
-				8B26D9B3187230B8008020B5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8B26D9C5187230B8008020B5 /* PBXTargetDependency */,
-			);
-			name = "libopus Tests";
-			productName = "libopus Tests";
-			productReference = 8B26D9B5187230B8008020B5 /* libopus Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		8B8690F218710A4500F7B10F /* libopus */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B86911618710A4500F7B10F /* Build configuration list for PBXNativeTarget "libopus" */;
@@ -991,7 +917,7 @@
 				8B8690EF18710A4500F7B10F /* Sources */,
 				8B8690F018710A4500F7B10F /* Frameworks */,
 				8B8690F118710A4500F7B10F /* CopyFiles */,
-				62ED5D9B1938847B00CF5BA8 /* Headers */,
+				627C7C93193C666B0031B485 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1010,11 +936,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Xiph.org/Sudeium;
-				TargetAttributes = {
-					8B26D9B4187230B8008020B5 = {
-						TestTargetID = 8B8690F218710A4500F7B10F;
-					};
-				};
 			};
 			buildConfigurationList = 8B8690EE18710A4500F7B10F /* Build configuration list for PBXProject "libopus" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1029,29 +950,11 @@
 			projectRoot = "";
 			targets = (
 				8B8690F218710A4500F7B10F /* libopus */,
-				8B26D9B4187230B8008020B5 /* libopus Tests */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		8B26D9B3187230B8008020B5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		8B26D9B1187230B8008020B5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8B8690EF18710A4500F7B10F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1083,7 +986,6 @@
 				62ED5D881937901300CF5BA8 /* tables_other.c in Sources */,
 				62ED5D7E1937901300CF5BA8 /* stereo_find_predictor.c in Sources */,
 				62ED5D6A1937901300CF5BA8 /* NLSF_VQ_weights_laroia.c in Sources */,
-				62ED5D031937901300CF5BA8 /* test_unit_laplace.c in Sources */,
 				62ED5D1C1937901300CF5BA8 /* decoder_set_fs.c in Sources */,
 				62ED5D741937901300CF5BA8 /* resampler_private_AR2.c in Sources */,
 				62ED5D761937901300CF5BA8 /* resampler_private_IIR_FIR.c in Sources */,
@@ -1116,7 +1018,6 @@
 				62ED5D651937901300CF5BA8 /* NLSF_del_dec_quant.c in Sources */,
 				62ED5D2E1937901300CF5BA8 /* pitch_analysis_core_FIX.c in Sources */,
 				62ED5D181937901300CF5BA8 /* decode_indices.c in Sources */,
-				62ED5D071937901300CF5BA8 /* test_unit_types.c in Sources */,
 				62ED5D3D1937901300CF5BA8 /* corrMatrix_FLP.c in Sources */,
 				62ED5D8E1937901300CF5BA8 /* mlp.c in Sources */,
 				62ED5D7C1937901300CF5BA8 /* stereo_decode_pred.c in Sources */,
@@ -1126,7 +1027,6 @@
 				62ED5D5E1937901300CF5BA8 /* lin2log.c in Sources */,
 				62ED5D141937901300CF5BA8 /* debug.c in Sources */,
 				62ED5D831937901300CF5BA8 /* table_LSF_cos.c in Sources */,
-				62ED5D001937901300CF5BA8 /* test_unit_cwrs32.c in Sources */,
 				62ED5D791937901300CF5BA8 /* shell_coder.c in Sources */,
 				62ED5D1E1937901300CF5BA8 /* encode_indices.c in Sources */,
 				62ED5D6C1937901300CF5BA8 /* NSQ_del_dec.c in Sources */,
@@ -1135,7 +1035,6 @@
 				62ED5CFB1937901300CF5BA8 /* modes.c in Sources */,
 				62ED5D481937901300CF5BA8 /* LPC_inv_pred_gain_FLP.c in Sources */,
 				62ED5D301937901300CF5BA8 /* process_gains_FIX.c in Sources */,
-				62ED5D011937901300CF5BA8 /* test_unit_dft.c in Sources */,
 				62ED5CF71937901300CF5BA8 /* kiss_fft.c in Sources */,
 				62ED5D8D1937901300CF5BA8 /* analysis.c in Sources */,
 				62ED5D091937901300CF5BA8 /* A2NLSF.c in Sources */,
@@ -1143,7 +1042,6 @@
 				62ED5D0E1937901300CF5BA8 /* check_control_input.c in Sources */,
 				62ED5D151937901300CF5BA8 /* dec_API.c in Sources */,
 				62ED5D821937901300CF5BA8 /* sum_sqr_shift.c in Sources */,
-				62ED5D061937901300CF5BA8 /* test_unit_rotation.c in Sources */,
 				62ED5D3F1937901300CF5BA8 /* energy_FLP.c in Sources */,
 				62ED5D0C1937901300CF5BA8 /* bwexpander.c in Sources */,
 				62ED5D1B1937901300CF5BA8 /* decode_pulses.c in Sources */,
@@ -1154,7 +1052,6 @@
 				62ED5D471937901300CF5BA8 /* LPC_analysis_filter_FLP.c in Sources */,
 				62ED5D6F1937901300CF5BA8 /* process_NLSFs.c in Sources */,
 				62ED5D811937901300CF5BA8 /* stereo_quant_pred.c in Sources */,
-				62ED5D051937901300CF5BA8 /* test_unit_mdct.c in Sources */,
 				62ED5D321937901300CF5BA8 /* residual_energy16_FIX.c in Sources */,
 				62ED5D961937901300CF5BA8 /* opus_multistream.c in Sources */,
 				62ED5D771937901300CF5BA8 /* resampler_private_up2_HQ.c in Sources */,
@@ -1180,7 +1077,6 @@
 				62ED5CEB1937901300CF5BA8 /* arm_celt_map.c in Sources */,
 				62ED5D211937901300CF5BA8 /* autocorr_FIX.c in Sources */,
 				62ED5D721937901300CF5BA8 /* resampler_down2.c in Sources */,
-				62ED5D041937901300CF5BA8 /* test_unit_mathops.c in Sources */,
 				62ED5D361937901300CF5BA8 /* solve_LS_FIX.c in Sources */,
 				62ED5D191937901300CF5BA8 /* decode_parameters.c in Sources */,
 				62ED5D941937901300CF5BA8 /* opus_encoder.c in Sources */,
@@ -1203,7 +1099,6 @@
 				62ED5D781937901300CF5BA8 /* resampler_rom.c in Sources */,
 				62ED5D5A1937901300CF5BA8 /* init_decoder.c in Sources */,
 				62ED5D951937901300CF5BA8 /* opus_header.c in Sources */,
-				62ED5D021937901300CF5BA8 /* test_unit_entropy.c in Sources */,
 				62ED5D861937901300CF5BA8 /* tables_NLSF_CB_NB_MB.c in Sources */,
 				62ED5D5D1937901300CF5BA8 /* interpolate.c in Sources */,
 				62ED5DB5193884C500CF5BA8 /* framing.c in Sources */,
@@ -1239,65 +1134,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		8B26D9C5187230B8008020B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8B8690F218710A4500F7B10F /* libopus */;
-			targetProxy = 8B26D9C4187230B8008020B5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		8B26D9C6187230B8008020B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "libopus Tests/libopus Tests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"libopus/include\"",
-				);
-				INFOPLIST_FILE = "libopus Tests/libopus Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		8B26D9C7187230B8008020B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "libopus Tests/libopus Tests-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"libopus/include\"",
-				);
-				INFOPLIST_FILE = "libopus Tests/libopus Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 		8B86911418710A4500F7B10F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1419,15 +1256,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8B26D9C8187230B8008020B5 /* Build configuration list for PBXNativeTarget "libopus Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8B26D9C6187230B8008020B5 /* Debug */,
-				8B26D9C7187230B8008020B5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8B8690EE18710A4500F7B10F /* Build configuration list for PBXProject "libopus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
