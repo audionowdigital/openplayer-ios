@@ -41,7 +41,6 @@
 		62ED5CF91937901300CF5BA8 /* mathops.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C091937901300CF5BA8 /* mathops.c */; };
 		62ED5CFA1937901300CF5BA8 /* mdct.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C0B1937901300CF5BA8 /* mdct.c */; };
 		62ED5CFB1937901300CF5BA8 /* modes.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C0E1937901300CF5BA8 /* modes.c */; };
-		62ED5CFC1937901300CF5BA8 /* opus_custom_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C101937901300CF5BA8 /* opus_custom_demo.c */; };
 		62ED5CFD1937901300CF5BA8 /* pitch.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C121937901300CF5BA8 /* pitch.c */; };
 		62ED5CFE1937901300CF5BA8 /* quant_bands.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C141937901300CF5BA8 /* quant_bands.c */; };
 		62ED5CFF1937901300CF5BA8 /* rate.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5C161937901300CF5BA8 /* rate.c */; };
@@ -184,7 +183,6 @@
 		62ED5D901937901300CF5BA8 /* opus.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CDE1937901300CF5BA8 /* opus.c */; };
 		62ED5D911937901300CF5BA8 /* opus_compare.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CDF1937901300CF5BA8 /* opus_compare.c */; };
 		62ED5D921937901300CF5BA8 /* opus_decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CE01937901300CF5BA8 /* opus_decoder.c */; };
-		62ED5D931937901300CF5BA8 /* opus_demo.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CE11937901300CF5BA8 /* opus_demo.c */; };
 		62ED5D941937901300CF5BA8 /* opus_encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CE21937901300CF5BA8 /* opus_encoder.c */; };
 		62ED5D951937901300CF5BA8 /* opus_header.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CE31937901300CF5BA8 /* opus_header.c */; };
 		62ED5D961937901300CF5BA8 /* opus_multistream.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5CE41937901300CF5BA8 /* opus_multistream.c */; };
@@ -277,7 +275,6 @@
 		62ED5C0D1937901300CF5BA8 /* mfrngcod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mfrngcod.h; sourceTree = "<group>"; };
 		62ED5C0E1937901300CF5BA8 /* modes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = modes.c; sourceTree = "<group>"; };
 		62ED5C0F1937901300CF5BA8 /* modes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modes.h; sourceTree = "<group>"; };
-		62ED5C101937901300CF5BA8 /* opus_custom_demo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_custom_demo.c; sourceTree = "<group>"; };
 		62ED5C111937901300CF5BA8 /* os_support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os_support.h; sourceTree = "<group>"; };
 		62ED5C121937901300CF5BA8 /* pitch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pitch.c; sourceTree = "<group>"; };
 		62ED5C131937901300CF5BA8 /* pitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pitch.h; sourceTree = "<group>"; };
@@ -470,7 +467,6 @@
 		62ED5CDE1937901300CF5BA8 /* opus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus.c; sourceTree = "<group>"; };
 		62ED5CDF1937901300CF5BA8 /* opus_compare.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_compare.c; sourceTree = "<group>"; };
 		62ED5CE01937901300CF5BA8 /* opus_decoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_decoder.c; sourceTree = "<group>"; };
-		62ED5CE11937901300CF5BA8 /* opus_demo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_demo.c; sourceTree = "<group>"; };
 		62ED5CE21937901300CF5BA8 /* opus_encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_encoder.c; sourceTree = "<group>"; };
 		62ED5CE31937901300CF5BA8 /* opus_header.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_header.c; sourceTree = "<group>"; };
 		62ED5CE41937901300CF5BA8 /* opus_multistream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opus_multistream.c; sourceTree = "<group>"; };
@@ -569,7 +565,6 @@
 				62ED5C0D1937901300CF5BA8 /* mfrngcod.h */,
 				62ED5C0E1937901300CF5BA8 /* modes.c */,
 				62ED5C0F1937901300CF5BA8 /* modes.h */,
-				62ED5C101937901300CF5BA8 /* opus_custom_demo.c */,
 				62ED5C111937901300CF5BA8 /* os_support.h */,
 				62ED5C121937901300CF5BA8 /* pitch.c */,
 				62ED5C131937901300CF5BA8 /* pitch.h */,
@@ -828,7 +823,6 @@
 				62ED5CDE1937901300CF5BA8 /* opus.c */,
 				62ED5CDF1937901300CF5BA8 /* opus_compare.c */,
 				62ED5CE01937901300CF5BA8 /* opus_decoder.c */,
-				62ED5CE11937901300CF5BA8 /* opus_demo.c */,
 				62ED5CE21937901300CF5BA8 /* opus_encoder.c */,
 				62ED5CE31937901300CF5BA8 /* opus_header.c */,
 				62ED5CE41937901300CF5BA8 /* opus_multistream.c */,
@@ -1032,7 +1026,6 @@
 				62ED5D711937901300CF5BA8 /* resampler.c in Sources */,
 				62ED5D971937901300CF5BA8 /* opus_multistream_decoder.c in Sources */,
 				62ED5D6B1937901300CF5BA8 /* NSQ.c in Sources */,
-				62ED5D931937901300CF5BA8 /* opus_demo.c in Sources */,
 				62ED5D4A1937901300CF5BA8 /* LTP_scale_ctrl_FLP.c in Sources */,
 				62ED5D921937901300CF5BA8 /* opus_decoder.c in Sources */,
 				62ED5D161937901300CF5BA8 /* decode_core.c in Sources */,
@@ -1100,7 +1093,6 @@
 				62ED5D381937901300CF5BA8 /* warped_autocorrelation_FIX.c in Sources */,
 				62ED5D341937901300CF5BA8 /* schur64_FIX.c in Sources */,
 				62ED5D751937901300CF5BA8 /* resampler_private_down_FIR.c in Sources */,
-				62ED5CFC1937901300CF5BA8 /* opus_custom_demo.c in Sources */,
 				62ED5D801937901300CF5BA8 /* stereo_MS_to_LR.c in Sources */,
 				62ED5D581937901300CF5BA8 /* gain_quant.c in Sources */,
 				62ED5CF01937901300CF5BA8 /* celt_decoder.c in Sources */,
