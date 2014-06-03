@@ -173,11 +173,11 @@
     NSLog(@"Test callback !!!");
 }
 
--(int)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount
+-(long)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount
 {
     NSError *error;
     
-    NSData *data = [_streamConnection readAllBytesWithError:&error];
+    NSData *data = [_streamConnection readBytesForLength:ammount error:&error];
     
     if (error) {
         NSLog(@"Error reading from input stream");
@@ -191,7 +191,7 @@
 
 -(void)onWritePCMData:(short [])pcmData ofSize:(int)ammount
 {
-    
+    // TODO send pcm data to device's sound board
 }
 
 

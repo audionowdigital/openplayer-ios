@@ -8,7 +8,7 @@
 
 @protocol INativeInterface
 
--(int)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount;
+-(long)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount;
 -(void)onWritePCMData:(short [])pcmData ofSize:(int)ammount;
 -(void)onStartReadingHeader;
 -(void)onStart;

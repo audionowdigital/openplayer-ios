@@ -56,8 +56,6 @@
 		992278FD1938C2060005DB1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		992278FE1938C2060005DB1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		992279001938C2060005DB1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9922791D1938C4C80005DB1F /* TestLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLib.h; sourceTree = "<group>"; };
-		9922791E1938C4C80005DB1F /* TestLib.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestLib.mm; sourceTree = "<group>"; };
 		99FDFD6E193CA596004FE858 /* INativeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,8 +159,6 @@
 				992278FE1938C2060005DB1F /* AppDelegate.m */,
 				992279001938C2060005DB1F /* Images.xcassets */,
 				992278F51938C2060005DB1F /* Supporting Files */,
-				9922791D1938C4C80005DB1F /* TestLib.h */,
-				9922791E1938C4C80005DB1F /* TestLib.mm */,
 			);
 			path = openplayerdemo;
 			sourceTree = "<group>";
