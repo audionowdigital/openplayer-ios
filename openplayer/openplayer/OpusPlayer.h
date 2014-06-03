@@ -50,7 +50,7 @@ typedef enum decode_status{
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler;
 
--(void)setDataSource:(NSURL *)sourceUrl streamSize:(long)bytes streamLength:(NSTimeInterval)length;
+-(void)setDataSource:(NSURL *)sourceUrl;
 -(void)play;
 -(void)pause;
 -(void)stop;
