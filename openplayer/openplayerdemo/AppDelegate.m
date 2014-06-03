@@ -19,9 +19,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    OpusPlayer *player = [[OpusPlayer alloc] initWithPlayerHandler:nil];
-    [player setDataSource:[NSURL new] streamSize:10 streamLength:10];
-//    testLib();
+    self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
     
     return YES;
 }

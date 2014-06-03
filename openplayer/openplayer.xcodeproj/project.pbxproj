@@ -22,6 +22,8 @@
 		992279011938C2060005DB1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992279001938C2060005DB1F /* Images.xcassets */; };
 		9922791A1938C2120005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922791B1938C2150005DB1F /* OpusPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* OpusPlayer.m */; };
+		99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A894EB193DB06A007D3EDF /* MainViewController.m */; };
+		99A894EE193DB094007D3EDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A894ED193DB094007D3EDF /* Main.storyboard */; };
 		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,9 @@
 		992278FD1938C2060005DB1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		992278FE1938C2060005DB1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		992279001938C2060005DB1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		99A894EA193DB06A007D3EDF /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		99A894EB193DB06A007D3EDF /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		99A894ED193DB094007D3EDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		99FDFD6E193CA596004FE858 /* INativeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +170,9 @@
 				992278FE1938C2060005DB1F /* AppDelegate.m */,
 				992279001938C2060005DB1F /* Images.xcassets */,
 				992278F51938C2060005DB1F /* Supporting Files */,
+				99A894EA193DB06A007D3EDF /* MainViewController.h */,
+				99A894EB193DB06A007D3EDF /* MainViewController.m */,
+				99A894ED193DB094007D3EDF /* Main.storyboard */,
 			);
 			path = openplayerdemo;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99A894EE193DB094007D3EDF /* Main.storyboard in Resources */,
 				992278F91938C2060005DB1F /* InfoPlist.strings in Resources */,
 				992279011938C2060005DB1F /* Images.xcassets in Resources */,
 			);
@@ -272,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9922791A1938C2120005DB1F /* StreamConnection.m in Sources */,
+				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,
 				628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,
 				992278FB1938C2060005DB1F /* main.m in Sources */,
