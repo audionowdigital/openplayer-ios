@@ -26,6 +26,11 @@ to end. */
 
 int debug = 0;
 
+@implementation OpusDecoder
+
+
+@end
+
 
 void testLib(){
     printf("Lib success");
@@ -259,6 +264,8 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	  }
     return err;
 }
+
+
 
 // TODO: Florin, make sure we have those pointer at this point
 // This is the only function we need ot call, assuming we have the interface already configured
