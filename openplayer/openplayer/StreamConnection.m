@@ -303,17 +303,22 @@ dispatch_queue_t queue;
     
     NSLog(@" - totalBufferSize :%ld",totalBuffersSize);
     
+    // TODO: fix for a live stream
+    
     // if the total buffer size excedes the defined max buffer size
-    // it's not a stream
-    // and the rest of the download is bigger than the min buffer size
-    if ( totalBuffersSize > kMaxBufferSize
-            && self.podcastSize != -1
-            && (self.podcastSize - self.downloadIndex) > kMinBufferSize) {
-        [self.connection cancel];
-        // change the connection terminated flag
-        self.connectionTerminated = YES;
+    
+    if ( totalBuffersSize > kMaxBufferSize) {
         
-        NSLog(@" - stopped the connection");
+        // it's not a stream
+        // and the rest of the download is bigger than the min buffer size
+        // or it's a stream
+        if( (self.podcastSize != -1 && (self.podcastSize - self.downloadIndex) > kMinBufferSize) || self.podcastSize == -1) {
+            [self.connection cancel];
+            // change the connection terminated flag
+            self.connectionTerminated = YES;
+            
+            NSLog(@" - stopped the connection");
+        }
     }
 }
 
