@@ -47,7 +47,7 @@
 //    @"http://www.markosoft.ro/opus/02_Archangel.opus"
 //    @"http://www.markosoft.ro/opus/countdown.opus"
     
-    NSString *urlString = @"http://ai-radio.org:8000/radio.opus";
+    NSString *urlString = @"http://www.markosoft.ro/opus/countdown.opus";
     
     self.urlLabel.text = urlString;
 }

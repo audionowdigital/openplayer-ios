@@ -158,12 +158,12 @@
 
 -(void)onStartReadingHeader
 {
-    
+    NSLog(@"onStartReadingHeader");
 }
 
--(void)onStart
+-(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)vendor trackTitle:(char *)title trackArtist:(char *)artist trackAlbum:(char *)album trackDate:(char *)date trackName:(char *)track
 {
-    
+    NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, vendor, title, artist, album, date, track);
 }
 
 -(void)onStop
@@ -171,25 +171,33 @@
     NSLog(@"Test callback !!!");
 }
 
--(long)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount
+-(int)onReadEncodedData:(char **)buffer ofSize:(long)ammount
 {
     NSError *error;
+    NSData *data;
+    int i=0;
     
-    NSData *data = [_streamConnection readBytesForLength:ammount error:&error];
-    
-    if (error) {
-        NSLog(@"Error reading from input stream");
-        return -1;
-    }
+    do {
+        NSLog(@"while loop %d", i++);
+        
+        [NSThread sleepForTimeInterval:1];
+        
+        data = [_streamConnection readBytesForLength:ammount error:&error];
+        
+        if (error) {
+            NSLog(@"Error reading from input stream");
+            return 0;
+        }
+    } while (!error && data.length == 0);
     
     NSLog(@"Read %lu encoded bytes from input stream.", (unsigned long)data.length);
     
-    *buffer = [data bytes];
+    *buffer = (char *)[data bytes];
     
-    return data.length;
+    return (int) data.length;
 }
 
--(void)onWritePCMData:(short [])pcmData ofSize:(int)ammount
+-(void)onWritePCMData:(short *)pcmData ofSize:(int)ammount
 {
     // TODO send pcm data to device's sound board
     

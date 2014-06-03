@@ -9,7 +9,7 @@
 @protocol INativeInterface
 
 //Reads raw opus data from the jni callback
--(int)onReadEncodedData:(const char *)buffer ofSize:(long)amount;
+-(int)onReadEncodedData:(char **)buffer ofSize:(long)amount;
 
 //Writes the pcm data to the Java layer
 -(void)onWritePCMData:(short *)pcmData ofSize:(int)amount;
