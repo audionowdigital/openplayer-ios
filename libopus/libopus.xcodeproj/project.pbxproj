@@ -22,9 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		6226D981193C78710060BDD4 /* OpusDecoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */; };
 		627C7C92193C630B0031B485 /* libopus.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8B8690F318710A4500F7B10F /* libopus.a */; };
-		627C7C94193C66790031B485 /* OpusDecoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */; };
+		628CE774193DBD91009FB38C /* OpusHeader.c in Sources */ = {isa = PBXBuildFile; fileRef = 628CE773193DBD91009FB38C /* OpusHeader.c */; };
 		62ED5CEB1937901300CF5BA8 /* arm_celt_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5BE61937901300CF5BA8 /* arm_celt_map.c */; };
 		62ED5CEC1937901300CF5BA8 /* armcpu.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5BE71937901300CF5BA8 /* armcpu.c */; };
 		62ED5CEE1937901300CF5BA8 /* bands.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED5BF01937901300CF5BA8 /* bands.c */; };
@@ -204,7 +203,6 @@
 			dstPath = "$(PROJECT_DIR)/../openplayer/libs/libopus";
 			dstSubfolderSpec = 0;
 			files = (
-				6226D981193C78710060BDD4 /* OpusDecoder.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +213,6 @@
 			dstSubfolderSpec = 0;
 			files = (
 				99FDFD6D193CA541004FE858 /* INativeInterface.h in CopyFiles */,
-				627C7C94193C66790031B485 /* OpusDecoder.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +229,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		628CE770193DB60A009FB38C /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
+		628CE773193DBD91009FB38C /* OpusHeader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpusHeader.c; sourceTree = "<group>"; };
+		628CE775193DBE47009FB38C /* OpusHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusHeader.h; sourceTree = "<group>"; };
+		628CE776193DC0A6009FB38C /* ErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorCodes.h; sourceTree = "<group>"; };
 		62ED5BDF1937901300CF5BA8 /* Android.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
 		62ED5BE01937901300CF5BA8 /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		62ED5BE21937901300CF5BA8 /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _kiss_fft_guts.h; sourceTree = "<group>"; };
@@ -496,7 +497,6 @@
 		62ED5DAE193884C500CF5BA8 /* framing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = framing.c; sourceTree = "<group>"; };
 		62ED5DAF193884C500CF5BA8 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		62ED5DB0193884C500CF5BA8 /* Makefile.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
-		62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		62ED5DC419389D7E00CF5BA8 /* OpusDecoder.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = OpusDecoder.m; sourceTree = "<group>"; };
 		8B8690F318710A4500F7B10F /* libopus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		99FDFD68193C826F004FE858 /* INativeInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
@@ -896,8 +896,11 @@
 			isa = PBXGroup;
 			children = (
 				62ED5DC419389D7E00CF5BA8 /* OpusDecoder.m */,
-				62ED5DBD193896C600CF5BA8 /* OpusDecoder.h */,
 				99FDFD68193C826F004FE858 /* INativeInterface.h */,
+				628CE770193DB60A009FB38C /* OpusDecoder.h */,
+				628CE773193DBD91009FB38C /* OpusHeader.c */,
+				628CE775193DBE47009FB38C /* OpusHeader.h */,
+				628CE776193DC0A6009FB38C /* ErrorCodes.h */,
 			);
 			path = opus;
 			sourceTree = "<group>";
@@ -959,7 +962,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
-				ORGANIZATIONNAME = Xiph.org/Sudeium;
+				ORGANIZATIONNAME = AudioNowDigital;
 			};
 			buildConfigurationList = 8B8690EE18710A4500F7B10F /* Build configuration list for PBXProject "libopus" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1149,6 +1152,7 @@
 				62ED5D1A1937901300CF5BA8 /* decode_pitch.c in Sources */,
 				62ED5CF51937901300CF5BA8 /* entdec.c in Sources */,
 				62ED5D4C1937901300CF5BA8 /* pitch_analysis_core_FLP.c in Sources */,
+				628CE774193DBD91009FB38C /* OpusHeader.c in Sources */,
 				62ED5D851937901300CF5BA8 /* tables_LTP.c in Sources */,
 				62ED5D2A1937901300CF5BA8 /* k2a_Q16_FIX.c in Sources */,
 				62ED5CF61937901300CF5BA8 /* entenc.c in Sources */,
