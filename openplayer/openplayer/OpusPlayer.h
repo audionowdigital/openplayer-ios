@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "StreamConnection.h"
 #import "INativeInterface.h"
+#include "PlayerEvents.h"
 
 typedef enum player_state{
     STATE_READY_TO_PLAY = 0,    // player is ready to play, this is the state used also for Pause
@@ -17,14 +18,10 @@ typedef enum player_state{
     STATE_READING_HEADER = 3    // player is currently reading the header
 } PlayerState;
 
-typedef enum player_event{
-    PLAYING_FINISHED = 1001,    // Playing finished handler message
-    PLAYING_FAILED = 1002,      // Playing failed handler message
-    READING_HEADER = 1003,      // Started to read the stream
-    READY_TO_PLAY = 1004,       // Header was received, we are ready to play
-    PLAY_UPDATE = 1005,         // Progress indicator, sent out periodically when playing
-    TRACK_INFO = 1006           // Progress indicator, sent out periodically when playing
-} PlayerEvent;
+typedef enum player_types {
+    PLAYER_OPUS = 1,
+    PLAYER_VORBIS = 2
+} PlayerType;
 
 typedef enum decode_status{
     SUCCESS = 0,                // Everything was a success
@@ -33,22 +30,18 @@ typedef enum decode_status{
     DECODE_ERROR = -3           // Failed to decode
 } DecodingStatus;
 
-@protocol IPlayerHandler
-
--(void)onPlayerEvent:(PlayerEvent) event withParams:(NSDictionary *)params;
-
-@end
-
 @interface OpusPlayer : NSObject <INativeInterface>
 {
-    id<IPlayerHandler> _playerHandler;
-    
+    //id<IPlayerHandler> _playerHandler;
+
+    int _type;
+    PlayerEvents *_playerEvents;
     StreamConnection *_streamConnection;
     long _streamSize;
     NSTimeInterval _streamLength;       // seconds
 }
 
--(id)initWithPlayerHandler:(id<IPlayerHandler>)handler;
+-(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type ;
 
 -(void)setDataSource:(NSURL *)sourceUrl;
 -(void)play;

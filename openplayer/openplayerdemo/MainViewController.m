@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[OpusPlayer alloc] initWithPlayerHandler:self];
+    player = [[OpusPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS];
 }
 
 - (void)viewDidLoad
@@ -79,9 +79,8 @@
 }
 
 
--(void)onPlayerEvent:(PlayerEvent)event withParams:(NSDictionary *)params
-{
-    
+-(void)onPlayerEvent:(PlayerEvent)event withParams:(NSDictionary *)params {
+    NSLog(@"Player event received in client.");
 }
 
 /*

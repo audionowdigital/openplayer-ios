@@ -38,12 +38,10 @@ to end. */
 int debug = 0;
 
 // This is the only function we need ot call, assuming we have the interface already configured
-int readDecodeWriteLoop(id<INativeInterface> callback) {
+int opusDecodeLoop(id<INativeInterface> callback) {
     fprintf(stderr, "startDecoding called, initing buffers");
 
     // prepare the buffers
-    unsigned char pByteReadBuffer[BUFFER_LENGTH];
-    short pShortWriteBuffer[BUFFER_LENGTH * 2];
     ogg_int16_t convbuffer[BUFFER_LENGTH]; //take 8k out of the data segment, not the stack
     int convsize = BUFFER_LENGTH;
     

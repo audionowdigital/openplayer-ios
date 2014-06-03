@@ -26,36 +26,15 @@
 
 @implementation OpusPlayer
 
--(id)initWithPlayerHandler:(id<IPlayerHandler>)handler
+-(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
     if (self = [super init]) {
-        _playerHandler = handler;
+        _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
+        _type = type;
+        //_playerHandler = handler;
         _state = STATE_STOPPED;
     }
     return self;
-}
-
--(void)sendEvent:(PlayerEvent)event
-{
-    [_playerHandler onPlayerEvent:event withParams:nil];
-}
-
--(void)sendEvent:(PlayerEvent)event withParam:(int)param
-{
-    NSDictionary *params = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:param] forKey:@"param"];
-    [_playerHandler onPlayerEvent:event withParams:params];
-}
-
--(void)sendEvent:(PlayerEvent)event vendor:(NSString *)vendor title:(NSString *)title artist:(NSString *)artist album:(NSString *)album date:(NSString *)date track:(NSString *)track
-{
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    params[@"vendor"] = vendor;
-    params[@"title"] = title;
-    params[@"artist"] = artist;
-    params[@"album"] = album;
-    params[@"date"] = date;
-    params[@"track"] = track;
-    [_playerHandler onPlayerEvent:event withParams:params];
 }
 
 
@@ -73,14 +52,18 @@
 
     if (error) {
         NSLog(@"Stream could not be initialized");
-        [self sendEvent:PLAYING_FAILED];
+        //[self sendEvent:PLAYING_FAILED];
+        [_playerEvents sendEvent:PLAYING_FAILED];
     }
     
     __block int result;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
-        result = readDecodeWriteLoop(self);
+        if (_type == PLAYER_OPUS )
+            result = opusDecodeLoop(self);
+        else if (_type == PLAYER_VORBIS)
+            ;//    result = vorbisDecodeLoop(self);
         
         // send events on main thread
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -89,22 +72,26 @@
                 
                 case SUCCESS:
                     NSLog(@"Successfully finished decoding");
-                    [self sendEvent:PLAYING_FINISHED];
+                    //[self sendEvent:PLAYING_FINISHED];
+                    [_playerEvents sendEvent:PLAYING_FINISHED];
                     break;
                 
                 case NOT_A_HEADER:
                     NSLog(@"Not a header error received");
-                    [self sendEvent:PLAYING_FAILED];
+                    //[self sendEvent:PLAYING_FAILED];
+                    [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
                     
                 case CORRUPT_HEADER:
                     NSLog(@"Corrupt header error received");
-                    [self sendEvent:PLAYING_FAILED];
+                    //[self sendEvent:PLAYING_FAILED];
+                    [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
                     
                 case DECODE_ERROR:
                     NSLog(@"Decoding error received");
-                    [self sendEvent:PLAYING_FAILED];
+                    //[self sendEvent:PLAYING_FAILED];
+                    [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
                 }
 
@@ -178,7 +165,7 @@
     int i=0;
     
     do {
-        NSLog(@"while loop %d", i++);
+        //NSLog(@"while loop %d", i++);
         
         [NSThread sleepForTimeInterval:1];
         
@@ -190,7 +177,7 @@
         }
     } while (!error && data.length == 0);
     
-    NSLog(@"Read %lu encoded bytes from input stream.", (unsigned long)data.length);
+    //NSLog(@"Read %lu encoded bytes from input stream.", (unsigned long)data.length);
     
     *buffer = (char *)[data bytes];
     

@@ -13,6 +13,6 @@
 /*
  * Starts the decoding from a opus bitstream to pcm
  */
-int readDecodeWriteLoop(id<INativeInterface> callback);
+int opusDecodeLoop(id<INativeInterface> callback);
 
 
