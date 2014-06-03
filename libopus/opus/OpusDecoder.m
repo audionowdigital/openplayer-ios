@@ -265,7 +265,9 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 int readDecodeWriteLoop(id<INativeInterface> callback) {
     fprintf(stderr, "startDecoding called, initing buffers");
     
-    [callback onStop];
+    
+    
+    //!![callback onReadEncodedData:<#(const char **)#> ofSize:<#(long)#>];
 
 	/*//Create a new java byte array to pass to the opus data feed method
 	jbyteArray jByteArrayReadBuffer = (*env)->NewByteArray(env, BUFFER_LENGTH);

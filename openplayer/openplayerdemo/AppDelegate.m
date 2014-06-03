@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "OpusDecoder.h"
-#import "VorbisPlayer.h"
+#import "OpusPlayer.h"
 
 @implementation AppDelegate
 
@@ -19,7 +19,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    VorbisPlayer *player = [[VorbisPlayer alloc] initWithPlayerHandler:nil];
+    OpusPlayer *player = [[OpusPlayer alloc] initWithPlayerHandler:nil];
     [player setDataSource:[NSURL new] streamSize:10 streamLength:10];
 //    testLib();
     

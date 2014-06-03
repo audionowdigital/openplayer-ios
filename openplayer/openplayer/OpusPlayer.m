@@ -1,15 +1,15 @@
 //
-//  VorbisPlayer.m
+//  OpusPlayer.m
 //  Open Player
 //
 //  Created by Florin Moisa on 27/05/14.
 //  Copyright (c) 2014 Audio Now Digital. All rights reserved.
 //
 
-#import "VorbisPlayer.h"
+#import "OpusPlayer.h"
 #import "OpusDecoder.h"
 
-@interface VorbisPlayer()
+@interface OpusPlayer()
 
 -(void)sendEvent:(PlayerEvent)event;
 -(void)sendEvent:(PlayerEvent)event
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation VorbisPlayer
+@implementation OpusPlayer
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler
 {
@@ -173,11 +173,11 @@
     NSLog(@"Test callback !!!");
 }
 
--(int)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount
+-(long)onReadEncodedData:(const char *[])buffer ofSize:(long)ammount
 {
     NSError *error;
     
-    NSData *data = [_streamConnection readAllBytesWithError:&error];
+    NSData *data = [_streamConnection readBytesForLength:ammount error:&error];
     
     if (error) {
         NSLog(@"Error reading from input stream");
@@ -191,7 +191,7 @@
 
 -(void)onWritePCMData:(short [])pcmData ofSize:(int)ammount
 {
-    
+    // TODO send pcm data to device's sound board
 }
 
 
