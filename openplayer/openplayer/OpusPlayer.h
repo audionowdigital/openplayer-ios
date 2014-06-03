@@ -1,5 +1,5 @@
 //
-//  VorbisPlayer.h
+//  OpusPlayer.h
 //  Open Player
 //
 //  Created by Florin Moisa on 27/05/14.
@@ -39,7 +39,7 @@ typedef enum decode_status{
 
 @end
 
-@interface VorbisPlayer : NSObject <INativeInterface>
+@interface OpusPlayer : NSObject <INativeInterface>
 {
     id<IPlayerHandler> _playerHandler;
     

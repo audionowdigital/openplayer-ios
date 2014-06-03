@@ -1,15 +1,15 @@
 //
-//  VorbisPlayer.m
+//  OpusPlayer.m
 //  Open Player
 //
 //  Created by Florin Moisa on 27/05/14.
 //  Copyright (c) 2014 Audio Now Digital. All rights reserved.
 //
 
-#import "VorbisPlayer.h"
+#import "OpusPlayer.h"
 #import "OpusDecoder.h"
 
-@interface VorbisPlayer()
+@interface OpusPlayer()
 
 -(void)sendEvent:(PlayerEvent)event;
 -(void)sendEvent:(PlayerEvent)event
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation VorbisPlayer
+@implementation OpusPlayer
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler
 {
