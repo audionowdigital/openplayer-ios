@@ -60,7 +60,7 @@
 
 
 
--(void)setDataSource:(NSURL *)sourceUrl streamSize:(long)byteCount streamLength:(NSTimeInterval)length
+-(void)setDataSource:(NSURL *)sourceUrl
 {
     if (![self isStopped]) {
         NSLog(@"Player Error: stream must be stopped before setting a data source");
@@ -70,9 +70,7 @@
     NSError *error;
     
     _streamConnection = [[StreamConnection alloc] initWithURL:sourceUrl error:&error];
-    _streamSize = byteCount;
-    _streamLength = length;
-    
+
     if (error) {
         NSLog(@"Stream could not be initialized");
         [self sendEvent:PLAYING_FAILED];
@@ -184,6 +182,8 @@
         return -1;
     }
     
+    NSLog(@"Read %lu encoded bytes from input stream.", (unsigned long)data.length);
+    
     *buffer = [data bytes];
     
     return data.length;
@@ -192,6 +192,8 @@
 -(void)onWritePCMData:(short [])pcmData ofSize:(int)ammount
 {
     // TODO send pcm data to device's sound board
+    
+    NSLog(@"Write %d decoded bytes to sound board.", ammount);
 }
 
 
