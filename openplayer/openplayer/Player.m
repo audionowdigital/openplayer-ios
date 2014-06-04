@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Audio Now Digital. All rights reserved.
 //
 
-#import "OpusPlayer.h"
+#import "Player.h"
 #import "OpusDecoder.h"
+#import "VorbisDecoder.h"
 
-@interface OpusPlayer()
+@interface Player()
 
 -(void)sendEvent:(PlayerEvent)event;
 -(void)sendEvent:(PlayerEvent)event
@@ -24,7 +25,7 @@
 
 @end
 
-@implementation OpusPlayer
+@implementation Player
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
@@ -63,7 +64,7 @@
         if (_type == PLAYER_OPUS )
             result = opusDecodeLoop(self);
         else if (_type == PLAYER_VORBIS)
-            ;//    result = vorbisDecodeLoop(self);
+            result = vorbisDecodeLoop(self);
         
         // send events on main thread
         dispatch_async(dispatch_get_main_queue(), ^{

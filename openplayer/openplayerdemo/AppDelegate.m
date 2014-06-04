@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "OpusDecoder.h"
-#import "OpusPlayer.h"
+#import "Player.h"
 
 @implementation AppDelegate
 

@@ -31,7 +31,7 @@ typedef enum decode_status{
     DECODE_ERROR = -3           // Failed to decode
 } DecodingStatus;
 
-@interface OpusPlayer : NSObject <INativeInterface>
+@interface Player : NSObject <INativeInterface>
 {
     //id<IPlayerHandler> _playerHandler;
 

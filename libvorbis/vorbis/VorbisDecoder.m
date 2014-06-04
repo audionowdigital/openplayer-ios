@@ -36,7 +36,6 @@ to end. */
 #define min(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a < _b ? _a : _b; })
 
 
-int debug = 0;
 
 // This is the only function we need ot call, assuming we have the interface already configured
 int vorbisDecodeLoop(id<INativeInterface> callback) {

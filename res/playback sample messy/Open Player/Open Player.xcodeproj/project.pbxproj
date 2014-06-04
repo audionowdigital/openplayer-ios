@@ -55,7 +55,6 @@
 		EB9A4E92193490650037F954 /* Open Player-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Open Player-Info.plist"; sourceTree = "<group>"; };
 		EB9A4E94193490650037F954 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EB9A4E96193490650037F954 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		EB9A4E98193490650037F954 /* Open Player-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Open Player-Prefix.pch"; sourceTree = "<group>"; };
 		EB9A4E99193490650037F954 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EB9A4E9A193490650037F954 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		EB9A4E9D193490650037F954 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -162,7 +161,6 @@
 				EB9A4E92193490650037F954 /* Open Player-Info.plist */,
 				EB9A4E93193490650037F954 /* InfoPlist.strings */,
 				EB9A4E96193490650037F954 /* main.m */,
-				EB9A4E98193490650037F954 /* Open Player-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -412,8 +410,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Open Player/Open Player-Prefix.pch";
 				INFOPLIST_FILE = "Open Player/Open Player-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = (
@@ -430,8 +426,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Open Player/Open Player-Prefix.pch";
 				INFOPLIST_FILE = "Open Player/Open Player-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REZ_SEARCH_PATHS = (
@@ -452,8 +446,6 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Open Player/Open Player-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -474,8 +466,6 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Open Player/Open Player-Prefix.pch";
 				INFOPLIST_FILE = "Open PlayerTests/Open PlayerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";

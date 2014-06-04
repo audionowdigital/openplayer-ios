@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		6226D983193C79E50060BDD4 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 		62656BE1193F665200F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE0193F665200F66F61 /* libvorbis.a */; };
+		62656BE8193F835900F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE7193F835900F66F61 /* libvorbis.a */; };
+		62656BE9193F83A900F66F61 /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
 		628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE779193E4C64009FB38C /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
-		9922789B1938751C0005DB1F /* OpusPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* OpusPlayer.m */; };
+		9922789B1938751C0005DB1F /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.m */; };
 		992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F01938C2060005DB1F /* CoreGraphics.framework */; };
 		992278F31938C2060005DB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F21938C2060005DB1F /* UIKit.framework */; };
@@ -23,7 +25,7 @@
 		992278FF1938C2060005DB1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278FE1938C2060005DB1F /* AppDelegate.m */; };
 		992279011938C2060005DB1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992279001938C2060005DB1F /* Images.xcassets */; };
 		9922791A1938C2120005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
-		9922791B1938C2150005DB1F /* OpusPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* OpusPlayer.m */; };
+		9922791B1938C2150005DB1F /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.m */; };
 		99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A894EB193DB06A007D3EDF /* MainViewController.m */; };
 		99A894EE193DB094007D3EDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A894ED193DB094007D3EDF /* Main.storyboard */; };
 		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
@@ -45,6 +47,8 @@
 		6226D982193C79E50060BDD4 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopus.a; sourceTree = "<group>"; };
 		62656BDE193F664700F66F61 /* INativeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
 		62656BE0193F665200F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbis.a; sourceTree = "<group>"; };
+		62656BE6193F7F4C00F66F61 /* VorbisDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisDecoder.h; sourceTree = "<group>"; };
+		62656BE7193F835900F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = "../../../../Library/Developer/Xcode/DerivedData/openplayer-fxocuoaedisxktchfqfranxlaonq/Build/Products/Debug-iphoneos/libvorbis.a"; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		628CE76C193DADC3009FB38C /* PlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEvents.h; sourceTree = "<group>"; };
 		628CE76D193DADC3009FB38C /* PlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerEvents.m; sourceTree = "<group>"; };
@@ -52,19 +56,17 @@
 		628CE778193E4C64009FB38C /* AudioEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioEngine.m; sourceTree = "<group>"; };
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openplayer-Prefix.pch"; sourceTree = "<group>"; };
 		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
 		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
-		992278981938751C0005DB1F /* OpusPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusPlayer.h; sourceTree = "<group>"; };
-		992278991938751C0005DB1F /* OpusPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpusPlayer.m; sourceTree = "<group>"; };
+		992278981938751C0005DB1F /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		992278991938751C0005DB1F /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		992278EE1938C2060005DB1F /* openplayerdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openplayerdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		992278F01938C2060005DB1F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		992278F21938C2060005DB1F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		992278F61938C2060005DB1F /* openplayerdemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openplayerdemo-Info.plist"; sourceTree = "<group>"; };
 		992278F81938C2060005DB1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		992278FA1938C2060005DB1F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		992278FC1938C2060005DB1F /* openplayerdemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openplayerdemo-Prefix.pch"; sourceTree = "<group>"; };
 		992278FD1938C2060005DB1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		992278FE1938C2060005DB1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		992279001938C2060005DB1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62656BE8193F835900F66F61 /* libvorbis.a in Frameworks */,
 				992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */,
 				992278F31938C2060005DB1F /* UIKit.framework in Frameworks */,
 				99FDFD66193C807B004FE858 /* libopus.a in Frameworks */,
@@ -101,6 +104,7 @@
 		62656BDF193F665200F66F61 /* libvorbis */ = {
 			isa = PBXGroup;
 			children = (
+				62656BE6193F7F4C00F66F61 /* VorbisDecoder.h */,
 				62656BE0193F665200F66F61 /* libvorbis.a */,
 			);
 			path = libvorbis;
@@ -148,6 +152,7 @@
 		62BDC4901934704C00CF7520 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62656BE7193F835900F66F61 /* libvorbis.a */,
 				62BDC4911934704C00CF7520 /* Foundation.framework */,
 				62BDC49F1934704C00CF7520 /* XCTest.framework */,
 				992278F01938C2060005DB1F /* CoreGraphics.framework */,
@@ -163,21 +168,12 @@
 				628CE778193E4C64009FB38C /* AudioEngine.m */,
 				992278961938751C0005DB1F /* StreamConnection.h */,
 				992278971938751C0005DB1F /* StreamConnection.m */,
-				992278981938751C0005DB1F /* OpusPlayer.h */,
-				992278991938751C0005DB1F /* OpusPlayer.m */,
-				62BDC4941934704C00CF7520 /* Supporting Files */,
+				992278981938751C0005DB1F /* Player.h */,
+				992278991938751C0005DB1F /* Player.m */,
 				628CE76C193DADC3009FB38C /* PlayerEvents.h */,
 				628CE76D193DADC3009FB38C /* PlayerEvents.m */,
 			);
 			path = openplayer;
-			sourceTree = "<group>";
-		};
-		62BDC4941934704C00CF7520 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				62BDC4951934704C00CF7520 /* openplayer-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		992278F41938C2060005DB1F /* openplayerdemo */ = {
@@ -200,7 +196,6 @@
 				992278F61938C2060005DB1F /* openplayerdemo-Info.plist */,
 				992278F71938C2060005DB1F /* InfoPlist.strings */,
 				992278FA1938C2060005DB1F /* main.m */,
-				992278FC1938C2060005DB1F /* openplayerdemo-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -289,7 +284,7 @@
 			files = (
 				628CE779193E4C64009FB38C /* AudioEngine.m in Sources */,
 				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
-				9922789B1938751C0005DB1F /* OpusPlayer.m in Sources */,
+				9922789B1938751C0005DB1F /* Player.m in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,12 +293,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62656BE9193F83A900F66F61 /* AudioEngine.m in Sources */,
 				9922791A1938C2120005DB1F /* StreamConnection.m in Sources */,
 				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,
 				628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,
 				992278FB1938C2060005DB1F /* main.m in Sources */,
-				9922791B1938C2150005DB1F /* OpusPlayer.m in Sources */,
+				9922791B1938C2150005DB1F /* Player.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,8 +390,13 @@
 			buildSettings = {
 				DSTROOT = /tmp/openplayer.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/libs/libvorbis",
+					"$(PROJECT_DIR)/libs/libopus",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
@@ -412,8 +413,13 @@
 			buildSettings = {
 				DSTROOT = /tmp/openplayer.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayer/openplayer-Prefix.pch";
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(PROJECT_DIR)/libs/libvorbis",
+					"$(PROJECT_DIR)/libs/libopus",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
@@ -432,8 +438,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayerdemo/openplayerdemo-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -447,6 +451,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/openplayer-fxocuoaedisxktchfqfranxlaonq/Build/Products/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -461,8 +466,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "openplayerdemo/openplayerdemo-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -472,6 +475,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/openplayer-fxocuoaedisxktchfqfranxlaonq/Build/Products/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -35,7 +35,6 @@ to end. */
 #define OPUS_STACK_SIZE     31684
 
 
-int debug = 0;
 
 // This is the only function we need ot call, assuming we have the interface already configured
 int opusDecodeLoop(id<INativeInterface> callback) {

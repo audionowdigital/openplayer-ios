@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OpusPlayer.h"
+#import "Player.h"
 
 @interface MainViewController : UIViewController <IPlayerHandler>
 {
-    OpusPlayer *player;
+    Player *player;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *urlLabel;
