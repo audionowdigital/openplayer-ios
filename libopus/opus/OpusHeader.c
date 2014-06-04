@@ -84,11 +84,11 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
     fprintf(stderr, "process_comments called for %d bytes.", length);
     
 	if (length < (8 + 4 + 4)) {
-		err = NOT_OPUS_HEADER;
+		err = NOT_HEADER;
 		return err;;
 	}
 	if (strncmp(c, "OpusTags", 8) != 0) {
-		err = NOT_OPUS_HEADER;
+		err = NOT_HEADER;
 		return err;
 	}
 	c += 8; // skip header
@@ -96,7 +96,7 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	c += 4;
 	if (len < 0 || len > (length - 16)) {
         fprintf(stderr, "invalid/corrupt comments");
-		err = NOT_OPUS_HEADER;
+		err = NOT_HEADER;
 		return err;
 	}
 	strncpy(vendor, c, min(len, maxlen));
@@ -107,7 +107,7 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	length -= 16 + len;
 	if (fields < 0 || fields > (length >> 2)) {
         fprintf(stderr, "invalid/corrupt comments");
-		err = NOT_OPUS_HEADER;
+		err = NOT_HEADER;
 		return err;
 	}
     fprintf(stderr, "Go and read %d fields:", fields);
@@ -115,7 +115,7 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	for (i = 0; i < fields; i++) {
 	    if (length < 4){
             fprintf(stderr, "invalid/corrupt comments");
-			err = NOT_OPUS_HEADER;
+			err = NOT_HEADER;
 			return err;
 	    }
 	    len = readint(c, 0);
@@ -124,7 +124,7 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	    if (len < 0 || len > length)
 	    {
             fprintf(stderr, "invalid/corrupt comments");
-			err = NOT_OPUS_HEADER;
+			err = NOT_HEADER;
 			return err;
 	    }
         

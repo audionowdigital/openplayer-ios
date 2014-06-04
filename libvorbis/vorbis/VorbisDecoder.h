@@ -13,6 +13,6 @@
 /*
  * Starts the decoding from a opus bitstream to pcm
  */
-int opusDecodeLoop(id<INativeInterface> callback);
+int vorbisDecodeLoop(id<INativeInterface> callback);
 
 

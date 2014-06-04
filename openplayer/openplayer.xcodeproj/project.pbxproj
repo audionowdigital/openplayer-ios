@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6226D983193C79E50060BDD4 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
+		62656BE1193F665200F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE0193F665200F66F61 /* libvorbis.a */; };
 		628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE779193E4C64009FB38C /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
@@ -42,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		6226D982193C79E50060BDD4 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopus.a; sourceTree = "<group>"; };
+		62656BDE193F664700F66F61 /* INativeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
+		62656BE0193F665200F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbis.a; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		628CE76C193DADC3009FB38C /* PlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEvents.h; sourceTree = "<group>"; };
 		628CE76D193DADC3009FB38C /* PlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerEvents.m; sourceTree = "<group>"; };
@@ -68,7 +71,6 @@
 		99A894EA193DB06A007D3EDF /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		99A894EB193DB06A007D3EDF /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		99A894ED193DB094007D3EDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		99FDFD6E193CA596004FE858 /* INativeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62656BE1193F665200F66F61 /* libvorbis.a in Frameworks */,
 				6226D983193C79E50060BDD4 /* libopus.a in Frameworks */,
 				62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */,
 			);
@@ -95,9 +98,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		62656BDF193F665200F66F61 /* libvorbis */ = {
+			isa = PBXGroup;
+			children = (
+				62656BE0193F665200F66F61 /* libvorbis.a */,
+			);
+			path = libvorbis;
+			sourceTree = "<group>";
+		};
 		627C7C88193C60D80031B485 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				62656BDF193F665200F66F61 /* libvorbis */,
+				62656BDE193F664700F66F61 /* INativeInterface.h */,
 				627C7C89193C60D80031B485 /* libopus */,
 			);
 			path = libs;
@@ -106,7 +119,6 @@
 		627C7C89193C60D80031B485 /* libopus */ = {
 			isa = PBXGroup;
 			children = (
-				99FDFD6E193CA596004FE858 /* INativeInterface.h */,
 				6226D982193C79E50060BDD4 /* libopus.a */,
 				627C7C95193C66DD0031B485 /* OpusDecoder.h */,
 			);
@@ -387,6 +399,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
+					"$(PROJECT_DIR)/libs/libvorbis",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -404,6 +417,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
+					"$(PROJECT_DIR)/libs/libvorbis",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

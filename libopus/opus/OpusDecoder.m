@@ -148,7 +148,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 					/*If the decoder returned less than zero, we have an error.*/
 					if (ret < 0) {
                         fprintf(stderr, "Decoding error: %s", opus_strerror(ret));
-						err = OPUS_DECODE_ERROR;
+						err = DECODE_ERROR;
 						break;
 					}
 					frame_size = (ret < convsize?ret : convsize);
@@ -163,7 +163,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 					if (header == OPUS_HEADERS) { // first header
 						//if (op.b_o_s && op.bytes >= 8 && !memcmp(op.packet, "OpusHead", 8)) {
 						if (op.bytes < 8 || memcmp(op.packet, "OpusHead", 8) != 0) {
-							err = NOT_OPUS_HEADER;
+							err = NOT_HEADER;
 							break;
 						}
 						// prepare opus structures
