@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:vorbis/libvorbis.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:libopus/libopus.xcodeproj">
    </FileRef>
    <FileRef

@@ -59,7 +59,7 @@
 }
 
 - (IBAction)initBtnPressed:(id)sender {
-    
+
     [player setDataSource:[NSURL URLWithString:self.urlLabel.text]];
 }
 
