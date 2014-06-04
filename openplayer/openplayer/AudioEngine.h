@@ -11,11 +11,13 @@
 
 @interface AudioEngine : NSObject
 //@property (nonatomic) AudioStreamBasicDescription streamFormat;
-@property (nonatomic, strong) NSMutableData *buffer;
+@property (atomic, strong) NSMutableData *buffer;
+@property (nonatomic) long internalBufferSize;
 
 -(id)initWithSampleRate:(int)sampleRate channels:(int)channels error:(NSError **)error;
 -(BOOL)play;
 //-(BOOL)pause;
 -(BOOL)stop;
+
 
 @end
