@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StreamConnection.h"
+#import "AudioEngine.h"
 #import "INativeInterface.h"
 #include "PlayerEvents.h"
 
@@ -37,6 +38,7 @@ typedef enum decode_status{
     int _type;
     PlayerEvents *_playerEvents;
     StreamConnection *_streamConnection;
+    AudioEngine *_audioEngine;
     long _streamSize;
     NSTimeInterval _streamLength;       // seconds
 }

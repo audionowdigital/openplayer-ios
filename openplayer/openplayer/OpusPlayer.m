@@ -105,6 +105,8 @@
     if (![self isReadyToPlay]) {
         NSLog(@"Player Error: stream must be ready to play before starting to play");
         return;
+    } else {
+        [_audioEngine play];
     }
 }
 
@@ -118,7 +120,7 @@
 
 -(void)stop
 {
-    
+    [_streamConnection stopStream];
 }
 
 -(BOOL)isReadyToPlay
@@ -151,11 +153,23 @@
 -(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)vendor trackTitle:(char *)title trackArtist:(char *)artist trackAlbum:(char *)album trackDate:(char *)date trackName:(char *)track
 {
     NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, vendor, title, artist, album, date, track);
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error = nil;
+        _audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
+        
+        if (error != nil) {
+            NSLog(@" audioEngine error: %@",error);
+        }
+
+    });
 }
 
 -(void)onStop
 {
     NSLog(@"Test callback !!!");
+    
+    [_audioEngine stop];
 }
 
 -(int)onReadEncodedData:(char **)buffer ofSize:(long)ammount
@@ -188,7 +202,22 @@
 {
     // TODO send pcm data to device's sound board
     
-    NSLog(@"Write %d decoded bytes to sound board.", ammount);
+//    NSLog(@"Write %d from opusPlayer", ammount);
+//    
+//    
+//    for (int qi=0; qi < 10; qi++) {
+//        printf(" buf: %d : %4X\n",qi,0xFFFF & pcmData[qi]);
+//    }
+    
+    [_audioEngine.buffer appendBytes:pcmData length:ammount];
+    
+    // ready to play only if we have data to fill 3 buffers
+    if (_audioEngine.buffer.length > _audioEngine.internalBufferSize *3) {
+        
+        [_audioEngine play];
+        
+        _state = 0;
+    }
 }
 
 

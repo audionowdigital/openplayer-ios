@@ -302,9 +302,7 @@ dispatch_queue_t queue;
     long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
     
     NSLog(@" - totalBufferSize :%ld",totalBuffersSize);
-    
-    // TODO: fix for a live stream
-    
+
     // if the total buffer size excedes the defined max buffer size
     
     if ( totalBuffersSize > kMaxBufferSize) {
@@ -312,7 +310,7 @@ dispatch_queue_t queue;
         // it's not a stream
         // and the rest of the download is bigger than the min buffer size
         // or it's a stream
-        if( (self.podcastSize != -1 && (self.podcastSize - self.downloadIndex) > kMinBufferSize) || self.podcastSize == -1) {
+        if( (self.podcastSize != -1 && (self.podcastSize - self.downloadIndex) > kMinBufferSize) ) {
             [self.connection cancel];
             // change the connection terminated flag
             self.connectionTerminated = YES;
@@ -360,6 +358,9 @@ dispatch_queue_t queue;
     self.connectionError = nil;
     // clear all the buffers
     self.internalBuffer = nil;
-    self.responseBuffer.length = 0;
+    
+    dispatch_sync(queue, ^{
+        self.responseBuffer.length = 0;
+    });
 }
 @end

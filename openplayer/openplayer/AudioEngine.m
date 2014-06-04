@@ -19,22 +19,15 @@
 
 @implementation AudioEngine
 
-// MARK: - Static Callbacks
-// AudioQueue output queue callback.
-void AudioEngineOutputBufferCallback (void *inUserData,
-                                      AudioQueueRef inAQ,
-                                      AudioQueueBufferRef inBuffer) {
-    
-    AudioEngine *engine = (__bridge AudioEngine*) inUserData;
-    [engine readBuffer:inBuffer];
-}
+void AudioCallback (void *inUserData,
+                    AudioQueueRef inAQ,
+                    AudioQueueBufferRef inBuffer);
 
 -(id)initWithSampleRate:(int)sampleRate channels:(int)channels error:(NSError **)error{
     
     self = [super init];
     if( self )
     {
-        
         // Set up stream format fields
         AudioStreamBasicDescription localStreamFormat;
         localStreamFormat.mSampleRate = sampleRate;
@@ -47,12 +40,12 @@ void AudioEngineOutputBufferCallback (void *inUserData,
         localStreamFormat.mFramesPerPacket = 1;
         localStreamFormat.mReserved = 0;
         
-        //    self.streamFormat = localStreamFormat;
-        
+        //    self.streamFormat = localStreamFormat
+        //playerThread
         // New output queue ---- PLAYBACK ----
-        OSStatus status = AudioQueueNewOutput (&localStreamFormat,AudioEngineOutputBufferCallback,
+        OSStatus status = AudioQueueNewOutput (&localStreamFormat,AudioCallback,
                                                (__bridge void*)self,
-                                               CFRunLoopGetCurrent(),
+                                               CFRunLoopGetMain(),
                                                kCFRunLoopCommonModes,
                                                0,
                                                &mQueue);
@@ -62,11 +55,16 @@ void AudioEngineOutputBufferCallback (void *inUserData,
         // do i really need this ??
         AudioQueueSetParameter(mQueue, kAudioQueueParam_Volume, 1.0);
         
+        // init buffer
+        self.buffer = [[NSMutableData  alloc] init];
+        
+        // calculate buffer size
+        self.internalBufferSize = 1920;
+        
         // set the 3 internal audio buffers
         for(int i = 0; i < BUFFERS_COUNT; ++i)
         {
-            UInt32 bufferSize = 128 * 1024;
-            status = AudioQueueAllocateBuffer(mQueue, bufferSize, &mBuffers[i]);
+            status = AudioQueueAllocateBuffer(mQueue, self.internalBufferSize, &mBuffers[i]);
             if(status != noErr)
             {
                 if(*error)
@@ -85,6 +83,12 @@ void AudioEngineOutputBufferCallback (void *inUserData,
 }
 
 -(BOOL)play{
+    
+    for(int i = 0; i < BUFFERS_COUNT; ++i)
+    {
+        [self readBuffer:mBuffers[i]];
+    }
+    
     //start play
     OSStatus osStatus = AudioQueueStart(mQueue, NULL);
     NSAssert(osStatus == noErr, @"AudioQueueStart failed");
@@ -100,18 +104,45 @@ void AudioEngineOutputBufferCallback (void *inUserData,
 
 - (void)readBuffer:(AudioQueueBufferRef)buffer{
     
-    //TODO: fill the buffer with new bytes
+    // fill the buffer with new bytes
     
-//    typedef struct AudioQueueBuffer {
-//        const UInt32   mAudioDataBytesCapacity;
-//        void *const    mAudioData;
-//        UInt32         mAudioDataByteSize;
-//        void           *mUserData;
-//    } AudioQueueBuffer;
-//    typedef AudioQueueBuffer *AudioQueueBufferRef;
+    //    typedef struct AudioQueueBuffer {
+    //        const UInt32   mAudioDataBytesCapacity;     // max size of buffer
+    //        void *const    mAudioData;                  // pointer to a data aereia
+    //        UInt32         mAudioDataByteSize;          // length of the data in mAudioData
+    //        void           *mUserData;
+    //    } AudioQueueBuffer;
+    //    typedef AudioQueueBuffer *AudioQueueBufferRef;
     
-    //(char*)buffer->mAudioData
-    //buffer->mAudioDataBytesCapacity = (int) 0;
+    // the external data has less data
+    if (buffer->mAudioDataBytesCapacity > self.buffer.length) {
+        // set the buffer length
+        buffer->mAudioDataByteSize = self.buffer.length;
+        
+        // get a pointer to the stream buffer
+        short *streamPointer = buffer->mAudioData;
+        // assign streamPointer
+        streamPointer = (short *)[self.buffer bytes];
+        
+        // empty the internal buffer
+        self.buffer.length = 0;
+        
+    } else {
+        // 1 get a part of self.buffer maxSize mAudioDataBytesCapacity
+        // and write the mAudioData as above
+        buffer->mAudioDataByteSize = buffer->mAudioDataBytesCapacity;
+        
+        // define a buffer
+        short *localBuffer = malloc( sizeof(short) * ( buffer->mAudioDataByteSize + 1 ) );
+        // get a pointer to the stream buffer
+        short *streamPointer = buffer->mAudioData;
+        // assign localBuffer
+        [self.buffer getBytes:localBuffer length:buffer->mAudioDataByteSize];
+        streamPointer = localBuffer;
+
+        //2 remover that part of self.buffer
+        self.buffer = [[self.buffer subdataWithRange:NSMakeRange(buffer->mAudioDataByteSize,self.buffer.length -  buffer->mAudioDataByteSize)] mutableCopy];
+    }
     
     // write the buffers
     OSStatus status = AudioQueueEnqueueBuffer(mQueue, buffer, 0, 0);
@@ -119,6 +150,17 @@ void AudioEngineOutputBufferCallback (void *inUserData,
     {
         NSLog(@"Error: %s status=%d", __PRETTY_FUNCTION__, (int)status);
     }
+}
+
+// MARK: - Static Callbacks
+// AudioQueue output queue callback.
+void AudioCallback (void *inUserData,
+                    AudioQueueRef inAQ,
+                    AudioQueueBufferRef inBuffer) {
+    
+    NSLog(@" --- audio player buffer empty calback");
+    AudioEngine *engine = (__bridge AudioEngine*) inUserData;
+    [engine readBuffer:inBuffer];
 }
 
 @end
