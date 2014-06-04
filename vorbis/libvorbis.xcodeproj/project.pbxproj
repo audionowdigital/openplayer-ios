@@ -10,10 +10,6 @@
 		62ED4D92193739AA00CF5BA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4D91193739AA00CF5BA8 /* Foundation.framework */; };
 		62ED4D97193739AA00CF5BA8 /* vorbis.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62ED4D96193739AA00CF5BA8 /* vorbis.h */; };
 		62ED4D99193739AA00CF5BA8 /* vorbis.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4D98193739AA00CF5BA8 /* vorbis.m */; };
-		62ED4DA0193739AA00CF5BA8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4D9F193739AA00CF5BA8 /* XCTest.framework */; };
-		62ED4DA1193739AA00CF5BA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4D91193739AA00CF5BA8 /* Foundation.framework */; };
-		62ED4DA3193739AA00CF5BA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4DA2193739AA00CF5BA8 /* UIKit.framework */; };
-		62ED4DA6193739AA00CF5BA8 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ED4D8E193739AA00CF5BA8 /* libvorbis.a */; };
 		62ED4EDD193757D300CF5BA8 /* codec.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ED4E80193757D300CF5BA8 /* codec.h */; };
 		62ED4EDE193757D300CF5BA8 /* vorbisenc.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ED4E83193757D300CF5BA8 /* vorbisenc.h */; };
 		62ED4EDF193757D300CF5BA8 /* vorbisfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ED4E84193757D300CF5BA8 /* vorbisfile.h */; };
@@ -90,16 +86,6 @@
 		62ED4F3C19376BDB00CF5BA8 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = 62ED4F3519376BDB00CF5BA8 /* framing.c */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		62ED4DA4193739AA00CF5BA8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 62ED4D86193739AA00CF5BA8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 62ED4D8D193739AA00CF5BA8;
-			remoteInfo = vorbis;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		62ED4D8C193739AA00CF5BA8 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -116,10 +102,9 @@
 /* Begin PBXFileReference section */
 		62ED4D8E193739AA00CF5BA8 /* libvorbis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbis.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ED4D91193739AA00CF5BA8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		62ED4D95193739AA00CF5BA8 /* vorbis-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vorbis-Prefix.pch"; sourceTree = "<group>"; };
+		62ED4D95193739AA00CF5BA8 /* libvorbis-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libvorbis-Prefix.pch"; sourceTree = "<group>"; };
 		62ED4D96193739AA00CF5BA8 /* vorbis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vorbis.h; sourceTree = "<group>"; };
 		62ED4D98193739AA00CF5BA8 /* vorbis.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vorbis.m; sourceTree = "<group>"; };
-		62ED4D9E193739AA00CF5BA8 /* vorbisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vorbisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ED4D9F193739AA00CF5BA8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		62ED4DA2193739AA00CF5BA8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		62ED4E78193757D300CF5BA8 /* Android.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Android.mk; sourceTree = "<group>"; };
@@ -242,17 +227,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62ED4D9B193739AA00CF5BA8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				62ED4DA0193739AA00CF5BA8 /* XCTest.framework in Frameworks */,
-				62ED4DA3193739AA00CF5BA8 /* UIKit.framework in Frameworks */,
-				62ED4DA6193739AA00CF5BA8 /* libvorbis.a in Frameworks */,
-				62ED4DA1193739AA00CF5BA8 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -271,7 +245,6 @@
 			isa = PBXGroup;
 			children = (
 				62ED4D8E193739AA00CF5BA8 /* libvorbis.a */,
-				62ED4D9E193739AA00CF5BA8 /* vorbisTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -299,7 +272,7 @@
 		62ED4D94193739AA00CF5BA8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				62ED4D95193739AA00CF5BA8 /* vorbis-Prefix.pch */,
+				62ED4D95193739AA00CF5BA8 /* libvorbis-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -578,9 +551,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		62ED4D8D193739AA00CF5BA8 /* vorbis */ = {
+		62ED4D8D193739AA00CF5BA8 /* libvorbis */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 62ED4DB1193739AB00CF5BA8 /* Build configuration list for PBXNativeTarget "vorbis" */;
+			buildConfigurationList = 62ED4DB1193739AB00CF5BA8 /* Build configuration list for PBXNativeTarget "libvorbis" */;
 			buildPhases = (
 				62ED4D8A193739AA00CF5BA8 /* Sources */,
 				62ED4D8B193739AA00CF5BA8 /* Frameworks */,
@@ -591,28 +564,10 @@
 			);
 			dependencies = (
 			);
-			name = vorbis;
+			name = libvorbis;
 			productName = vorbis;
 			productReference = 62ED4D8E193739AA00CF5BA8 /* libvorbis.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		62ED4D9D193739AA00CF5BA8 /* vorbisTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 62ED4DB4193739AB00CF5BA8 /* Build configuration list for PBXNativeTarget "vorbisTests" */;
-			buildPhases = (
-				62ED4D9A193739AA00CF5BA8 /* Sources */,
-				62ED4D9B193739AA00CF5BA8 /* Frameworks */,
-				62ED4D9C193739AA00CF5BA8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				62ED4DA5193739AA00CF5BA8 /* PBXTargetDependency */,
-			);
-			name = vorbisTests;
-			productName = vorbisTests;
-			productReference = 62ED4D9E193739AA00CF5BA8 /* vorbisTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -623,7 +578,7 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = AudioNowDigital;
 			};
-			buildConfigurationList = 62ED4D89193739AA00CF5BA8 /* Build configuration list for PBXProject "vorbis" */;
+			buildConfigurationList = 62ED4D89193739AA00CF5BA8 /* Build configuration list for PBXProject "libvorbis" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -635,21 +590,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				62ED4D8D193739AA00CF5BA8 /* vorbis */,
-				62ED4D9D193739AA00CF5BA8 /* vorbisTests */,
+				62ED4D8D193739AA00CF5BA8 /* libvorbis */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		62ED4D9C193739AA00CF5BA8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		62ED4D8A193739AA00CF5BA8 /* Sources */ = {
@@ -686,22 +630,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		62ED4D9A193739AA00CF5BA8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		62ED4DA5193739AA00CF5BA8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 62ED4D8D193739AA00CF5BA8 /* vorbis */;
-			targetProxy = 62ED4DA4193739AA00CF5BA8 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		62ED4DAF193739AB00CF5BA8 /* Debug */ = {
@@ -784,10 +713,10 @@
 			buildSettings = {
 				DSTROOT = /tmp/vorbis.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "vorbis/vorbis-Prefix.pch";
+				GCC_PREFIX_HEADER = "vorbis/libvorbis-Prefix.pch";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = libvorbis;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -797,7 +726,7 @@
 			buildSettings = {
 				DSTROOT = /tmp/vorbis.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "vorbis/vorbis-Prefix.pch";
+				GCC_PREFIX_HEADER = "vorbis/libvorbis-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -807,51 +736,15 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = libvorbis;
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		62ED4DB5193739AB00CF5BA8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "vorbis/vorbis-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "vorbisTests/vorbisTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		62ED4DB6193739AB00CF5BA8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "vorbis/vorbis-Prefix.pch";
-				INFOPLIST_FILE = "vorbisTests/vorbisTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		62ED4D89193739AA00CF5BA8 /* Build configuration list for PBXProject "vorbis" */ = {
+		62ED4D89193739AA00CF5BA8 /* Build configuration list for PBXProject "libvorbis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				62ED4DAF193739AB00CF5BA8 /* Debug */,
@@ -860,20 +753,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		62ED4DB1193739AB00CF5BA8 /* Build configuration list for PBXNativeTarget "vorbis" */ = {
+		62ED4DB1193739AB00CF5BA8 /* Build configuration list for PBXNativeTarget "libvorbis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				62ED4DB2193739AB00CF5BA8 /* Debug */,
 				62ED4DB3193739AB00CF5BA8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		62ED4DB4193739AB00CF5BA8 /* Build configuration list for PBXNativeTarget "vorbisTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				62ED4DB5193739AB00CF5BA8 /* Debug */,
-				62ED4DB6193739AB00CF5BA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
