@@ -213,8 +213,9 @@
     NSLog(@"Write %d from opusPlayer", amount);
 
     _player = [[AVBufferPlayer alloc] initWithBuffer:pcmData frames:amount];
-
+    
     [_player play];
+    
     /*[_audioEngine.buffer appendBytes:pcmData length:ammount];
     
     NSLog(@"  WRITE: %d bytes to buffer -> buffer size up to %d ",ammount,_audioEngine.buffer.length);
