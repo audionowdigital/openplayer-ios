@@ -37,6 +37,9 @@
        // audioManager = [Novocaine audioManager];
 
         
+      //  sampleRate = 44100;
+        
+        
         
            }
     return self;
@@ -163,7 +166,8 @@
         NSError *error = nil;
         //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
         
-        iosAudio = [[IosAudioController alloc] init];
+        iosAudio = [[AudioController alloc] init];
+        
         [iosAudio start];
         
         if (error != nil) {

@@ -18,14 +18,14 @@
 #endif
 
 
-@interface IosAudioController : NSObject {
+@interface AudioController : NSObject {
 	AudioComponentInstance audioUnit;
 	AudioBuffer tempBuffer; // this will hold the latest data from the microphone
 }
 
 @property (readonly) AudioComponentInstance audioUnit;
 @property (readonly) AudioBuffer tempBuffer;
-
+- (id) init;
 - (void) start;
 - (void) stop;
 - (void) processAudio: (AudioBufferList*) bufferList;
@@ -33,4 +33,4 @@
 @end
 
 // setup a global iosAudio variable, accessible everywhere
-extern IosAudioController* iosAudio;
+extern AudioController* iosAudio;

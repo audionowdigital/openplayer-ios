@@ -6,13 +6,13 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "IosAudioController.h"
+#import "AudioController.h"
 #import <AudioToolbox/AudioToolbox.h>
 
 #define kOutputBus 0
 #define kInputBus 1
 
-IosAudioController* iosAudio;
+AudioController* iosAudio;
 
 void checkStatus(int ids, int status){
 	if (status) {
@@ -58,7 +58,7 @@ static OSStatus playbackCallback(void *inRefCon,
     return noErr;
 }
 
-@implementation IosAudioController
+@implementation AudioController
 
 @synthesize audioUnit, tempBuffer;
 
@@ -121,7 +121,7 @@ static OSStatus playbackCallback(void *inRefCon,
     AURenderCallbackStruct callbackStruct;
 	
 	callbackStruct.inputProc = playbackCallback;
-	callbackStruct.inputProcRefCon = NULL;//(__bridge void *)(self);
+	callbackStruct.inputProcRefCon = NULL;(__bridge void *)(self);
 	status = AudioUnitSetProperty(audioUnit, 
 								  kAudioUnitProperty_SetRenderCallback, 
 								  kAudioUnitScope_Global, 

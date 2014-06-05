@@ -12,7 +12,7 @@
 #import "INativeInterface.h"
 #include "PlayerEvents.h"
 #include "AVBufferPlayer.h"
-#include "IosAudioController.h"
+#include "AudioController.h"
 
 typedef enum player_state{
     STATE_READY_TO_PLAY = 0,    // player is ready to play, this is the state used also for Pause
@@ -43,7 +43,7 @@ typedef enum decode_status{
     //AudioEngine *_audioEngine;
     AVBufferPlayer *_player;
     //Novocaine *audioManager;
-    IosAudioController *iosAudio;
+    AudioController *iosAudio;
     
     long _streamSize;
     NSTimeInterval _streamLength;       // seconds

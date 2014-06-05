@@ -14,9 +14,9 @@
 		62656C021940C60200F66F61 /* AVBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C011940C60200F66F61 /* AVBufferPlayer.m */; };
 		62656C031940C68700F66F61 /* AVBufferPlayer.h in Sources */ = {isa = PBXBuildFile; fileRef = 62656C001940C60200F66F61 /* AVBufferPlayer.h */; };
 		62656C041940C68700F66F61 /* AVBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C011940C60200F66F61 /* AVBufferPlayer.m */; };
-		62656C0C1940D62F00F66F61 /* IosAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* IosAudioController.m */; };
-		62656C0D1940D7B700F66F61 /* IosAudioController.h in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0A1940D62F00F66F61 /* IosAudioController.h */; };
-		62656C0E1940D7B700F66F61 /* IosAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* IosAudioController.m */; };
+		62656C0C1940D62F00F66F61 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
+		62656C0D1940D7B700F66F61 /* AudioController.h in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0A1940D62F00F66F61 /* AudioController.h */; };
+		62656C0E1940D7B700F66F61 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
 		628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE779193E4C64009FB38C /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
@@ -57,8 +57,8 @@
 		62656BE7193F835900F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = "../../../../Library/Developer/Xcode/DerivedData/openplayer-fxocuoaedisxktchfqfranxlaonq/Build/Products/Debug-iphoneos/libvorbis.a"; sourceTree = "<group>"; };
 		62656C001940C60200F66F61 /* AVBufferPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVBufferPlayer.h; sourceTree = "<group>"; };
 		62656C011940C60200F66F61 /* AVBufferPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVBufferPlayer.m; sourceTree = "<group>"; };
-		62656C0A1940D62F00F66F61 /* IosAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IosAudioController.h; sourceTree = "<group>"; };
-		62656C0B1940D62F00F66F61 /* IosAudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IosAudioController.m; sourceTree = "<group>"; };
+		62656C0A1940D62F00F66F61 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
+		62656C0B1940D62F00F66F61 /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		628CE76C193DADC3009FB38C /* PlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEvents.h; sourceTree = "<group>"; };
 		628CE76D193DADC3009FB38C /* PlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerEvents.m; sourceTree = "<group>"; };
@@ -132,8 +132,8 @@
 		62656C091940D62F00F66F61 /* AudioController */ = {
 			isa = PBXGroup;
 			children = (
-				62656C0A1940D62F00F66F61 /* IosAudioController.h */,
-				62656C0B1940D62F00F66F61 /* IosAudioController.m */,
+				62656C0A1940D62F00F66F61 /* AudioController.h */,
+				62656C0B1940D62F00F66F61 /* AudioController.m */,
 			);
 			path = AudioController;
 			sourceTree = "<group>";
@@ -314,7 +314,7 @@
 			files = (
 				628CE779193E4C64009FB38C /* AudioEngine.m in Sources */,
 				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
-				62656C0C1940D62F00F66F61 /* IosAudioController.m in Sources */,
+				62656C0C1940D62F00F66F61 /* AudioController.m in Sources */,
 				9922789B1938751C0005DB1F /* Player.m in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
 				62656C021940C60200F66F61 /* AVBufferPlayer.m in Sources */,
@@ -325,8 +325,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62656C0D1940D7B700F66F61 /* IosAudioController.h in Sources */,
-				62656C0E1940D7B700F66F61 /* IosAudioController.m in Sources */,
+				62656C0D1940D7B700F66F61 /* AudioController.h in Sources */,
+				62656C0E1940D7B700F66F61 /* AudioController.m in Sources */,
 				62656C031940C68700F66F61 /* AVBufferPlayer.h in Sources */,
 				62656C041940C68700F66F61 /* AVBufferPlayer.m in Sources */,
 				62656BE9193F83A900F66F61 /* AudioEngine.m in Sources */,
