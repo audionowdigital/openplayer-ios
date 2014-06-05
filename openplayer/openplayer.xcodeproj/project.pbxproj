@@ -11,6 +11,9 @@
 		62656BE1193F665200F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE0193F665200F66F61 /* libvorbis.a */; };
 		62656BE8193F835900F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE7193F835900F66F61 /* libvorbis.a */; };
 		62656BE9193F83A900F66F61 /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
+		62656C021940C60200F66F61 /* AVBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C011940C60200F66F61 /* AVBufferPlayer.m */; };
+		62656C031940C68700F66F61 /* AVBufferPlayer.h in Sources */ = {isa = PBXBuildFile; fileRef = 62656C001940C60200F66F61 /* AVBufferPlayer.h */; };
+		62656C041940C68700F66F61 /* AVBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C011940C60200F66F61 /* AVBufferPlayer.m */; };
 		628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE779193E4C64009FB38C /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
@@ -49,6 +52,8 @@
 		62656BE0193F665200F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbis.a; sourceTree = "<group>"; };
 		62656BE6193F7F4C00F66F61 /* VorbisDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisDecoder.h; sourceTree = "<group>"; };
 		62656BE7193F835900F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = "../../../../Library/Developer/Xcode/DerivedData/openplayer-fxocuoaedisxktchfqfranxlaonq/Build/Products/Debug-iphoneos/libvorbis.a"; sourceTree = "<group>"; };
+		62656C001940C60200F66F61 /* AVBufferPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVBufferPlayer.h; sourceTree = "<group>"; };
+		62656C011940C60200F66F61 /* AVBufferPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVBufferPlayer.m; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		628CE76C193DADC3009FB38C /* PlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEvents.h; sourceTree = "<group>"; };
 		628CE76D193DADC3009FB38C /* PlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerEvents.m; sourceTree = "<group>"; };
@@ -110,6 +115,15 @@
 			path = libvorbis;
 			sourceTree = "<group>";
 		};
+		62656BFF1940C60200F66F61 /* AVBufferPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				62656C001940C60200F66F61 /* AVBufferPlayer.h */,
+				62656C011940C60200F66F61 /* AVBufferPlayer.m */,
+			);
+			path = AVBufferPlayer;
+			sourceTree = "<group>";
+		};
 		627C7C88193C60D80031B485 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +146,7 @@
 		62BDC4851934704B00CF7520 = {
 			isa = PBXGroup;
 			children = (
+				62656BFF1940C60200F66F61 /* AVBufferPlayer */,
 				627C7C88193C60D80031B485 /* libs */,
 				62BDC4931934704C00CF7520 /* openplayer */,
 				992278F41938C2060005DB1F /* openplayerdemo */,
@@ -286,6 +301,7 @@
 				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				9922789B1938751C0005DB1F /* Player.m in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
+				62656C021940C60200F66F61 /* AVBufferPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62656C031940C68700F66F61 /* AVBufferPlayer.h in Sources */,
+				62656C041940C68700F66F61 /* AVBufferPlayer.m in Sources */,
 				62656BE9193F83A900F66F61 /* AudioEngine.m in Sources */,
 				9922791A1938C2120005DB1F /* StreamConnection.m in Sources */,
 				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,

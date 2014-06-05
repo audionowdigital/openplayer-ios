@@ -153,8 +153,7 @@ void AudioCallback (void *inUserData,
     OSStatus status = AudioQueueEnqueueBuffer(mQueue, buffer, 0, 0);
     if(status != noErr)
     {
-        NSLog(@"Error: %s status=%d", __PRETTY_FUNCTION__, (int)status);
-        NSLog(@" ###### -------- decoder library too slow.");
+//        NSLog(@"Error: %s status=%d", __PRETTY_FUNCTION__, (int)status);
     }
 }
 
@@ -164,7 +163,7 @@ void AudioCallback (void *inUserData,
                     AudioQueueRef inAQ,
                     AudioQueueBufferRef inBuffer) {
     
-    NSLog(@" --- audio player buffer empty calback");
+    //NSLog(@" --- audio player buffer empty calback");
     AudioEngine *engine = (__bridge AudioEngine*) inUserData;
     [engine readBuffer:inBuffer];
 }

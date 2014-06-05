@@ -34,7 +34,11 @@
         _type = type;
         //_playerHandler = handler;
         _state = STATE_STOPPED;
-    }
+       // audioManager = [Novocaine audioManager];
+
+        
+        
+           }
     return self;
 }
 
@@ -107,7 +111,7 @@
         NSLog(@"Player Error: stream must be ready to play before starting to play");
         return;
     } else {
-        [_audioEngine play];
+        //[_audioEngine play];
     }
 }
 
@@ -157,7 +161,9 @@
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
-        _audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
+        //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
+        
+        
         
         if (error != nil) {
             NSLog(@" audioEngine error: %@",error);
@@ -169,11 +175,12 @@
 -(void)onStop
 {
     NSLog(@"Test callback !!!");
+    [_player stop];
     
-    [_audioEngine stop];
+   // [_audioEngine stop];
 }
 
--(int)onReadEncodedData:(char **)buffer ofSize:(long)ammount
+-(int)onReadEncodedData:(char **)buffer ofSize:(long)amount
 {
     NSError *error;
     NSData *data;
@@ -181,10 +188,10 @@
     
     do {
         //NSLog(@"while loop %d", i++);
+    
+        [NSThread sleepForTimeInterval:2];
         
-        [NSThread sleepForTimeInterval:1];
-        
-        data = [_streamConnection readBytesForLength:ammount error:&error];
+        data = [_streamConnection readBytesForLength:amount error:&error];
         
         if (error) {
             NSLog(@"Error reading from input stream");
@@ -199,18 +206,16 @@
     return (int) data.length;
 }
 
--(void)onWritePCMData:(short *)pcmData ofSize:(int)ammount
+-(void)onWritePCMData:(short *)pcmData ofSize:(int)amount
 {
     // TODO send pcm data to device's sound board
     
-    NSLog(@"Write %d from opusPlayer", ammount);
-//    
-//    
-//    for (int qi=0; qi < 10; qi++) {
-//        printf(" buf: %d : %4X\n",qi,0xFFFF & pcmData[qi]);
-//    }
-    
-    [_audioEngine.buffer appendBytes:pcmData length:ammount];
+    NSLog(@"Write %d from opusPlayer", amount);
+
+    _player = [[AVBufferPlayer alloc] initWithBuffer:pcmData frames:amount];
+
+    [_player play];
+    /*[_audioEngine.buffer appendBytes:pcmData length:ammount];
     
     NSLog(@"  WRITE: %d bytes to buffer -> buffer size up to %d ",ammount,_audioEngine.buffer.length);
     
@@ -220,7 +225,7 @@
         [_audioEngine play];
         
         _state = 0;
-    }
+    }*/
 }
 
 

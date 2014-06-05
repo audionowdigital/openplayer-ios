@@ -301,7 +301,7 @@ dispatch_queue_t queue;
     // find the size of the combined buffes
     long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
     
-    NSLog(@" - totalBufferSize :%ld",totalBuffersSize);
+    //NSLog(@" - totalBufferSize :%ld",totalBuffersSize);
 
     // if the total buffer size excedes the defined max buffer size
     
