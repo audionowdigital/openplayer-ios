@@ -32,7 +32,7 @@ void AudioCallback (void *inUserData,
         AudioStreamBasicDescription localStreamFormat;
         localStreamFormat.mSampleRate = sampleRate;
         localStreamFormat.mFormatID = kAudioFormatLinearPCM;
-        localStreamFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
+        localStreamFormat.mFormatFlags =  kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
         localStreamFormat.mChannelsPerFrame = channels;
         localStreamFormat.mBitsPerChannel = localStreamFormat.mChannelsPerFrame *8;
         localStreamFormat.mBytesPerPacket = 2 * localStreamFormat.mChannelsPerFrame;

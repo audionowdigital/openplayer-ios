@@ -163,7 +163,8 @@
         NSError *error = nil;
         //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
         
-        
+        iosAudio = [[IosAudioController alloc] init];
+        [iosAudio start];
         
         if (error != nil) {
             NSLog(@" audioEngine error: %@",error);
