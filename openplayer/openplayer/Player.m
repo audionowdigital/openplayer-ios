@@ -192,7 +192,7 @@
         }
     } while (!error && data.length == 0);
     
-    //NSLog(@"Read %lu encoded bytes from input stream.", (unsigned long)data.length);
+    NSLog(@"Read %lu encoded bytes from input stream.", (unsigned long)data.length);
     
     *buffer = (char *)[data bytes];
     
@@ -203,7 +203,7 @@
 {
     // TODO send pcm data to device's sound board
     
-//    NSLog(@"Write %d from opusPlayer", ammount);
+    NSLog(@"Write %d from opusPlayer", ammount);
 //    
 //    
 //    for (int qi=0; qi < 10; qi++) {
@@ -212,8 +212,10 @@
     
     [_audioEngine.buffer appendBytes:pcmData length:ammount];
     
+    NSLog(@"  WRITE: %d bytes to buffer -> buffer size up to %d ",ammount,_audioEngine.buffer.length);
+    
     // ready to play only if we have data to fill 3 buffers
-    if (_audioEngine.buffer.length > _audioEngine.internalBufferSize *3) {
+    if (_audioEngine.buffer.length > _audioEngine.internalBufferSize * 3) {
         
         [_audioEngine play];
         

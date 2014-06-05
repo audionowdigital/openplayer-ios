@@ -33,7 +33,7 @@ void AudioCallback (void *inUserData,
         localStreamFormat.mSampleRate = sampleRate;
         localStreamFormat.mFormatID = kAudioFormatLinearPCM;
         localStreamFormat.mFormatFlags = kLinearPCMFormatFlagIsSignedInteger | kLinearPCMFormatFlagIsPacked;
-        localStreamFormat.mChannelsPerFrame = 2;
+        localStreamFormat.mChannelsPerFrame = channels;
         localStreamFormat.mBitsPerChannel = localStreamFormat.mChannelsPerFrame *8;
         localStreamFormat.mBytesPerPacket = 2 * localStreamFormat.mChannelsPerFrame;
         localStreamFormat.mBytesPerFrame = 2 * localStreamFormat.mChannelsPerFrame;
@@ -116,6 +116,9 @@ void AudioCallback (void *inUserData,
     
     // the external data has less data
     if (buffer->mAudioDataBytesCapacity > self.buffer.length) {
+        
+        NSLog(@"  READ: %d bytes from buffer -> buffer size down to 0", self.buffer.length);
+        
         // set the buffer length
         buffer->mAudioDataByteSize = self.buffer.length;
         
@@ -142,6 +145,8 @@ void AudioCallback (void *inUserData,
 
         //2 remover that part of self.buffer
         self.buffer = [[self.buffer subdataWithRange:NSMakeRange(buffer->mAudioDataByteSize,self.buffer.length -  buffer->mAudioDataByteSize)] mutableCopy];
+        
+        NSLog(@"  READ: %d bytes from buffer -> buffer size down to %d",(unsigned int)buffer->mAudioDataByteSize, self.buffer.length);
     }
     
     // write the buffers
@@ -149,6 +154,7 @@ void AudioCallback (void *inUserData,
     if(status != noErr)
     {
         NSLog(@"Error: %s status=%d", __PRETTY_FUNCTION__, (int)status);
+        NSLog(@" ###### -------- decoder library too slow.");
     }
 }
 
