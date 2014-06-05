@@ -56,8 +56,10 @@
 		header[0x15] = 0;
 		header[0x16] = 1;     // number of channels 
 		header[0x17] = 0;
-		header[0x18] = 0x44;  // samples per sec (44100)    
-		header[0x19] = 0xAC;
+/*		header[0x18] = 0x44;  // samples per sec (44100) : AC44,
+		header[0x19] = 0xAC;*/
+        header[0x18] = 0x80;  // samplerate: 48000 : BB80 //radu
+        header[0x19] = 0xBB;
 		header[0x1A] = 0; 
 		header[0x1B] = 0;
 		header[0x1C] = 0x88;  // bytes per sec (88200)

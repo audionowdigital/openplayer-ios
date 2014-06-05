@@ -351,6 +351,13 @@ dispatch_queue_t queue;
     self.connectionTerminated = YES;
     //reset the buffers
     [self resetBuffers];
+    // set the podcast size to -1 = not initialized
+    self.podcastSize = -1;
+    // set the internal error to nil
+    self.connectionError = nil;
+    // set the download index to 0
+    self.downloadIndex = 0;
+    
 }
 
 -(void)resetBuffers{
