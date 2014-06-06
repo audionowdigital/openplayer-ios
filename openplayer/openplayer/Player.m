@@ -27,6 +27,7 @@
 
 @implementation Player
 
+
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
     if (self = [super init]) {
@@ -217,10 +218,42 @@
     
     NSLog(@"Write %d from opusPlayer", amount);
 
+    NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
+    FILE *f3 = fopen([file3 UTF8String], "ab");
+    fwrite(pcmData, 2, amount, f3);
+    fclose(f3);
+
+    
     _player = [[AVBufferPlayer alloc] initWithBuffer:pcmData frames:amount];
     
     [_player play];
+    return;
     
+    // copy incoming audio data to temporary buffer
+    UInt32 size = min(amount, [iosAudio tempBuffer].mDataByteSize); // dont copy more data then we have, or then fits
+    NSLog(@"Buf %d from opusPlayer", [iosAudio tempBuffer].mDataByteSize);
+
+	//memcpy([iosAudio tempBuffer].mData, pcmData, size);
+    
+    if (srcbuffer == nil ) {
+        srcbuffer = (short *) malloc(amount);
+        memcpy(srcbuffer, pcmData, amount);
+        bufsize = amount;
+        
+    }
+    
+    
+    NSString *file1= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile.dat"];
+//    file	NSPathStore2 *	@"/Users/radhoo/Library/Application Support/iPhone Simulator/7.1/Applications/A645981A-EF43-4D78-B0DC-9FD40B08B801/Documents/testfile.dat"	0x09a99ef0
+    FILE *f = fopen([file1 UTF8String], "ab");
+    fwrite(pcmData, 1, amount, f);
+    fclose(f);
+
+    NSString *file2= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile2.dat"];
+    FILE *f2 = fopen([file2 UTF8String], "ab");
+    fwrite(pcmData, 2, amount, f2);
+    fclose(f2);
+    //exit(1);
     /*[_audioEngine.buffer appendBytes:pcmData length:ammount];
     
     NSLog(@"  WRITE: %d bytes to buffer -> buffer size up to %d ",ammount,_audioEngine.buffer.length);

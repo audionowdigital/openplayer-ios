@@ -84,6 +84,14 @@
 		{
 			payload[t] = buffer[t] ;
 		}
+        
+        
+        NSString *file1= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile5.dat"];
+        FILE *f = fopen([file1 UTF8String], "ab");
+        fwrite(buffer, 2, frames, f);
+        fclose(f);
+        
+        
 
 		// Put everything in an NSData object.
 		NSData *data = [[NSData alloc] initWithBytesNoCopy:wavBuffer length:wavSize];

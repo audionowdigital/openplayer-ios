@@ -1,18 +1,21 @@
 //
-//  IosAudioController.m
-//  Aruts
+//  AudioController.m
+//  OpenPlayer
 //
-//  Created by Simon Epskamp on 10/11/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Created by Radu Motisan on 06/06/14.
+//  Copyright (c) 2014 Audio Now Digital. All rights reserved.
 //
 
 #import "AudioController.h"
 #import <AudioToolbox/AudioToolbox.h>
 
 #define kOutputBus 0
-#define kInputBus 1
+
 
 AudioController* iosAudio;
+short *srcbuffer = nil;
+long bufsize;
+long bufreadpos;
 
 void checkStatus(int ids, int status){
 	if (status) {
@@ -34,26 +37,53 @@ static OSStatus playbackCallback(void *inRefCon,
     // Notes: ioData contains buffers (may be more than one!)
     // Fill them up as much as you can. Remember to set the size value in each buffer to match how
     // much data is in the buffer.
-	NSLog(@"Give me data!");
-	for (int i=0; i < ioData->mNumberBuffers; i++) { // in practice we will only ever have 1 buffer, since audio format is mono
-		AudioBuffer buffer = ioData->mBuffers[i];
+	NSLog(@"Give me data! Buffers:%d Frames:%d", (unsigned int)ioData->mNumberBuffers, inNumberFrames);
+	/*for (int i=0; i < ioData->mNumberBuffers; i++) { // in practice we will only ever have 1 buffer, since audio format is mono
+		AudioBuffer bufferdest = ioData->mBuffers[i];
 		
 //		NSLog(@"  Buffer %d has %d channels and wants %d bytes of data.", i, buffer.mNumberChannels, buffer.mDataByteSize);
 		
-		// copy temporary buffer dat2a to output buffer
-		UInt32 size = min(buffer.mDataByteSize, [iosAudio tempBuffer].mDataByteSize); // dont copy more data then we have, or then fits
-		memcpy(buffer.mData, [iosAudio tempBuffer].mData, size);
-		buffer.mDataByteSize = size; // indicate how much data we wrote in the buffer
-		
+		UInt32 size = min(bufferdest.mDataByteSize, bufsize); // dont copy more data then we have, or then
+        
+        if (buffer!=nil && bufsize > 0) {
+            memcpy(bufferdest.mData, buffer, size);
+            //buffer.mDataByteSize = size; // indicate how much data we wrote in the buffer
+            //[io sAudio getBuffer].mDataByteSize = 0;
+            
+            
+            NSString *file= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile4.dat"];
+            FILE *f = fopen([file UTF8String], "ab");
+            fwrite(buffer, 2, bufsize, f);
+            fclose(f);
+            bufsize = 0;
+            
+            free(buffer);
+            buffer = nil;
+            
+        }*/
+    if (srcbuffer!=nil && bufsize > 0) {
+        AudioBuffer buffer = ioData->mBuffers[0]; //mono/?
+        UInt32 size = min(inNumberFrames, bufsize); // dont copy more data then we have, or then
+        
+        UInt16 *frameBuffer = buffer.mData;
+        for (int j = 0; j < inNumberFrames; j++) {
+            frameBuffer[j] = srcbuffer[j];
+            ;
+        }
+        bufsize = 0;
+        
+        free(srcbuffer);
+        srcbuffer = nil;
+    }
+  
+    
 		// uncomment to hear random noise
-		/*
-		UInt16 *frameBuffer = buffer.mData;
+		
+		/*UInt16 *frameBuffer = buffer.mData;
 		for (int j = 0; j < inNumberFrames; j++) {
 			frameBuffer[j] = rand();
-		}
-		*/
-		
-	}
+		}*/
+	
 	
     return noErr;
 }
@@ -62,103 +92,99 @@ static OSStatus playbackCallback(void *inRefCon,
 
 @synthesize audioUnit, tempBuffer;
 
+- (AudioBuffer)getBuffer {
+    return tempBuffer;
+}
+
 /**
  Initialize the audioUnit and allocate our own temporary buffer.
  The temporary buffer will hold the latest data coming in from the microphone,
  and will be copied to the output when this is requested.
  */
 - (id) init {
-	self = [super init];
-	
-	OSStatus status;
-	
-	// Describe audio component
-	AudioComponentDescription desc;
-	desc.componentType = kAudioUnitType_Output;
-	desc.componentSubType = kAudioUnitSubType_RemoteIO;
-	desc.componentFlags = 0;
-	desc.componentFlagsMask = 0;
-	desc.componentManufacturer = kAudioUnitManufacturer_Apple;
-	
-	// Get component
-	AudioComponent inputComponent = AudioComponentFindNext(NULL, &desc);
-	
-	// Get audio units
-	status = AudioComponentInstanceNew(inputComponent, &audioUnit);
-	checkStatus(1,status);
-	
-	UInt32 flag = 1;
-	// Enable IO for playback
-	status = AudioUnitSetProperty(audioUnit, 
-								  kAudioOutputUnitProperty_EnableIO, 
-								  kAudioUnitScope_Output, 
-								  kOutputBus,
-								  &flag, 
-								  sizeof(flag));
-	checkStatus(2,status);
-	
-	// Describe format
-	AudioStreamBasicDescription audioFormat;
-	audioFormat.mSampleRate			= 44100.00;
-	audioFormat.mFormatID			= kAudioFormatLinearPCM;
-	audioFormat.mFormatFlags		= kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-	audioFormat.mFramesPerPacket	= 1;
-	audioFormat.mChannelsPerFrame	= 2;
-	audioFormat.mBitsPerChannel		= 16;
-	audioFormat.mBytesPerPacket		= 2;
-	audioFormat.mBytesPerFrame		= 2;
-	
-	// Apply format
-	status = AudioUnitSetProperty(audioUnit, 
-								  kAudioUnitProperty_StreamFormat, 
-								  kAudioUnitScope_Output, 
-								  kInputBus, 
-								  &audioFormat, 
-								  sizeof(audioFormat));
-	checkStatus(3,status);
-	
-	// Set output callback
-    AURenderCallbackStruct callbackStruct;
-	
-	callbackStruct.inputProc = playbackCallback;
-	callbackStruct.inputProcRefCon = NULL;(__bridge void *)(self);
-	status = AudioUnitSetProperty(audioUnit, 
-								  kAudioUnitProperty_SetRenderCallback, 
-								  kAudioUnitScope_Global, 
-								  kOutputBus,
-								  &callbackStruct, 
-								  sizeof(callbackStruct));
-	checkStatus(4,status);
-	
-	
-	// Allocate our own buffers (2 channel, 16 bits per sample, thus 16 bits per frame, thus 2 bytes per frame).
+    self = [super init];
+    // Configure the search parameters to find the default playback output unit
+    // (called the kAudioUnitSubType_RemoteIO on iOS but
+    // kAudioUnitSubType_DefaultOutput on Mac OS X)
+    AudioComponentDescription defaultOutputDescription;
+    defaultOutputDescription.componentType = kAudioUnitType_Output;
+    defaultOutputDescription.componentSubType = kAudioUnitSubType_RemoteIO;
+    defaultOutputDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
+    defaultOutputDescription.componentFlags = 0;
+    defaultOutputDescription.componentFlagsMask = 0;
+    
+    // Get the default playback output unit
+    AudioComponent defaultOutput = AudioComponentFindNext(NULL, &defaultOutputDescription);
+    NSAssert(defaultOutput, @"Can't find default output");
+    
+    // Create a new unit based on this that we'll use for output
+    OSErr err = AudioComponentInstanceNew(defaultOutput, &audioUnit);
+    NSAssert1(audioUnit, @"Error creating unit: %ld", err);
+    
+    // Set our tone rendering function on the unit
+    AURenderCallbackStruct input;
+    input.inputProc = playbackCallback;
+    input.inputProcRefCon = (__bridge void *)(self);
+    err = AudioUnitSetProperty(audioUnit,
+                               kAudioUnitProperty_SetRenderCallback,
+                               kAudioUnitScope_Input,
+                               0,
+                               &input,
+                               sizeof(input));
+    NSAssert1(err == noErr, @"Error setting callback: %ld", err);
+    
+    // Set the format to 32 bit, single channel, floating point, linear PCM
+    const int four_bytes_per_float = 4;
+    const int eight_bits_per_byte = 8;
+    AudioStreamBasicDescription streamFormat;
+    streamFormat.mSampleRate = 44100;
+    streamFormat.mFormatID = kAudioFormatLinearPCM;
+    streamFormat.mFormatFlags =
+    kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+ //   kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
+    streamFormat.mBytesPerPacket = 2;//four_bytes_per_float;
+    streamFormat.mFramesPerPacket = 1;
+    streamFormat.mBytesPerFrame = 2;//four_bytes_per_float;
+    streamFormat.mChannelsPerFrame = 1;
+    streamFormat.mBitsPerChannel = 16;//four_bytes_per_float * eight_bits_per_byte;
+    err = AudioUnitSetProperty (audioUnit,
+                                kAudioUnitProperty_StreamFormat,
+                                kAudioUnitScope_Input,
+                                0,
+                                &streamFormat,
+                                sizeof(AudioStreamBasicDescription));
+    NSAssert1(err == noErr, @"Error setting stream format: %ld", err);
+    
+    // Allocate our own buffers (1 channel, 16 bits per sample, thus 16 bits per frame, thus 2 bytes per frame).
 	// Practice learns the buffers used contain 512 frames, if this changes it will be fixed in processAudio.
-	tempBuffer.mNumberChannels = 1;
-	tempBuffer.mDataByteSize = 512 * 2;
-	tempBuffer.mData = malloc( 512 * 2 );
+	tempBuffer.mNumberChannels = 2;
+	tempBuffer.mDataByteSize = 1024 * 2;
+	tempBuffer.mData = malloc( 1024 * 2 );
 	
-	// Initialise
-	status = AudioUnitInitialize(audioUnit);
-	checkStatus(5,status);
-	
-	return self;
+    
+    return self;
 }
 
-/**
- Start the audioUnit. requested for feeding to the speakers, by
- use of the provided callbacks.
- */
+// Start the audioUnit. requested for feeding to the speakers, by use of the provided callbacks.
 - (void) start {
+    // Finalize parameters on the unit
+    OSErr err = AudioUnitInitialize(audioUnit);
+    NSAssert1(err == noErr, @"Error initializing unit: %ld", err);
+    
 	OSStatus status = AudioOutputUnitStart(audioUnit);
 	checkStatus(6,status);
 }
 
-/**
- Stop the audioUnit
- */
+// Stop the audioUnit
 - (void) stop {
-	OSStatus status = AudioOutputUnitStop(audioUnit);
-	checkStatus(7,status);
+	//OSStatus status = AudioOutputUnitStop(audioUnit);
+	//checkStatus(7,status);
+    
+    // Tear it down in reverse
+    AudioOutputUnitStop(audioUnit);
+    AudioUnitUninitialize(audioUnit);
+    AudioComponentInstanceDispose(audioUnit);
+    audioUnit = nil;
 }
 
 /**

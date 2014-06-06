@@ -43,7 +43,7 @@ typedef enum decode_status{
     //AudioEngine *_audioEngine;
     AVBufferPlayer *_player;
     //Novocaine *audioManager;
-    AudioController *iosAudio;
+    //AudioController *iosAudio;
     
     long _streamSize;
     NSTimeInterval _streamLength;       // seconds
