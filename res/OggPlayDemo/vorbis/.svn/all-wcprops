@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/svn/!svn/ver/3/trunk/vorbis
+END
+vorbis.m
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/3/trunk/vorbis/vorbis.m
+END
+PASoundSource.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/3/trunk/vorbis/PASoundSource.h
+END
+PASoundListener.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/3/trunk/vorbis/PASoundListener.h
+END
+PASoundMgr.h
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/3/trunk/vorbis/PASoundMgr.h
+END
+PASoundSource.m
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/3/trunk/vorbis/PASoundSource.m
+END
+MyOpenALSupport.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/3/trunk/vorbis/MyOpenALSupport.h
+END
+vorbis-Prefix.pch
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/3/trunk/vorbis/vorbis-Prefix.pch
+END
+PASoundListener.m
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/3/trunk/vorbis/PASoundListener.m
+END
+PASoundMgr.m
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/3/trunk/vorbis/PASoundMgr.m
+END
+vorbis.h
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/3/trunk/vorbis/vorbis.h
+END
+trance-loop.ogg
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/3/trunk/vorbis/trance-loop.ogg
+END

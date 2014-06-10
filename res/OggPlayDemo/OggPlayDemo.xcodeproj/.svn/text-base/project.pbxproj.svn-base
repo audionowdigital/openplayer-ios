@@ -1,0 +1,596 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DEB8104153C41CA007527C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEB8103153C41CA007527C3 /* UIKit.framework */; };
+		1DEB8106153C41CA007527C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEB8105153C41CA007527C3 /* Foundation.framework */; };
+		1DEB8108153C41CA007527C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEB8107153C41CA007527C3 /* CoreGraphics.framework */; };
+		1DEB810E153C41CA007527C3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1DEB810C153C41CA007527C3 /* InfoPlist.strings */; };
+		1DEB8110153C41CA007527C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB810F153C41CA007527C3 /* main.m */; };
+		1DEB8114153C41CA007527C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8113153C41CA007527C3 /* AppDelegate.m */; };
+		1DEB8117153C41CA007527C3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8116153C41CA007527C3 /* ViewController.m */; };
+		1DEB811A153C41CA007527C3 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DEB8118153C41CA007527C3 /* ViewController_iPhone.xib */; };
+		1DEB811D153C41CA007527C3 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DEB811B153C41CA007527C3 /* ViewController_iPad.xib */; };
+		1DEB8152153C4432007527C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEB8105153C41CA007527C3 /* Foundation.framework */; };
+		1DEB815C153C4577007527C3 /* bitwise.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8127153C42AD007527C3 /* bitwise.c */; };
+		1DEB815D153C4577007527C3 /* block.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8128153C42AD007527C3 /* block.c */; };
+		1DEB815E153C4577007527C3 /* codebook.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB812B153C42AD007527C3 /* codebook.c */; };
+		1DEB815F153C4577007527C3 /* floor0.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8131153C42AD007527C3 /* floor0.c */; };
+		1DEB8160153C4577007527C3 /* floor1.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8132153C42AD007527C3 /* floor1.c */; };
+		1DEB8161153C4577007527C3 /* framing.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8133153C42AD007527C3 /* framing.c */; };
+		1DEB8162153C4577007527C3 /* info.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8134153C42AD007527C3 /* info.c */; };
+		1DEB8163153C4577007527C3 /* ivorbisfile_example.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8136153C42AD007527C3 /* ivorbisfile_example.c */; };
+		1DEB8164153C4577007527C3 /* mapping0.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB813A153C42AD007527C3 /* mapping0.c */; };
+		1DEB8165153C4577007527C3 /* mdct.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB813C153C42AD007527C3 /* mdct.c */; };
+		1DEB8166153C4577007527C3 /* registry.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8143153C42AD007527C3 /* registry.c */; };
+		1DEB8167153C4577007527C3 /* res012.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8145153C42AD007527C3 /* res012.c */; };
+		1DEB8168153C4577007527C3 /* sharedbook.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8146153C42AD007527C3 /* sharedbook.c */; };
+		1DEB8169153C4577007527C3 /* synthesis.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8147153C42AD007527C3 /* synthesis.c */; };
+		1DEB816A153C4577007527C3 /* vorbisfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB8149153C42AD007527C3 /* vorbisfile.c */; };
+		1DEB816B153C4577007527C3 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB814B153C42AD007527C3 /* window.c */; };
+		1DEB816C153C4590007527C3 /* asm_arm.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8124153C42AD007527C3 /* asm_arm.h */; };
+		1DEB816D153C4590007527C3 /* backends.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8126153C42AD007527C3 /* backends.h */; };
+		1DEB816E153C4590007527C3 /* block.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8129153C42AD007527C3 /* block.h */; };
+		1DEB816F153C4590007527C3 /* codebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB812C153C42AD007527C3 /* codebook.h */; };
+		1DEB8170153C4590007527C3 /* codec_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB812D153C42AD007527C3 /* codec_internal.h */; };
+		1DEB8171153C4590007527C3 /* config_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB812E153C42AD007527C3 /* config_types.h */; };
+		1DEB8172153C4590007527C3 /* ivorbiscodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8135153C42AD007527C3 /* ivorbiscodec.h */; };
+		1DEB8173153C4590007527C3 /* ivorbisfile.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8137153C42AD007527C3 /* ivorbisfile.h */; };
+		1DEB8174153C4590007527C3 /* lsp_lookup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8138153C42AD007527C3 /* lsp_lookup.h */; };
+		1DEB8175153C4590007527C3 /* mdct_lookup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB813B153C42AD007527C3 /* mdct_lookup.h */; };
+		1DEB8176153C4590007527C3 /* mdct.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB813D153C42AD007527C3 /* mdct.h */; };
+		1DEB8177153C4590007527C3 /* misc.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB813E153C42AD007527C3 /* misc.h */; };
+		1DEB8178153C4590007527C3 /* ogg.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB813F153C42AD007527C3 /* ogg.h */; };
+		1DEB8179153C4590007527C3 /* os_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8140153C42AD007527C3 /* os_types.h */; };
+		1DEB817A153C4590007527C3 /* os.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8141153C42AD007527C3 /* os.h */; };
+		1DEB817B153C4590007527C3 /* registry.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB8144153C42AD007527C3 /* registry.h */; };
+		1DEB817C153C4590007527C3 /* window_lookup.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB814A153C42AD007527C3 /* window_lookup.h */; };
+		1DEB817D153C4590007527C3 /* window.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB814C153C42AD007527C3 /* window.h */; };
+		1DEB8192153C498C007527C3 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEB8191153C498B007527C3 /* OpenAL.framework */; };
+		1DEB8193153C49A5007527C3 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEB8151153C4432007527C3 /* libvorbis.a */; };
+		1DEB8197153C49FE007527C3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DEB8196153C49FE007527C3 /* AudioToolbox.framework */; };
+		1DEB8199153C4C01007527C3 /* trance-loop.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 1DEB8198153C4BFE007527C3 /* trance-loop.ogg */; };
+		1DEB81A1153C4D67007527C3 /* PASoundListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB819C153C4D67007527C3 /* PASoundListener.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1DEB81A2153C4D67007527C3 /* PASoundMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB819E153C4D67007527C3 /* PASoundMgr.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1DEB81A3153C4D67007527C3 /* PASoundSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB81A0153C4D67007527C3 /* PASoundSource.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1DEB81A5153C4DDC007527C3 /* vorbis-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB81A4153C4DDC007527C3 /* vorbis-Prefix.pch */; };
+		1DEB81A9153C4E1A007527C3 /* vorbis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEB81A7153C4E1A007527C3 /* vorbis.h */; };
+		1DEB81AA153C4E1A007527C3 /* vorbis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DEB81A8153C4E1A007527C3 /* vorbis.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1DEB80FF153C41CA007527C3 /* OggPlayDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OggPlayDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DEB8103153C41CA007527C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1DEB8105153C41CA007527C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1DEB8107153C41CA007527C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1DEB810B153C41CA007527C3 /* OggPlayDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OggPlayDemo-Info.plist"; sourceTree = "<group>"; };
+		1DEB810D153C41CA007527C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1DEB810F153C41CA007527C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1DEB8111153C41CA007527C3 /* OggPlayDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OggPlayDemo-Prefix.pch"; sourceTree = "<group>"; };
+		1DEB8112153C41CA007527C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1DEB8113153C41CA007527C3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1DEB8115153C41CA007527C3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1DEB8116153C41CA007527C3 /* ViewController.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; tabWidth = 4; };
+		1DEB8119153C41CA007527C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		1DEB811C153C41CA007527C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		1DEB8124153C42AD007527C3 /* asm_arm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = asm_arm.h; path = Tremor/asm_arm.h; sourceTree = "<group>"; };
+		1DEB8125153C42AD007527C3 /* autogen.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = autogen.sh; path = Tremor/autogen.sh; sourceTree = "<group>"; };
+		1DEB8126153C42AD007527C3 /* backends.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = backends.h; path = Tremor/backends.h; sourceTree = "<group>"; };
+		1DEB8127153C42AD007527C3 /* bitwise.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bitwise.c; path = Tremor/bitwise.c; sourceTree = "<group>"; };
+		1DEB8128153C42AD007527C3 /* block.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = block.c; path = Tremor/block.c; sourceTree = "<group>"; };
+		1DEB8129153C42AD007527C3 /* block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = block.h; path = Tremor/block.h; sourceTree = "<group>"; };
+		1DEB812A153C42AD007527C3 /* CHANGELOG */ = {isa = PBXFileReference; lastKnownFileType = text; name = CHANGELOG; path = Tremor/CHANGELOG; sourceTree = "<group>"; };
+		1DEB812B153C42AD007527C3 /* codebook.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = codebook.c; path = Tremor/codebook.c; sourceTree = "<group>"; };
+		1DEB812C153C42AD007527C3 /* codebook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = codebook.h; path = Tremor/codebook.h; sourceTree = "<group>"; };
+		1DEB812D153C42AD007527C3 /* codec_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = codec_internal.h; path = Tremor/codec_internal.h; sourceTree = "<group>"; };
+		1DEB812E153C42AD007527C3 /* config_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config_types.h; path = Tremor/config_types.h; sourceTree = "<group>"; };
+		1DEB812F153C42AD007527C3 /* configure.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = configure.in; path = Tremor/configure.in; sourceTree = "<group>"; };
+		1DEB8130153C42AD007527C3 /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; name = COPYING; path = Tremor/COPYING; sourceTree = "<group>"; };
+		1DEB8131153C42AD007527C3 /* floor0.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = floor0.c; path = Tremor/floor0.c; sourceTree = "<group>"; };
+		1DEB8132153C42AD007527C3 /* floor1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = floor1.c; path = Tremor/floor1.c; sourceTree = "<group>"; };
+		1DEB8133153C42AD007527C3 /* framing.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = framing.c; path = Tremor/framing.c; sourceTree = "<group>"; };
+		1DEB8134153C42AD007527C3 /* info.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = info.c; path = Tremor/info.c; sourceTree = "<group>"; };
+		1DEB8135153C42AD007527C3 /* ivorbiscodec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ivorbiscodec.h; path = Tremor/ivorbiscodec.h; sourceTree = "<group>"; };
+		1DEB8136153C42AD007527C3 /* ivorbisfile_example.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ivorbisfile_example.c; path = Tremor/ivorbisfile_example.c; sourceTree = "<group>"; };
+		1DEB8137153C42AD007527C3 /* ivorbisfile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ivorbisfile.h; path = Tremor/ivorbisfile.h; sourceTree = "<group>"; };
+		1DEB8138153C42AD007527C3 /* lsp_lookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = lsp_lookup.h; path = Tremor/lsp_lookup.h; sourceTree = "<group>"; };
+		1DEB8139153C42AD007527C3 /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; name = Makefile.am; path = Tremor/Makefile.am; sourceTree = "<group>"; };
+		1DEB813A153C42AD007527C3 /* mapping0.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mapping0.c; path = Tremor/mapping0.c; sourceTree = "<group>"; };
+		1DEB813B153C42AD007527C3 /* mdct_lookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mdct_lookup.h; path = Tremor/mdct_lookup.h; sourceTree = "<group>"; };
+		1DEB813C153C42AD007527C3 /* mdct.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mdct.c; path = Tremor/mdct.c; sourceTree = "<group>"; };
+		1DEB813D153C42AD007527C3 /* mdct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mdct.h; path = Tremor/mdct.h; sourceTree = "<group>"; };
+		1DEB813E153C42AD007527C3 /* misc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = misc.h; path = Tremor/misc.h; sourceTree = "<group>"; };
+		1DEB813F153C42AD007527C3 /* ogg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ogg.h; path = Tremor/ogg.h; sourceTree = "<group>"; };
+		1DEB8140153C42AD007527C3 /* os_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = os_types.h; path = Tremor/os_types.h; sourceTree = "<group>"; };
+		1DEB8141153C42AD007527C3 /* os.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = os.h; path = Tremor/os.h; sourceTree = "<group>"; };
+		1DEB8142153C42AD007527C3 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = Tremor/README; sourceTree = "<group>"; };
+		1DEB8143153C42AD007527C3 /* registry.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = registry.c; path = Tremor/registry.c; sourceTree = "<group>"; };
+		1DEB8144153C42AD007527C3 /* registry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = registry.h; path = Tremor/registry.h; sourceTree = "<group>"; };
+		1DEB8145153C42AD007527C3 /* res012.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = res012.c; path = Tremor/res012.c; sourceTree = "<group>"; };
+		1DEB8146153C42AD007527C3 /* sharedbook.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sharedbook.c; path = Tremor/sharedbook.c; sourceTree = "<group>"; };
+		1DEB8147153C42AD007527C3 /* synthesis.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = synthesis.c; path = Tremor/synthesis.c; sourceTree = "<group>"; };
+		1DEB8148153C42AD007527C3 /* Version_script.in */ = {isa = PBXFileReference; lastKnownFileType = text; name = Version_script.in; path = Tremor/Version_script.in; sourceTree = "<group>"; };
+		1DEB8149153C42AD007527C3 /* vorbisfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = vorbisfile.c; path = Tremor/vorbisfile.c; sourceTree = "<group>"; };
+		1DEB814A153C42AD007527C3 /* window_lookup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = window_lookup.h; path = Tremor/window_lookup.h; sourceTree = "<group>"; };
+		1DEB814B153C42AD007527C3 /* window.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = window.c; path = Tremor/window.c; sourceTree = "<group>"; };
+		1DEB814C153C42AD007527C3 /* window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = window.h; path = Tremor/window.h; sourceTree = "<group>"; };
+		1DEB8151153C4432007527C3 /* libvorbis.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvorbis.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DEB8191153C498B007527C3 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		1DEB8196153C49FE007527C3 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1DEB8198153C4BFE007527C3 /* trance-loop.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = "trance-loop.ogg"; sourceTree = "<group>"; };
+		1DEB819A153C4D67007527C3 /* MyOpenALSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyOpenALSupport.h; sourceTree = "<group>"; };
+		1DEB819B153C4D67007527C3 /* PASoundListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PASoundListener.h; sourceTree = "<group>"; };
+		1DEB819C153C4D67007527C3 /* PASoundListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PASoundListener.m; sourceTree = "<group>"; };
+		1DEB819D153C4D67007527C3 /* PASoundMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PASoundMgr.h; sourceTree = "<group>"; };
+		1DEB819E153C4D67007527C3 /* PASoundMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PASoundMgr.m; sourceTree = "<group>"; };
+		1DEB819F153C4D67007527C3 /* PASoundSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PASoundSource.h; sourceTree = "<group>"; };
+		1DEB81A0153C4D67007527C3 /* PASoundSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PASoundSource.m; sourceTree = "<group>"; };
+		1DEB81A4153C4DDC007527C3 /* vorbis-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "vorbis-Prefix.pch"; sourceTree = "<group>"; };
+		1DEB81A7153C4E1A007527C3 /* vorbis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vorbis.h; sourceTree = "<group>"; };
+		1DEB81A8153C4E1A007527C3 /* vorbis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vorbis.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1DEB80FC153C41CA007527C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DEB8197153C49FE007527C3 /* AudioToolbox.framework in Frameworks */,
+				1DEB8193153C49A5007527C3 /* libvorbis.a in Frameworks */,
+				1DEB8192153C498C007527C3 /* OpenAL.framework in Frameworks */,
+				1DEB8104153C41CA007527C3 /* UIKit.framework in Frameworks */,
+				1DEB8106153C41CA007527C3 /* Foundation.framework in Frameworks */,
+				1DEB8108153C41CA007527C3 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DEB814E153C4432007527C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DEB8152153C4432007527C3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1DEB80F4153C41C9007527C3 = {
+			isa = PBXGroup;
+			children = (
+				1DEB8109153C41CA007527C3 /* OggPlayDemo */,
+				1DEB8123153C4296007527C3 /* Tremor */,
+				1DEB8153153C4432007527C3 /* vorbis */,
+				1DEB8102153C41CA007527C3 /* Frameworks */,
+				1DEB8100153C41CA007527C3 /* Products */,
+			);
+			indentWidth = 4;
+			sourceTree = "<group>";
+			tabWidth = 4;
+		};
+		1DEB8100153C41CA007527C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1DEB80FF153C41CA007527C3 /* OggPlayDemo.app */,
+				1DEB8151153C4432007527C3 /* libvorbis.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1DEB8102153C41CA007527C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DEB8191153C498B007527C3 /* OpenAL.framework */,
+				1DEB8196153C49FE007527C3 /* AudioToolbox.framework */,
+				1DEB8103153C41CA007527C3 /* UIKit.framework */,
+				1DEB8105153C41CA007527C3 /* Foundation.framework */,
+				1DEB8107153C41CA007527C3 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1DEB8109153C41CA007527C3 /* OggPlayDemo */ = {
+			isa = PBXGroup;
+			children = (
+				1DEB8112153C41CA007527C3 /* AppDelegate.h */,
+				1DEB8113153C41CA007527C3 /* AppDelegate.m */,
+				1DEB8115153C41CA007527C3 /* ViewController.h */,
+				1DEB8116153C41CA007527C3 /* ViewController.m */,
+				1DEB8118153C41CA007527C3 /* ViewController_iPhone.xib */,
+				1DEB811B153C41CA007527C3 /* ViewController_iPad.xib */,
+				1DEB810A153C41CA007527C3 /* Supporting Files */,
+			);
+			path = OggPlayDemo;
+			sourceTree = "<group>";
+		};
+		1DEB810A153C41CA007527C3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1DEB810B153C41CA007527C3 /* OggPlayDemo-Info.plist */,
+				1DEB810C153C41CA007527C3 /* InfoPlist.strings */,
+				1DEB810F153C41CA007527C3 /* main.m */,
+				1DEB8111153C41CA007527C3 /* OggPlayDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1DEB8123153C4296007527C3 /* Tremor */ = {
+			isa = PBXGroup;
+			children = (
+				1DEB8124153C42AD007527C3 /* asm_arm.h */,
+				1DEB8125153C42AD007527C3 /* autogen.sh */,
+				1DEB8126153C42AD007527C3 /* backends.h */,
+				1DEB8127153C42AD007527C3 /* bitwise.c */,
+				1DEB8128153C42AD007527C3 /* block.c */,
+				1DEB8129153C42AD007527C3 /* block.h */,
+				1DEB812A153C42AD007527C3 /* CHANGELOG */,
+				1DEB812B153C42AD007527C3 /* codebook.c */,
+				1DEB812C153C42AD007527C3 /* codebook.h */,
+				1DEB812D153C42AD007527C3 /* codec_internal.h */,
+				1DEB812E153C42AD007527C3 /* config_types.h */,
+				1DEB812F153C42AD007527C3 /* configure.in */,
+				1DEB8130153C42AD007527C3 /* COPYING */,
+				1DEB8131153C42AD007527C3 /* floor0.c */,
+				1DEB8132153C42AD007527C3 /* floor1.c */,
+				1DEB8133153C42AD007527C3 /* framing.c */,
+				1DEB8134153C42AD007527C3 /* info.c */,
+				1DEB8135153C42AD007527C3 /* ivorbiscodec.h */,
+				1DEB8136153C42AD007527C3 /* ivorbisfile_example.c */,
+				1DEB8137153C42AD007527C3 /* ivorbisfile.h */,
+				1DEB8138153C42AD007527C3 /* lsp_lookup.h */,
+				1DEB8139153C42AD007527C3 /* Makefile.am */,
+				1DEB813A153C42AD007527C3 /* mapping0.c */,
+				1DEB813B153C42AD007527C3 /* mdct_lookup.h */,
+				1DEB813C153C42AD007527C3 /* mdct.c */,
+				1DEB813D153C42AD007527C3 /* mdct.h */,
+				1DEB813E153C42AD007527C3 /* misc.h */,
+				1DEB813F153C42AD007527C3 /* ogg.h */,
+				1DEB8140153C42AD007527C3 /* os_types.h */,
+				1DEB8141153C42AD007527C3 /* os.h */,
+				1DEB8142153C42AD007527C3 /* README */,
+				1DEB8143153C42AD007527C3 /* registry.c */,
+				1DEB8144153C42AD007527C3 /* registry.h */,
+				1DEB8145153C42AD007527C3 /* res012.c */,
+				1DEB8146153C42AD007527C3 /* sharedbook.c */,
+				1DEB8147153C42AD007527C3 /* synthesis.c */,
+				1DEB8148153C42AD007527C3 /* Version_script.in */,
+				1DEB8149153C42AD007527C3 /* vorbisfile.c */,
+				1DEB814A153C42AD007527C3 /* window_lookup.h */,
+				1DEB814B153C42AD007527C3 /* window.c */,
+				1DEB814C153C42AD007527C3 /* window.h */,
+			);
+			name = Tremor;
+			sourceTree = "<group>";
+		};
+		1DEB8153153C4432007527C3 /* vorbis */ = {
+			isa = PBXGroup;
+			children = (
+				1DEB819A153C4D67007527C3 /* MyOpenALSupport.h */,
+				1DEB819B153C4D67007527C3 /* PASoundListener.h */,
+				1DEB819C153C4D67007527C3 /* PASoundListener.m */,
+				1DEB819D153C4D67007527C3 /* PASoundMgr.h */,
+				1DEB819E153C4D67007527C3 /* PASoundMgr.m */,
+				1DEB819F153C4D67007527C3 /* PASoundSource.h */,
+				1DEB81A0153C4D67007527C3 /* PASoundSource.m */,
+				1DEB8198153C4BFE007527C3 /* trance-loop.ogg */,
+				1DEB81A6153C4E03007527C3 /* LibraryFiles */,
+			);
+			path = vorbis;
+			sourceTree = "<group>";
+		};
+		1DEB81A6153C4E03007527C3 /* LibraryFiles */ = {
+			isa = PBXGroup;
+			children = (
+				1DEB81A7153C4E1A007527C3 /* vorbis.h */,
+				1DEB81A8153C4E1A007527C3 /* vorbis.m */,
+				1DEB81A4153C4DDC007527C3 /* vorbis-Prefix.pch */,
+			);
+			name = LibraryFiles;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1DEB814F153C4432007527C3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DEB816C153C4590007527C3 /* asm_arm.h in Headers */,
+				1DEB816D153C4590007527C3 /* backends.h in Headers */,
+				1DEB816E153C4590007527C3 /* block.h in Headers */,
+				1DEB816F153C4590007527C3 /* codebook.h in Headers */,
+				1DEB8170153C4590007527C3 /* codec_internal.h in Headers */,
+				1DEB8171153C4590007527C3 /* config_types.h in Headers */,
+				1DEB8172153C4590007527C3 /* ivorbiscodec.h in Headers */,
+				1DEB8173153C4590007527C3 /* ivorbisfile.h in Headers */,
+				1DEB8174153C4590007527C3 /* lsp_lookup.h in Headers */,
+				1DEB8175153C4590007527C3 /* mdct_lookup.h in Headers */,
+				1DEB8176153C4590007527C3 /* mdct.h in Headers */,
+				1DEB8177153C4590007527C3 /* misc.h in Headers */,
+				1DEB8178153C4590007527C3 /* ogg.h in Headers */,
+				1DEB8179153C4590007527C3 /* os_types.h in Headers */,
+				1DEB817A153C4590007527C3 /* os.h in Headers */,
+				1DEB817B153C4590007527C3 /* registry.h in Headers */,
+				1DEB817C153C4590007527C3 /* window_lookup.h in Headers */,
+				1DEB817D153C4590007527C3 /* window.h in Headers */,
+				1DEB81A5153C4DDC007527C3 /* vorbis-Prefix.pch in Headers */,
+				1DEB81A9153C4E1A007527C3 /* vorbis.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1DEB80FE153C41CA007527C3 /* OggPlayDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB8120153C41CA007527C3 /* Build configuration list for PBXNativeTarget "OggPlayDemo" */;
+			buildPhases = (
+				1DEB80FB153C41CA007527C3 /* Sources */,
+				1DEB80FC153C41CA007527C3 /* Frameworks */,
+				1DEB80FD153C41CA007527C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OggPlayDemo;
+			productName = OggPlayDemo;
+			productReference = 1DEB80FF153C41CA007527C3 /* OggPlayDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1DEB8150153C4432007527C3 /* vorbis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB8159153C4432007527C3 /* Build configuration list for PBXNativeTarget "vorbis" */;
+			buildPhases = (
+				1DEB814D153C4432007527C3 /* Sources */,
+				1DEB814E153C4432007527C3 /* Frameworks */,
+				1DEB814F153C4432007527C3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vorbis;
+			productName = vorbis;
+			productReference = 1DEB8151153C4432007527C3 /* libvorbis.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1DEB80F6153C41C9007527C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = COS;
+			};
+			buildConfigurationList = 1DEB80F9153C41C9007527C3 /* Build configuration list for PBXProject "OggPlayDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1DEB80F4153C41C9007527C3;
+			productRefGroup = 1DEB8100153C41CA007527C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1DEB80FE153C41CA007527C3 /* OggPlayDemo */,
+				1DEB8150153C4432007527C3 /* vorbis */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1DEB80FD153C41CA007527C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DEB810E153C41CA007527C3 /* InfoPlist.strings in Resources */,
+				1DEB811A153C41CA007527C3 /* ViewController_iPhone.xib in Resources */,
+				1DEB811D153C41CA007527C3 /* ViewController_iPad.xib in Resources */,
+				1DEB8199153C4C01007527C3 /* trance-loop.ogg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1DEB80FB153C41CA007527C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DEB8110153C41CA007527C3 /* main.m in Sources */,
+				1DEB8114153C41CA007527C3 /* AppDelegate.m in Sources */,
+				1DEB8117153C41CA007527C3 /* ViewController.m in Sources */,
+				1DEB81A1153C4D67007527C3 /* PASoundListener.m in Sources */,
+				1DEB81A2153C4D67007527C3 /* PASoundMgr.m in Sources */,
+				1DEB81A3153C4D67007527C3 /* PASoundSource.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DEB814D153C4432007527C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DEB815C153C4577007527C3 /* bitwise.c in Sources */,
+				1DEB815D153C4577007527C3 /* block.c in Sources */,
+				1DEB815E153C4577007527C3 /* codebook.c in Sources */,
+				1DEB815F153C4577007527C3 /* floor0.c in Sources */,
+				1DEB8160153C4577007527C3 /* floor1.c in Sources */,
+				1DEB8161153C4577007527C3 /* framing.c in Sources */,
+				1DEB8162153C4577007527C3 /* info.c in Sources */,
+				1DEB8163153C4577007527C3 /* ivorbisfile_example.c in Sources */,
+				1DEB8164153C4577007527C3 /* mapping0.c in Sources */,
+				1DEB8165153C4577007527C3 /* mdct.c in Sources */,
+				1DEB8166153C4577007527C3 /* registry.c in Sources */,
+				1DEB8167153C4577007527C3 /* res012.c in Sources */,
+				1DEB8168153C4577007527C3 /* sharedbook.c in Sources */,
+				1DEB8169153C4577007527C3 /* synthesis.c in Sources */,
+				1DEB816A153C4577007527C3 /* vorbisfile.c in Sources */,
+				1DEB816B153C4577007527C3 /* window.c in Sources */,
+				1DEB81AA153C4E1A007527C3 /* vorbis.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1DEB810C153C41CA007527C3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DEB810D153C41CA007527C3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DEB8118153C41CA007527C3 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DEB8119153C41CA007527C3 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		1DEB811B153C41CA007527C3 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DEB811C153C41CA007527C3 /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB811E153C41CA007527C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1DEB811F153C41CA007527C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1DEB8121153C41CA007527C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OggPlayDemo/OggPlayDemo-Prefix.pch";
+				INFOPLIST_FILE = "OggPlayDemo/OggPlayDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1DEB8122153C41CA007527C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OggPlayDemo/OggPlayDemo-Prefix.pch";
+				INFOPLIST_FILE = "OggPlayDemo/OggPlayDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1DEB815A153C4432007527C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/vorbis.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "vorbis/vorbis-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1DEB815B153C4432007527C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/vorbis.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "vorbis/vorbis-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB80F9153C41C9007527C3 /* Build configuration list for PBXProject "OggPlayDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB811E153C41CA007527C3 /* Debug */,
+				1DEB811F153C41CA007527C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB8120153C41CA007527C3 /* Build configuration list for PBXNativeTarget "OggPlayDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB8121153C41CA007527C3 /* Debug */,
+				1DEB8122153C41CA007527C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1DEB8159153C4432007527C3 /* Build configuration list for PBXNativeTarget "vorbis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB815A153C4432007527C3 /* Debug */,
+				1DEB815B153C4432007527C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1DEB80F6153C41C9007527C3 /* Project object */;
+}

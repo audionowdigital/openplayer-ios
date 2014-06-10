@@ -20,7 +20,7 @@ long bufreadpos;
 void checkStatus(int ids, int status){
 	if (status) {
 		printf("%d Status not 0! %d\n",ids, status);
-//		exit(1);
+        //exit(1);
 	}
 }
 
@@ -41,7 +41,7 @@ static OSStatus playbackCallback(void *inRefCon,
 	/*for (int i=0; i < ioData->mNumberBuffers; i++) { // in practice we will only ever have 1 buffer, since audio format is mono
 		AudioBuffer bufferdest = ioData->mBuffers[i];
 		
-//		NSLog(@"  Buffer %d has %d channels and wants %d bytes of data.", i, buffer.mNumberChannels, buffer.mDataByteSize);
+        // NSLog(@"  Buffer %d has %d channels and wants %d bytes of data.", i, buffer.mNumberChannels, buffer.mDataByteSize);
 		
 		UInt32 size = min(bufferdest.mDataByteSize, bufsize); // dont copy more data then we have, or then
         
@@ -68,7 +68,6 @@ static OSStatus playbackCallback(void *inRefCon,
         UInt16 *frameBuffer = buffer.mData;
         for (int j = 0; j < inNumberFrames; j++) {
             frameBuffer[j] = srcbuffer[j];
-            ;
         }
         bufsize = 0;
         
@@ -76,14 +75,14 @@ static OSStatus playbackCallback(void *inRefCon,
         srcbuffer = nil;
     }
   
-    
-		// uncomment to hear random noise
-		
-		/*UInt16 *frameBuffer = buffer.mData;
-		for (int j = 0; j < inNumberFrames; j++) {
-			frameBuffer[j] = rand();
-		}*/
+   
+	// uncomment to hear random noise
 	
+	/*UInt16 *frameBuffer = buffer.mData;
+	for (int j = 0; j < inNumberFrames; j++) {
+		frameBuffer[j] = rand();
+	}*/
+
 	
     return noErr;
 }
@@ -153,6 +152,12 @@ static OSStatus playbackCallback(void *inRefCon,
                                 0,
                                 &streamFormat,
                                 sizeof(AudioStreamBasicDescription));
+    
+    // set preferred buffer size
+    //Float32 preferredBufferSize = .04; // in seconds
+    //err = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, sizeof(preferredBufferSize), &preferredBufferSize);
+
+    
     NSAssert1(err == noErr, @"Error setting stream format: %ld", err);
     
     // Allocate our own buffers (1 channel, 16 bits per sample, thus 16 bits per frame, thus 2 bytes per frame).
@@ -193,13 +198,11 @@ static OSStatus playbackCallback(void *inRefCon,
  Right now we copy it to our own temporary buffer.
  */
 
-	// copy incoming audio data to temporary buffer
+// copy incoming audio data to temporary buffer
 //	memcpy(tempBuffer.mData, bufferList->mBuffers[0].mData, bufferList->mBuffers[0].mDataByteSize);
 
 
-/**
- Clean up.
- */
+// Clean up.
 - (void) dealloc {
 	//[super	dealloc];
 	AudioUnitUninitialize(audioUnit);

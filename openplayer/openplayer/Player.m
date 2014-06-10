@@ -167,8 +167,8 @@
         NSError *error = nil;
         //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
         
+        // florin: aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
         iosAudio = [[AudioController alloc] init];
-        
         [iosAudio start];
         
         if (error != nil) {
@@ -218,16 +218,16 @@
     
     NSLog(@"Write %d from opusPlayer", amount);
 
-    NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
+    /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
     FILE *f3 = fopen([file3 UTF8String], "ab");
     fwrite(pcmData, 2, amount, f3);
-    fclose(f3);
+    fclose(f3);*/
 
     
-    _player = [[AVBufferPlayer alloc] initWithBuffer:pcmData frames:amount];
+    //_player = [[AVBufferPlayer alloc] initWithBuffer:pcmData frames:amount];
     
-    [_player play];
-    return;
+    //[_player play];
+    //return;
     
     // copy incoming audio data to temporary buffer
     UInt32 size = min(amount, [iosAudio tempBuffer].mDataByteSize); // dont copy more data then we have, or then fits
