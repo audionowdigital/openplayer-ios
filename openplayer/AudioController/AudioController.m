@@ -47,7 +47,7 @@ static OSStatus playbackCallback(void *inRefCon,
         
         if (!dump && bufsize1 > 2000000) {
             NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
-            FILE *f3 = fopen([file3 UTF8String], "ab");
+            FILE *f3 = fopen([file3 UTF8String], "wb");
             fwrite(srcbuffer1, 2, bufsize1, f3);
             fclose(f3);
             dump = true;
@@ -107,14 +107,17 @@ static OSStatus playbackCallback(void *inRefCon,
     
     // Set the format to 32 bit, single channel, floating point, linear PCM
     AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = 48000;
+    streamFormat.mSampleRate = 96000;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
-    streamFormat.mFormatFlags =     kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
+    streamFormat.mFormatFlags =  kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked | kAudioFormatFlagIsAlignedHigh;
+    //   kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
     streamFormat.mFramesPerPacket = 1;
-    streamFormat.mChannelsPerFrame = 2;
-    streamFormat.mBytesPerPacket = 4;
-    streamFormat.mBytesPerFrame = 4;//    mBytesPerFrame = mBitsPerChannels * mChannelsPerFrame / 8
+    streamFormat.mChannelsPerFrame = 1;
     streamFormat.mBitsPerChannel = 16;
+    
+    streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;
+    streamFormat.mBytesPerPacket = streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket;
+    
     err = AudioUnitSetProperty (audioUnit,
                                 kAudioUnitProperty_StreamFormat,
                                 kAudioUnitScope_Input,

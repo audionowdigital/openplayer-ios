@@ -161,21 +161,30 @@ double lastLibraryOutputTimestamp = 0;
     NSLog(@"onStartReadingHeader");
 }
 
--(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)vendor trackTitle:(char *)title trackArtist:(char *)artist trackAlbum:(char *)album trackDate:(char *)date trackName:(char *)track
+-(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
 {
-    NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, vendor, title, artist, album, date, track);
+    NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
         //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
         
-        // florin: aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
+        // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
         iosAudio = [[AudioController alloc] init];
         [iosAudio start];
         
         if (error != nil) {
             NSLog(@" audioEngine error: %@",error);
         }
+        //TODO: if it's the first time send onStart, else send onTrackInfo
+        NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
+        NSString *ns_title = [NSString stringWithUTF8String:ptitle];
+        NSString *ns_artist = [NSString stringWithUTF8String:partist];
+        NSString *ns_album = [NSString stringWithUTF8String:palbum];
+        NSString *ns_date = [NSString stringWithUTF8String:pdate];
+        NSString *ns_track = [NSString stringWithUTF8String:ptrack];
+        [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
+        
 
     });
 }

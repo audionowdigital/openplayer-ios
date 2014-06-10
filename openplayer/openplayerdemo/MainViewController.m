@@ -50,6 +50,7 @@
     NSString *urlString = @"http://ai-radio.org:8000/radio.opus";//http://www.markosoft.ro/opus/02_Archangel.opus";//
 
     self.urlLabel.text = urlString;
+    self.infoLabel.text = @"Waiting for info";
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,20 +79,31 @@
     [player stop];
 }
 
-
+// We just got the track info
 -(void)onPlayerEvent:(PlayerEvent)event withParams:(NSDictionary *)params {
-    NSLog(@"Player event received in client.");
+    NSLog(@"Player event received in client. %d", event);
+    if (event == TRACK_INFO) {
+        NSString *vendor =  (NSString *)[params objectForKey:@"vendor"];
+        NSString *title = (NSString *)[params objectForKey:@"title"];
+        NSString *artist = (NSString *)[params objectForKey:@"artist"];
+        NSString *album = (NSString *)[params objectForKey:@"album"];
+        NSString *date = (NSString *)[params objectForKey:@"date"];
+        NSString *track = (NSString *)[params objectForKey:@"track"];
+    
+        NSLog(@"Track info: vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@",
+                                vendor, title, artist, album, date, track);
+        // only the main thread can make changes to the User Interface
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //        _infoLabel.text = @"ok";        self.infoLabel.text= @"ok";        [self infoLabel].text = @"ok";
+            self.infoLabel.text =
+            [NSString stringWithFormat:@"vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@", vendor , title , artist , album , date , track];
+        });
+
+        
+    }
+    
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

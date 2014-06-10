@@ -55,16 +55,9 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 	// global data
 	int frame_size =0;
 	OpusDecoder *st = NULL;
-	opus_int64 packet_count;
-	int stream_init = 0;
-	int eos = 0;
 	int channels = 0;
 	int rate = 0;
 	int preskip = 0;
-	int gran_offset = 0;
-	int has_opus_stream = 0;
-	ogg_int32_t opus_serialno = 0;
-	int proccessing_page = 0;
 	
 	char vendor[COMMENT_MAX_LEN] = {0};
 	char title[COMMENT_MAX_LEN] = {0};
