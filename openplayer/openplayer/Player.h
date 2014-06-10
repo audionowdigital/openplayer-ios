@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "StreamConnection.h"
-#import "AudioEngine.h"
 #import "INativeInterface.h"
 #include "PlayerEvents.h"
-#include "AVBufferPlayer.h"
 #include "AudioController.h"
 
 typedef enum player_state{
@@ -40,10 +38,6 @@ typedef enum decode_status{
     int _type;
     PlayerEvents *_playerEvents;
     StreamConnection *_streamConnection;
-    //AudioEngine *_audioEngine;
-    AVBufferPlayer *_player;
-    //Novocaine *audioManager;
-    //AudioController *iosAudio;
     
     long _streamSize;
     NSTimeInterval _streamLength;       // seconds

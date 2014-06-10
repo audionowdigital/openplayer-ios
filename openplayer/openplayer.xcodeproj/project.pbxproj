@@ -10,16 +10,11 @@
 		6226D983193C79E50060BDD4 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 		62656BE1193F665200F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE0193F665200F66F61 /* libvorbis.a */; };
 		62656BE8193F835900F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE7193F835900F66F61 /* libvorbis.a */; };
-		62656BE9193F83A900F66F61 /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
-		62656C021940C60200F66F61 /* AVBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C011940C60200F66F61 /* AVBufferPlayer.m */; };
-		62656C031940C68700F66F61 /* AVBufferPlayer.h in Sources */ = {isa = PBXBuildFile; fileRef = 62656C001940C60200F66F61 /* AVBufferPlayer.h */; };
-		62656C041940C68700F66F61 /* AVBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C011940C60200F66F61 /* AVBufferPlayer.m */; };
 		62656C0C1940D62F00F66F61 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
 		62656C0D1940D7B700F66F61 /* AudioController.h in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0A1940D62F00F66F61 /* AudioController.h */; };
 		62656C0E1940D7B700F66F61 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
 		628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
-		628CE779193E4C64009FB38C /* AudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE778193E4C64009FB38C /* AudioEngine.m */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922789B1938751C0005DB1F /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.m */; };
@@ -55,15 +50,11 @@
 		62656BE0193F665200F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbis.a; sourceTree = "<group>"; };
 		62656BE6193F7F4C00F66F61 /* VorbisDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VorbisDecoder.h; sourceTree = "<group>"; };
 		62656BE7193F835900F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = "../../../../Library/Developer/Xcode/DerivedData/openplayer-fxocuoaedisxktchfqfranxlaonq/Build/Products/Debug-iphoneos/libvorbis.a"; sourceTree = "<group>"; };
-		62656C001940C60200F66F61 /* AVBufferPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVBufferPlayer.h; sourceTree = "<group>"; };
-		62656C011940C60200F66F61 /* AVBufferPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVBufferPlayer.m; sourceTree = "<group>"; };
 		62656C0A1940D62F00F66F61 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
 		62656C0B1940D62F00F66F61 /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		628CE76C193DADC3009FB38C /* PlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEvents.h; sourceTree = "<group>"; };
 		628CE76D193DADC3009FB38C /* PlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerEvents.m; sourceTree = "<group>"; };
-		628CE777193E4C64009FB38C /* AudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEngine.h; sourceTree = "<group>"; };
-		628CE778193E4C64009FB38C /* AudioEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioEngine.m; sourceTree = "<group>"; };
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -120,15 +111,6 @@
 			path = libvorbis;
 			sourceTree = "<group>";
 		};
-		62656BFF1940C60200F66F61 /* AVBufferPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				62656C001940C60200F66F61 /* AVBufferPlayer.h */,
-				62656C011940C60200F66F61 /* AVBufferPlayer.m */,
-			);
-			path = AVBufferPlayer;
-			sourceTree = "<group>";
-		};
 		62656C091940D62F00F66F61 /* AudioController */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				62656C091940D62F00F66F61 /* AudioController */,
-				62656BFF1940C60200F66F61 /* AVBufferPlayer */,
 				627C7C88193C60D80031B485 /* libs */,
 				62BDC4931934704C00CF7520 /* openplayer */,
 				992278F41938C2060005DB1F /* openplayerdemo */,
@@ -194,8 +175,6 @@
 		62BDC4931934704C00CF7520 /* openplayer */ = {
 			isa = PBXGroup;
 			children = (
-				628CE777193E4C64009FB38C /* AudioEngine.h */,
-				628CE778193E4C64009FB38C /* AudioEngine.m */,
 				992278961938751C0005DB1F /* StreamConnection.h */,
 				992278971938751C0005DB1F /* StreamConnection.m */,
 				992278981938751C0005DB1F /* Player.h */,
@@ -312,12 +291,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				628CE779193E4C64009FB38C /* AudioEngine.m in Sources */,
 				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				62656C0C1940D62F00F66F61 /* AudioController.m in Sources */,
 				9922789B1938751C0005DB1F /* Player.m in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
-				62656C021940C60200F66F61 /* AVBufferPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,9 +304,6 @@
 			files = (
 				62656C0D1940D7B700F66F61 /* AudioController.h in Sources */,
 				62656C0E1940D7B700F66F61 /* AudioController.m in Sources */,
-				62656C031940C68700F66F61 /* AVBufferPlayer.h in Sources */,
-				62656C041940C68700F66F61 /* AVBufferPlayer.m in Sources */,
-				62656BE9193F83A900F66F61 /* AudioEngine.m in Sources */,
 				9922791A1938C2120005DB1F /* StreamConnection.m in Sources */,
 				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,
 				628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */,
@@ -484,6 +458,7 @@
 					"$(PROJECT_DIR)/Frameworks/**",
 				);
 				INFOPLIST_FILE = "openplayerdemo/openplayerdemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
@@ -508,6 +483,7 @@
 					"$(PROJECT_DIR)/Frameworks/**",
 				);
 				INFOPLIST_FILE = "openplayerdemo/openplayerdemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/libopus",
