@@ -27,6 +27,7 @@
 }
 // the queue
 dispatch_queue_t queue;
+double lastTimeStamp = 0;
 
 -(id)initWithURL:(NSURL *)url error:(NSError **)error {
 
@@ -301,7 +302,14 @@ dispatch_queue_t queue;
     // find the size of the combined buffes
     long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
     
-    //NSLog(@" - totalBufferSize :%ld",totalBuffersSize);
+    // log data
+    if (lastTimeStamp != 0) {
+        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastTimeStamp ;
+        NSLog(@" network transfer: %d bytes in %f ns",[data length],timeSpent);
+    }
+    
+    lastTimeStamp = [NSDate timeIntervalSinceReferenceDate];
+    
 
     // if the total buffer size excedes the defined max buffer size
     

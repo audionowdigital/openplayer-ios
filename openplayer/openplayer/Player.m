@@ -27,6 +27,8 @@
 
 @implementation Player
 
+double lastNetworkRequestTimestamp = 0;
+double lastLibraryOutputTimestamp = 0;
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
@@ -190,11 +192,17 @@
 {
     NSError *error;
     NSData *data;
-    int i=0;
+    
+    // log demand
+
+    if (lastNetworkRequestTimestamp != 0) {
+        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastNetworkRequestTimestamp;
+        NSLog(@" decoder request: %ld bytes in %f ns",amount,timeSpent);
+    }
+    
+    lastNetworkRequestTimestamp = [NSDate timeIntervalSinceReferenceDate];
     
     do {
-        //NSLog(@"while loop %d", i++);
-    
         [NSThread sleepForTimeInterval:2];
         
         data = [_streamConnection readBytesForLength:amount error:&error];
@@ -216,6 +224,14 @@
 {
     // TODO send pcm data to device's sound board
     
+    // log data
+    if (lastLibraryOutputTimestamp != 0) {
+        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastLibraryOutputTimestamp;
+        NSLog(@" decoder output: %d bytes in %f ns",amount,timeSpent);
+    }
+    
+    lastLibraryOutputTimestamp = [NSDate timeIntervalSinceReferenceDate];
+    
     NSLog(@"Write %d from opusPlayer", amount);
 
     NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
@@ -231,7 +247,7 @@
     
     // copy incoming audio data to temporary buffer
     UInt32 size = min(amount, [iosAudio tempBuffer].mDataByteSize); // dont copy more data then we have, or then fits
-    NSLog(@"Buf %d from opusPlayer", [iosAudio tempBuffer].mDataByteSize);
+    NSLog(@"Buf %d from opusPlayer", (unsigned int)[iosAudio tempBuffer].mDataByteSize);
 
 	//memcpy([iosAudio tempBuffer].mData, pcmData, size);
     

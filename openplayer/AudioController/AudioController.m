@@ -16,6 +16,7 @@ AudioController* iosAudio;
 short *srcbuffer = nil;
 long bufsize;
 long bufreadpos;
+double lastTimeStamp;
 
 void checkStatus(int ids, int status){
 	if (status) {
@@ -37,7 +38,16 @@ static OSStatus playbackCallback(void *inRefCon,
     // Notes: ioData contains buffers (may be more than one!)
     // Fill them up as much as you can. Remember to set the size value in each buffer to match how
     // much data is in the buffer.
-	NSLog(@"Give me data! Buffers:%d Frames:%d", (unsigned int)ioData->mNumberBuffers, inNumberFrames);
+    
+    // log data
+    if (lastTimeStamp != 0) {
+        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastTimeStamp;
+        NSLog(@" audio requests: %d bytes in %f ns",(unsigned int)inNumberFrames,timeSpent);
+    }
+    
+    lastTimeStamp = [NSDate timeIntervalSinceReferenceDate];
+    
+//	NSLog(@"Give me data! Buffers:%d Frames:%d", (unsigned int)ioData->mNumberBuffers, inNumberFrames);
 	/*for (int i=0; i < ioData->mNumberBuffers; i++) { // in practice we will only ever have 1 buffer, since audio format is mono
 		AudioBuffer bufferdest = ioData->mBuffers[i];
 		
