@@ -35,16 +35,8 @@ double lastLibraryOutputTimestamp = 0;
     if (self = [super init]) {
         _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
         _type = type;
-        //_playerHandler = handler;
         _state = STATE_STOPPED;
-       // audioManager = [Novocaine audioManager];
-
-        
-      //  sampleRate = 44100;
-        
-        
-        
-           }
+    }
     return self;
 }
 
@@ -154,8 +146,6 @@ double lastLibraryOutputTimestamp = 0;
     return _state == STATE_READING_HEADER;
 }
 
-
-
 -(void)onStartReadingHeader
 {
     NSLog(@"onStartReadingHeader");
@@ -167,11 +157,11 @@ double lastLibraryOutputTimestamp = 0;
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
-        //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
         
         // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
-        iosAudio = [[AudioController alloc] init];
+        iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
         [iosAudio start];
+
         
         if (error != nil) {
             NSLog(@" audioEngine error: %@",error);
@@ -185,16 +175,13 @@ double lastLibraryOutputTimestamp = 0;
         NSString *ns_track = [NSString stringWithUTF8String:ptrack];
         [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
         
-
     });
 }
 
 -(void)onStop
 {
     NSLog(@"Test callback !!!");
-
-    
-   // [_audioEngine stop];
+    [iosAudio stop];
 }
 
 -(int)onReadEncodedData:(char **)buffer ofSize:(long)amount
@@ -212,9 +199,12 @@ double lastLibraryOutputTimestamp = 0;
     lastNetworkRequestTimestamp = [NSDate timeIntervalSinceReferenceDate];
     
     do {
-        [NSThread sleepForTimeInterval:0.1]; // will only affect the initial buffering time
         
         data = [_streamConnection readBytesForLength:amount error:&error];
+        
+        if (data.length == 0) {
+            [NSThread sleepForTimeInterval:0.1]; // will only affect the initial buffering time
+        }
         
         if (error) {
             NSLog(@"Error reading from input stream");
@@ -249,12 +239,10 @@ double lastLibraryOutputTimestamp = 0;
     // just a random buffer, will crash when filled
     if (srcbuffer1 == nil ) {
         srcbuffer1 = (short *) malloc(1920*1024*10);
-        
     }
     memcpy(srcbuffer1 + bufsize1, pcmData, amount * 2);
     bufsize1 += amount;
     
-
 }
 
 

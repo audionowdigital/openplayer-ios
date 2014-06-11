@@ -95,6 +95,8 @@
         // only the main thread can make changes to the User Interface
         dispatch_async(dispatch_get_main_queue(), ^{
             //        _infoLabel.text = @"ok";        self.infoLabel.text= @"ok";        [self infoLabel].text = @"ok";
+            // self.infoLabel =   
+            
             self.infoLabel.text =
             [NSString stringWithFormat:@"vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@", vendor , title , artist , album , date , track];
         });

@@ -42,8 +42,11 @@ static OSStatus playbackCallback(void *inRefCon,
         UInt32 size = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
         
        
-        memcpy((short *)buffer.mData, srcbuffer1 + offset1, size*2 );
-        offset1 += size; // frames, not bytes, we're using shorts for a frame
+        //memcpy((short *)buffer.mData, srcbuffer1 + offset1, size*2 );
+        for (int i=0;i<size;i++) {
+            ((short *)buffer.mData)[i] = ((srcbuffer1 + offset1)[i*2] + (srcbuffer1 + offset1)[i*2 + 1])/2;
+        }
+        offset1 += 2*size; // frames, not bytes, we're using shorts for a frame
         
         if (!dump && bufsize1 > 2000000) {
             NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
@@ -52,7 +55,7 @@ static OSStatus playbackCallback(void *inRefCon,
             fclose(f3);
             dump = true;
         }
-        NSLog(@"buffers:%d Buffer size:%d offset:%d take:%d", ioData->mNumberBuffers, bufsize1, offset1, size);
+        NSLog(@"No Buffers:%d Buffer size:%d offset:%d take:%d", ioData->mNumberBuffers, bufsize1, offset1, size);
        
     }
   
@@ -73,7 +76,7 @@ static OSStatus playbackCallback(void *inRefCon,
  The temporary buffer will hold the latest data coming in from the microphone,
  and will be copied to the output when this is requested.
  */
-- (id) init {
+- (id) initWithSampleRate:(int)sampleRate channels:(int)channels {
     self = [super init];
     // Configure the search parameters to find the default playback output unit
     // (called the kAudioUnitSubType_RemoteIO on iOS but
@@ -107,12 +110,12 @@ static OSStatus playbackCallback(void *inRefCon,
     
     // Set the format to 32 bit, single channel, floating point, linear PCM
     AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = 96000;
+    streamFormat.mSampleRate = sampleRate;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
-    streamFormat.mFormatFlags =  kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked | kAudioFormatFlagIsAlignedHigh;
+    streamFormat.mFormatFlags =  kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked |  kAudioFormatFlagIsAlignedHigh;
     //   kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
     streamFormat.mFramesPerPacket = 1;
-    streamFormat.mChannelsPerFrame = 1;
+    streamFormat.mChannelsPerFrame = 1;//channels;
     streamFormat.mBitsPerChannel = 16;
     
     streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;
