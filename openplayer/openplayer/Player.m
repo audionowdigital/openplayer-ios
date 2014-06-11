@@ -161,21 +161,30 @@ double lastLibraryOutputTimestamp = 0;
     NSLog(@"onStartReadingHeader");
 }
 
--(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)vendor trackTitle:(char *)title trackArtist:(char *)artist trackAlbum:(char *)album trackDate:(char *)date trackName:(char *)track
+-(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
 {
-    NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, vendor, title, artist, album, date, track);
+    NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
         //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
         
+        // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
         iosAudio = [[AudioController alloc] init];
-        
         [iosAudio start];
         
         if (error != nil) {
             NSLog(@" audioEngine error: %@",error);
         }
+        //TODO: if it's the first time send onStart, else send onTrackInfo
+        NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
+        NSString *ns_title = [NSString stringWithUTF8String:ptitle];
+        NSString *ns_artist = [NSString stringWithUTF8String:partist];
+        NSString *ns_album = [NSString stringWithUTF8String:palbum];
+        NSString *ns_date = [NSString stringWithUTF8String:pdate];
+        NSString *ns_track = [NSString stringWithUTF8String:ptrack];
+        [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
+        
 
     });
 }
@@ -183,7 +192,7 @@ double lastLibraryOutputTimestamp = 0;
 -(void)onStop
 {
     NSLog(@"Test callback !!!");
-    [_player stop];
+
     
    // [_audioEngine stop];
 }
@@ -203,7 +212,7 @@ double lastLibraryOutputTimestamp = 0;
     lastNetworkRequestTimestamp = [NSDate timeIntervalSinceReferenceDate];
     
     do {
-        [NSThread sleepForTimeInterval:2];
+        [NSThread sleepForTimeInterval:0.1]; // will only affect the initial buffering time
         
         data = [_streamConnection readBytesForLength:amount error:&error];
         
@@ -222,65 +231,30 @@ double lastLibraryOutputTimestamp = 0;
 
 -(void)onWritePCMData:(short *)pcmData ofSize:(int)amount
 {
-    // TODO send pcm data to device's sound board
-    
     // log data
     if (lastLibraryOutputTimestamp != 0) {
         double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastLibraryOutputTimestamp;
         NSLog(@" decoder output: %d bytes in %f ns",amount,timeSpent);
     }
-    
     lastLibraryOutputTimestamp = [NSDate timeIntervalSinceReferenceDate];
     
     NSLog(@"Write %d from opusPlayer", amount);
 
-    NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
+    /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
     FILE *f3 = fopen([file3 UTF8String], "ab");
     fwrite(pcmData, 2, amount, f3);
-    fclose(f3);
+    fclose(f3);*/
 
     
-    _player = [[AVBufferPlayer alloc] initWithBuffer:pcmData frames:amount];
-    
-    [_player play];
-    return;
-    
-    // copy incoming audio data to temporary buffer
-    UInt32 size = min(amount, [iosAudio tempBuffer].mDataByteSize); // dont copy more data then we have, or then fits
-    NSLog(@"Buf %d from opusPlayer", (unsigned int)[iosAudio tempBuffer].mDataByteSize);
-
-	//memcpy([iosAudio tempBuffer].mData, pcmData, size);
-    
-    if (srcbuffer == nil ) {
-        srcbuffer = (short *) malloc(amount);
-        memcpy(srcbuffer, pcmData, amount);
-        bufsize = amount;
+    // just a random buffer, will crash when filled
+    if (srcbuffer1 == nil ) {
+        srcbuffer1 = (short *) malloc(1920*1024*10);
         
     }
+    memcpy(srcbuffer1 + bufsize1, pcmData, amount * 2);
+    bufsize1 += amount;
     
-    
-    NSString *file1= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile.dat"];
-//    file	NSPathStore2 *	@"/Users/radhoo/Library/Application Support/iPhone Simulator/7.1/Applications/A645981A-EF43-4D78-B0DC-9FD40B08B801/Documents/testfile.dat"	0x09a99ef0
-    FILE *f = fopen([file1 UTF8String], "ab");
-    fwrite(pcmData, 1, amount, f);
-    fclose(f);
 
-    NSString *file2= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile2.dat"];
-    FILE *f2 = fopen([file2 UTF8String], "ab");
-    fwrite(pcmData, 2, amount, f2);
-    fclose(f2);
-    //exit(1);
-    /*[_audioEngine.buffer appendBytes:pcmData length:ammount];
-    
-    NSLog(@"  WRITE: %d bytes to buffer -> buffer size up to %d ",ammount,_audioEngine.buffer.length);
-    
-    // ready to play only if we have data to fill 3 buffers
-    if (_audioEngine.buffer.length > _audioEngine.internalBufferSize * 3) {
-        
-        [_audioEngine play];
-        
-        _state = 0;
-    }*/
 }
 
 

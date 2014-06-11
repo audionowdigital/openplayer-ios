@@ -43,6 +43,6 @@
 // setup a global iosAudio variable, accessible everywhere
 extern AudioController* iosAudio;
 
-extern short *srcbuffer;
-extern long bufsize;
-extern long bufreadpos;
+extern short *srcbuffer1, *srcbuffer2;
+extern bool use1, use2;
+extern long bufsize1, bufsize2;

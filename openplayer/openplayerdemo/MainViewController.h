@@ -14,7 +14,8 @@
     Player *player;
 }
 
-@property (weak, nonatomic) IBOutlet UILabel *urlLabel;
+@property (strong, nonatomic) IBOutlet UILabel *urlLabel;
+@property (strong, nonatomic) IBOutlet UILabel *infoLabel;
 @property (weak, nonatomic) IBOutlet UIButton *initializeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pauseBtn;

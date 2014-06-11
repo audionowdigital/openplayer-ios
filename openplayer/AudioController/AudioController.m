@@ -13,15 +13,14 @@
 
 
 AudioController* iosAudio;
-short *srcbuffer = nil;
-long bufsize;
-long bufreadpos;
-double lastTimeStamp;
+short *srcbuffer1 = nil, *srcbuffer2 = nil;
+bool use1 = false, use2 = false;
+long bufsize1, bufsize2, offset1;
 
 void checkStatus(int ids, int status){
 	if (status) {
 		printf("%d Status not 0! %d\n",ids, status);
-//		exit(1);
+        //exit(1);
 	}
 }
 
@@ -29,71 +28,34 @@ void checkStatus(int ids, int status){
  This callback is called when the audioUnit needs new data to play through the
  speakers. If you don't have any, just don't write anything in the buffers
  */
+bool dump = false;
 static OSStatus playbackCallback(void *inRefCon, 
 								 AudioUnitRenderActionFlags *ioActionFlags, 
 								 const AudioTimeStamp *inTimeStamp, 
 								 UInt32 inBusNumber, 
 								 UInt32 inNumberFrames, 
-								 AudioBufferList *ioData) {    
-    // Notes: ioData contains buffers (may be more than one!)
-    // Fill them up as much as you can. Remember to set the size value in each buffer to match how
-    // much data is in the buffer.
+								 AudioBufferList *ioData) {
     
-    // log data
-    if (lastTimeStamp != 0) {
-        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastTimeStamp;
-        NSLog(@" audio requests: %d bytes in %f ns",(unsigned int)inNumberFrames,timeSpent);
-    }
-    
-    lastTimeStamp = [NSDate timeIntervalSinceReferenceDate];
-    
-//	NSLog(@"Give me data! Buffers:%d Frames:%d", (unsigned int)ioData->mNumberBuffers, inNumberFrames);
-	/*for (int i=0; i < ioData->mNumberBuffers; i++) { // in practice we will only ever have 1 buffer, since audio format is mono
-		AudioBuffer bufferdest = ioData->mBuffers[i];
-		
-//		NSLog(@"  Buffer %d has %d channels and wants %d bytes of data.", i, buffer.mNumberChannels, buffer.mDataByteSize);
-		
-		UInt32 size = min(bufferdest.mDataByteSize, bufsize); // dont copy more data then we have, or then
-        
-        if (buffer!=nil && bufsize > 0) {
-            memcpy(bufferdest.mData, buffer, size);
-            //buffer.mDataByteSize = size; // indicate how much data we wrote in the buffer
-            //[io sAudio getBuffer].mDataByteSize = 0;
-            
-            
-            NSString *file= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile4.dat"];
-            FILE *f = fopen([file UTF8String], "ab");
-            fwrite(buffer, 2, bufsize, f);
-            fclose(f);
-            bufsize = 0;
-            
-            free(buffer);
-            buffer = nil;
-            
-        }*/
-    if (srcbuffer!=nil && bufsize > 0) {
+    if (srcbuffer1!=nil && bufsize1 > 0) {
         AudioBuffer buffer = ioData->mBuffers[0]; //mono/?
-        UInt32 size = min(inNumberFrames, bufsize); // dont copy more data then we have, or then
         
-        UInt16 *frameBuffer = buffer.mData;
-        for (int j = 0; j < inNumberFrames; j++) {
-            frameBuffer[j] = srcbuffer[j];
-            ;
+        UInt32 size = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
+        
+       
+        memcpy((short *)buffer.mData, srcbuffer1 + offset1, size*2 );
+        offset1 += size; // frames, not bytes, we're using shorts for a frame
+        
+        if (!dump && bufsize1 > 2000000) {
+            NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
+            FILE *f3 = fopen([file3 UTF8String], "wb");
+            fwrite(srcbuffer1, 2, bufsize1, f3);
+            fclose(f3);
+            dump = true;
         }
-        bufsize = 0;
-        
-        free(srcbuffer);
-        srcbuffer = nil;
+        NSLog(@"buffers:%d Buffer size:%d offset:%d take:%d", ioData->mNumberBuffers, bufsize1, offset1, size);
+       
     }
   
-    
-		// uncomment to hear random noise
-		
-		/*UInt16 *frameBuffer = buffer.mData;
-		for (int j = 0; j < inNumberFrames; j++) {
-			frameBuffer[j] = rand();
-		}*/
-	
 	
     return noErr;
 }
@@ -144,33 +106,35 @@ static OSStatus playbackCallback(void *inRefCon,
     NSAssert1(err == noErr, @"Error setting callback: %ld", err);
     
     // Set the format to 32 bit, single channel, floating point, linear PCM
-    const int four_bytes_per_float = 4;
-    const int eight_bits_per_byte = 8;
     AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = 44100;
+    streamFormat.mSampleRate = 96000;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
-    streamFormat.mFormatFlags =
-    kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
- //   kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
-    streamFormat.mBytesPerPacket = 2;//four_bytes_per_float;
+    streamFormat.mFormatFlags =  kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked | kAudioFormatFlagIsAlignedHigh;
+    //   kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
     streamFormat.mFramesPerPacket = 1;
-    streamFormat.mBytesPerFrame = 2;//four_bytes_per_float;
     streamFormat.mChannelsPerFrame = 1;
-    streamFormat.mBitsPerChannel = 16;//four_bytes_per_float * eight_bits_per_byte;
+    streamFormat.mBitsPerChannel = 16;
+    
+    streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;
+    streamFormat.mBytesPerPacket = streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket;
+    
     err = AudioUnitSetProperty (audioUnit,
                                 kAudioUnitProperty_StreamFormat,
                                 kAudioUnitScope_Input,
                                 0,
                                 &streamFormat,
                                 sizeof(AudioStreamBasicDescription));
+    
+    
+	
+    // set preferred buffer size for simulator
+    //Float32 preferredBufferSize = .0232; // in seconds
+    //err = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, sizeof(preferredBufferSize), &preferredBufferSize);
+    
+
+    
     NSAssert1(err == noErr, @"Error setting stream format: %ld", err);
     
-    // Allocate our own buffers (1 channel, 16 bits per sample, thus 16 bits per frame, thus 2 bytes per frame).
-	// Practice learns the buffers used contain 512 frames, if this changes it will be fixed in processAudio.
-	tempBuffer.mNumberChannels = 2;
-	tempBuffer.mDataByteSize = 1024 * 2;
-	tempBuffer.mData = malloc( 1024 * 2 );
-	
     
     return self;
 }
@@ -203,13 +167,11 @@ static OSStatus playbackCallback(void *inRefCon,
  Right now we copy it to our own temporary buffer.
  */
 
-	// copy incoming audio data to temporary buffer
+// copy incoming audio data to temporary buffer
 //	memcpy(tempBuffer.mData, bufferList->mBuffers[0].mData, bufferList->mBuffers[0].mDataByteSize);
 
 
-/**
- Clean up.
- */
+// Clean up.
 - (void) dealloc {
 	//[super	dealloc];
 	AudioUnitUninitialize(audioUnit);
