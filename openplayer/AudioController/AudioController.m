@@ -17,12 +17,7 @@ short *srcbuffer1 = nil, *srcbuffer2 = nil;
 bool use1 = false, use2 = false;
 long bufsize1, bufsize2, offset1;
 
-void checkStatus(int ids, int status){
-	if (status) {
-		printf("%d Status not 0! %d\n",ids, status);
-        //exit(1);
-	}
-}
+
 
 /**
  This callback is called when the audioUnit needs new data to play through the
@@ -65,11 +60,8 @@ static OSStatus playbackCallback(void *inRefCon,
 
 @implementation AudioController
 
-@synthesize audioUnit, tempBuffer;
+@synthesize audioUnit;
 
-- (AudioBuffer)getBuffer {
-    return tempBuffer;
-}
 
 /**
  Initialize the audioUnit and allocate our own temporary buffer.
@@ -78,8 +70,6 @@ static OSStatus playbackCallback(void *inRefCon,
  */
 - (id) initWithSampleRate:(int)sampleRate channels:(int)channels {
     self = [super init];
-    _sampleRate = sampleRate;
-    _channels = channels;
     
     // Configure the search parameters to find the default playback output unit
     // (called the kAudioUnitSubType_RemoteIO on iOS but
@@ -111,20 +101,10 @@ static OSStatus playbackCallback(void *inRefCon,
                                sizeof(input));
     NSAssert1(err == noErr, @"Error setting callback: %ld", err);
     
-    //CAStreamBasicDescription stereoStreamFormat(44100.0, 2, CAStreamBasicDescription::kPCMFormatInt16, false);
+    // TODO: handle all error cases properly.
+    // TODO: implement the circular buffer
     
-   /* AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = sampleRate;
-    streamFormat.mFormatID = kAudioFormatLinearPCM;
-    streamFormat.mFormatFlags =   kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;  ;
-    //   kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
-    streamFormat.mFramesPerPacket = 1;
-    streamFormat.mChannelsPerFrame = channels;
-    streamFormat.mBitsPerChannel = 16;
-    
-    streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;//2
-    streamFormat.mBytesPerPacket = streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket ; //2
-    */
+    // init audio output based on given channels and samplerate
     AudioStreamBasicDescription streamFormat;
     streamFormat.mSampleRate = sampleRate;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
@@ -132,28 +112,20 @@ static OSStatus playbackCallback(void *inRefCon,
     streamFormat.mFramesPerPacket = 1;
     streamFormat.mChannelsPerFrame = channels;
     streamFormat.mBitsPerChannel = 16; //sizeof(short) * 8
-    
     streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;
     streamFormat.mBytesPerPacket = streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket ;
-    _bytesPerFrame = streamFormat.mBytesPerFrame;
-    
     err = AudioUnitSetProperty (audioUnit,
                                 kAudioUnitProperty_StreamFormat,
                                 kAudioUnitScope_Input,
                                 0,
                                 &streamFormat,
                                 sizeof(AudioStreamBasicDescription));
-    
-    
-	
-    // set preferred buffer size for simulator
-    //Float32 preferredBufferSize = .0232; // in seconds
-    //err = AudioSessionSetProperty(kAudioSessionProperty_PreferredHardwareIOBufferDuration, sizeof(preferredBufferSize), &preferredBufferSize);
-    
-
-    
     NSAssert1(err == noErr, @"Error setting stream format: %ld", err);
     
+    // save format data to our current instance
+    _bytesPerFrame = streamFormat.mBytesPerFrame;
+    _sampleRate = sampleRate;
+    _channels = channels;
     
     return self;
 }
@@ -165,15 +137,12 @@ static OSStatus playbackCallback(void *inRefCon,
     NSAssert1(err == noErr, @"Error initializing unit: %ld", err);
     
 	OSStatus status = AudioOutputUnitStart(audioUnit);
-	checkStatus(6,status);
+    NSAssert1(status == noErr, @"Error starting audioOutputUnit: %ld", status);
 }
 
 // Stop the audioUnit
 - (void) stop {
-	//OSStatus status = AudioOutputUnitStop(audioUnit);
-	//checkStatus(7,status);
-    
-    // Tear it down in reverse
+    // free it in reverse order
     AudioOutputUnitStop(audioUnit);
     AudioUnitUninitialize(audioUnit);
     AudioComponentInstanceDispose(audioUnit);
@@ -185,21 +154,5 @@ static OSStatus playbackCallback(void *inRefCon,
     AudioOutputUnitStop(audioUnit);
 }
 
-/**
- Change this funtion to decide what is done with incoming
- audio data from the microphone.
- Right now we copy it to our own temporary buffer.
- */
-
-// copy incoming audio data to temporary buffer
-//	memcpy(tempBuffer.mData, bufferList->mBuffers[0].mData, bufferList->mBuffers[0].mDataByteSize);
-
-
-// Clean up.
-- (void) dealloc {
-	//[super	dealloc];
-	AudioUnitUninitialize(audioUnit);
-	free(tempBuffer.mData);
-}
 
 @end
