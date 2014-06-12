@@ -35,18 +35,18 @@ static OSStatus playbackCallback(void *inRefCon,
 								 UInt32 inBusNumber, 
 								 UInt32 inNumberFrames, 
 								 AudioBufferList *ioData) {
-
-    AudioBuffer outputBuffer = ioData->mBuffers[0]; //a single channel: mono or interleaved stereo
-
+    // get a pointer to our object, so we can access some audioformat properties (bytesPerFrame)
     AudioController *this = (__bridge AudioController *)inRefCon;
- 
+    
+    //a single channel: mono or interleaved stereo
+    AudioBuffer outputBuffer = ioData->mBuffers[0];
+
+    
     if (srcbuffer1!=nil && bufsize1 > 0) {
         
-        UInt32 size = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
-        
-       
-        memcpy((short *)outputBuffer.mData, srcbuffer1 + offset1, 2*size*sizeof(short) );
-        offset1 += 2*size; // frames, not bytes, we're using shorts for a frame
+        int minFramesAvailable = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
+        memcpy((short *)outputBuffer.mData, srcbuffer1 + offset1, minFramesAvailable * this->_bytesPerFrame);
+        offset1 += sizeof(short) * minFramesAvailable; // frames, not bytes, we're using shorts for a frame
         
         if (!dump && bufsize1 > 2000000) {
             NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
@@ -55,7 +55,7 @@ static OSStatus playbackCallback(void *inRefCon,
             fclose(f3);
             dump = true;
         }
-        NSLog(@"No Buffers:%d Buffer size:%d offset:%d take:%d", ioData->mNumberBuffers, bufsize1, offset1, size);
+        NSLog(@"No Buffers:%d Buffer size:%d offset:%d take:%d", ioData->mNumberBuffers, bufsize1, offset1, minFramesAvailable);
        
     }
   
@@ -130,12 +130,12 @@ static OSStatus playbackCallback(void *inRefCon,
     streamFormat.mFormatID = kAudioFormatLinearPCM;
     streamFormat.mFormatFlags =    kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
     streamFormat.mFramesPerPacket = 1;
-    streamFormat.mChannelsPerFrame = 2;//channels;
-    streamFormat.mBitsPerChannel = 16;
+    streamFormat.mChannelsPerFrame = channels;
+    streamFormat.mBitsPerChannel = 16; //sizeof(short) * 8
     
-    streamFormat.mBytesPerFrame = 4;// streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;//2
-    streamFormat.mBytesPerPacket = 4;//streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket ; //2
-
+    streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;
+    streamFormat.mBytesPerPacket = streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket ;
+    _bytesPerFrame = streamFormat.mBytesPerFrame;
     
     err = AudioUnitSetProperty (audioUnit,
                                 kAudioUnitProperty_StreamFormat,
