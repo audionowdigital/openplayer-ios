@@ -21,8 +21,7 @@
 
 @interface AudioController : NSObject {
 	AudioComponentInstance audioUnit;
-	AudioBuffer tempBuffer; // this will hold the latest data from the microphone
-    
+    @public int _sampleRate, _channels;
     
 }
 
@@ -31,9 +30,10 @@
 
 
 
-- (id) init;
+- (id) initWithSampleRate:(int)sampleRate channels:(int)channels;
 - (void) start;
 - (void) stop;
+- (void) pause;
 - (void) processAudio: (AudioBufferList*) bufferList;
 - (AudioBuffer) getBuffer;
 

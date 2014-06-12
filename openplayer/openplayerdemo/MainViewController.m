@@ -43,14 +43,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    @"http://ai-radio.org:8000/radio.opus";
+    NSString *urlString =
+//    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
 //    @"http://www.markosoft.ro/opus/02_Archangel.opus"
 //    @"http://www.markosoft.ro/opus/countdown.opus"
     
-//    NSString *urlString = @"http://ai-radio.org:8000/radio.opus";
-//    NSString *urlString = @"http://www.markosoft.ro/opus/02_Archangel.opus";
-    NSString *urlString = @"http://www.markosoft.ro/opus/countdown.opus";
-    
+   // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
+ //   @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
+//    @"http://revolutionradio.ru:8000/live.ogg"; //vorbis
+    @"http://ice01.va.audionow.com:8000/radioamericaopus.ogg"; //stereo opus ok.
+//    @"http://icecast.timlradio.co.uk/ar64.opus"; // not ok
+//    @"http://icecast.timlradio.co.uk/ac96.opus"; //not ok
+    //@"http://opus.ai-radio.org:8000/radio.opus";
+    //http://radioserver1.delfa.net:80/256.opus";
+    //http://opus.ai-radio.org:8000/radio.opus";
+    //http://ogg.ai-radio.org:8000/radio.ogg";
+    //http://ai-radio.org:8000/radio.opus";
+    //http://www.markosoft.ro/opus/02_Archangel.opus";
+    //
+
     self.urlLabel.text = urlString;
     self.infoLabel.text = @"Waiting for info";
 }
@@ -97,6 +108,8 @@
         // only the main thread can make changes to the User Interface
         dispatch_async(dispatch_get_main_queue(), ^{
             //        _infoLabel.text = @"ok";        self.infoLabel.text= @"ok";        [self infoLabel].text = @"ok";
+            // self.infoLabel =   
+            
             self.infoLabel.text =
             [NSString stringWithFormat:@"vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@", vendor , title , artist , album , date , track];
         });

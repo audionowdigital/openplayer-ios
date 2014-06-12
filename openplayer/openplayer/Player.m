@@ -35,16 +35,9 @@ double lastLibraryOutputTimestamp = 0;
     if (self = [super init]) {
         _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
         _type = type;
-        //_playerHandler = handler;
         _state = STATE_STOPPED;
-       // audioManager = [Novocaine audioManager];
-
-        
-      //  sampleRate = 44100;
-        
-        
-        
-           }
+        waitPlayCondition = [NSCondition new];
+    }
     return self;
 }
 
@@ -116,9 +109,12 @@ double lastLibraryOutputTimestamp = 0;
     if (![self isReadyToPlay]) {
         NSLog(@"Player Error: stream must be ready to play before starting to play");
         return;
-    } else {
-        //[_audioEngine play];
     }
+    
+    _state = STATE_PLAYING;
+    [waitPlayCondition signal];
+    
+    [iosAudio start];
 }
 
 -(void)pause
@@ -127,6 +123,10 @@ double lastLibraryOutputTimestamp = 0;
         NSLog(@"Player Error: stream must be playing before trying to pause it");
         return;
     }
+    
+    _state = STATE_READY_TO_PLAY;
+    
+    [iosAudio pause];
 }
 
 -(void)stop
@@ -154,28 +154,34 @@ double lastLibraryOutputTimestamp = 0;
     return _state == STATE_READING_HEADER;
 }
 
-
-
 -(void)onStartReadingHeader
 {
     NSLog(@"onStartReadingHeader");
+    
+    _state = STATE_READING_HEADER;
 }
 
--(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
+-(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
 {
-    NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
+    NSLog(@"on start %d %d %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
+    
+    _sampleRate = sampleRate;
+    _channels = channels;
+    
+    NSError *error = nil;
+    
+    if (error != nil) {
+        NSLog(@" audioEngine error: %@",error);
+    }
+    
+    // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
+    iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+    
+    _state = STATE_READY_TO_PLAY;
+    [self play];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error = nil;
-        //_audioEngine = [[AudioEngine alloc] initWithSampleRate:sampleRate channels:channels error:&error];
         
-        // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
-        iosAudio = [[AudioController alloc] init];
-        [iosAudio start];
-        
-        if (error != nil) {
-            NSLog(@" audioEngine error: %@",error);
-        }
         //TODO: if it's the first time send onStart, else send onTrackInfo
         NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
         NSString *ns_title = [NSString stringWithUTF8String:ptitle];
@@ -185,22 +191,37 @@ double lastLibraryOutputTimestamp = 0;
         NSString *ns_track = [NSString stringWithUTF8String:ptrack];
         [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
         
-
     });
 }
 
 -(void)onStop
 {
-    NSLog(@"Test callback !!!");
-
+    _state = STATE_STOPPED;
     
-   // [_audioEngine stop];
+    [iosAudio stop];
 }
+
+
+-(void)waitPlay
+{
+        
+    [waitPlayCondition lock];
+    
+    while (_state == STATE_READY_TO_PLAY) {
+        [waitPlayCondition wait];
+    }
+    
+    [waitPlayCondition unlock];
+
+}
+
 
 -(int)onReadEncodedData:(char **)buffer ofSize:(long)amount
 {
     NSError *error;
     NSData *data;
+    
+    [self waitPlay];
     
     // log demand
 
@@ -212,9 +233,12 @@ double lastLibraryOutputTimestamp = 0;
     lastNetworkRequestTimestamp = [NSDate timeIntervalSinceReferenceDate];
     
     do {
-        [NSThread sleepForTimeInterval:0.1]; // will only affect the initial buffering time
         
         data = [_streamConnection readBytesForLength:amount error:&error];
+        
+        if (data.length == 0) {
+            [NSThread sleepForTimeInterval:0.1]; // will only affect the initial buffering time
+        }
         
         if (error) {
             NSLog(@"Error reading from input stream");
@@ -231,6 +255,9 @@ double lastLibraryOutputTimestamp = 0;
 
 -(void)onWritePCMData:(short *)pcmData ofSize:(int)amount
 {
+    
+    [self waitPlay];
+    
     // log data
     if (lastLibraryOutputTimestamp != 0) {
         double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastLibraryOutputTimestamp;
@@ -240,6 +267,22 @@ double lastLibraryOutputTimestamp = 0;
     
     NSLog(@"Write %d from opusPlayer", amount);
 
+    // convert to mono
+    short *monoBuffer;
+    int len = amount / _channels;
+    monoBuffer = (short *)malloc(len * sizeof(short));
+    if (_channels == 2)
+        for (int i = 0; i < len; i++) monoBuffer[i] = (pcmData[i * 2] + pcmData[i * 2 + 1]) / 2;
+    else
+        monoBuffer = pcmData;
+    
+    if (srcbuffer1 == nil ) {
+        srcbuffer1 = (short *) malloc(1920*1024*10);
+    }
+    memcpy(srcbuffer1 + bufsize1, monoBuffer, len * sizeof(short));
+    bufsize1 += len;
+    
+    
     /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
     FILE *f3 = fopen([file3 UTF8String], "ab");
     fwrite(pcmData, 2, amount, f3);
@@ -247,14 +290,7 @@ double lastLibraryOutputTimestamp = 0;
 
     
     // just a random buffer, will crash when filled
-    if (srcbuffer1 == nil ) {
-        srcbuffer1 = (short *) malloc(1920*1024*10);
-        
-    }
-    memcpy(srcbuffer1 + bufsize1, pcmData, amount * 2);
-    bufsize1 += amount;
     
-
 }
 
 
