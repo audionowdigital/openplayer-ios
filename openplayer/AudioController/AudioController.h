@@ -33,6 +33,7 @@
 - (id) initWithSampleRate:(int)sampleRate channels:(int)channels;
 - (void) start;
 - (void) stop;
+- (void) pause;
 - (void) processAudio: (AudioBufferList*) bufferList;
 - (AudioBuffer) getBuffer;
 
