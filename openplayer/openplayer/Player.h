@@ -35,7 +35,7 @@ typedef enum decode_status{
 {
     //id<IPlayerHandler> _playerHandler;
 
-    int _type;
+    int _type, _sampleRate, _channels;
     PlayerEvents *_playerEvents;
     StreamConnection *_streamConnection;
     

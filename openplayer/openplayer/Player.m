@@ -151,9 +151,12 @@ double lastLibraryOutputTimestamp = 0;
     NSLog(@"onStartReadingHeader");
 }
 
--(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
+-(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
 {
     NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
+    
+    _sampleRate = sampleRate;
+    _channels = channels;
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
@@ -230,6 +233,21 @@ double lastLibraryOutputTimestamp = 0;
     
     NSLog(@"Write %d from opusPlayer", amount);
 
+    // convert to mono
+    short *monoBuffer;
+    int len = amount / _channels;
+    monoBuffer = (short *)malloc(len * sizeof(short));
+    for (int i = 0; i < len; i++) {
+        if (_channels == 2) monoBuffer[i] = (pcmData[i * 2] + pcmData[i * 2 + 1]) / 2;
+        else if (_channels == 1) monoBuffer[i] = pcmData[i];
+    }
+    if (srcbuffer1 == nil ) {
+        srcbuffer1 = (short *) malloc(1920*1024*10);
+    }
+    memcpy(srcbuffer1 + bufsize1, monoBuffer, len * sizeof(short));
+    bufsize1 += len;
+    
+    
     /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
     FILE *f3 = fopen([file3 UTF8String], "ab");
     fwrite(pcmData, 2, amount, f3);
@@ -237,11 +255,6 @@ double lastLibraryOutputTimestamp = 0;
 
     
     // just a random buffer, will crash when filled
-    if (srcbuffer1 == nil ) {
-        srcbuffer1 = (short *) malloc(1920*1024*10);
-    }
-    memcpy(srcbuffer1 + bufsize1, pcmData, amount * 2);
-    bufsize1 += amount;
     
 }
 

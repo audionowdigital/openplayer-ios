@@ -18,7 +18,7 @@
 -(void)onStartReadingHeader;
 
 //Starts the decode feed with the necessary information about sample rates, channels, etc about the stream
--(void)onStart:(long)sampleRate trackChannels:(long)channels trackVendor:(char*)vendor trackTitle:(char *)title trackArtist:(char *)artist trackAlbum:(char *)album trackDate:(char *)date trackName:(char *)track;
+-(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char*)vendor trackTitle:(char *)title trackArtist:(char *)artist trackAlbum:(char *)album trackDate:(char *)date trackName:(char *)track;
 
 //Stops the opus data feed
 -(void)onStop;
