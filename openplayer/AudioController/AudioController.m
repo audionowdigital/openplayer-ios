@@ -36,7 +36,7 @@ static OSStatus playbackCallback(void *inRefCon,
 								 UInt32 inNumberFrames, 
 								 AudioBufferList *ioData) {
 
-    AudioBuffer outputBuffer = ioData->mBuffers[0]; //mono/?
+    AudioBuffer outputBuffer = ioData->mBuffers[0]; //a single channel: mono or interleaved stereo
 
     AudioController *this = (__bridge AudioController *)inRefCon;
  
@@ -45,8 +45,8 @@ static OSStatus playbackCallback(void *inRefCon,
         UInt32 size = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
         
        
-        memcpy((short *)outputBuffer.mData, srcbuffer1 + offset1, size*2 );
-        offset1 += size; // frames, not bytes, we're using shorts for a frame
+        memcpy((short *)outputBuffer.mData, srcbuffer1 + offset1, 2*size*sizeof(short) );
+        offset1 += 2*size; // frames, not bytes, we're using shorts for a frame
         
         if (!dump && bufsize1 > 2000000) {
             NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
@@ -111,18 +111,31 @@ static OSStatus playbackCallback(void *inRefCon,
                                sizeof(input));
     NSAssert1(err == noErr, @"Error setting callback: %ld", err);
     
-    // Set the format to 32 bit, single channel, floating point, linear PCM
+    //CAStreamBasicDescription stereoStreamFormat(44100.0, 2, CAStreamBasicDescription::kPCMFormatInt16, false);
+    
+   /* AudioStreamBasicDescription streamFormat;
+    streamFormat.mSampleRate = sampleRate;
+    streamFormat.mFormatID = kAudioFormatLinearPCM;
+    streamFormat.mFormatFlags =   kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked | kAudioFormatFlagIsSignedInteger;  ;
+    //   kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
+    streamFormat.mFramesPerPacket = 1;
+    streamFormat.mChannelsPerFrame = channels;
+    streamFormat.mBitsPerChannel = 16;
+    
+    streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;//2
+    streamFormat.mBytesPerPacket = streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket ; //2
+    */
     AudioStreamBasicDescription streamFormat;
     streamFormat.mSampleRate = sampleRate;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
-    streamFormat.mFormatFlags =  kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked |  kAudioFormatFlagIsAlignedHigh;
-    //   kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
+    streamFormat.mFormatFlags =    kAudioFormatFlagIsSignedInteger  | kAudioFormatFlagIsPacked  ;
     streamFormat.mFramesPerPacket = 1;
-    streamFormat.mChannelsPerFrame = 1;//channels;
+    streamFormat.mChannelsPerFrame = 2;//channels;
     streamFormat.mBitsPerChannel = 16;
     
-    streamFormat.mBytesPerFrame =  streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;
-    streamFormat.mBytesPerPacket = streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket;
+    streamFormat.mBytesPerFrame = 4;// streamFormat.mBitsPerChannel * streamFormat.mChannelsPerFrame  / 8;//2
+    streamFormat.mBytesPerPacket = 4;//streamFormat.mBytesPerFrame  * streamFormat.mFramesPerPacket ; //2
+
     
     err = AudioUnitSetProperty (audioUnit,
                                 kAudioUnitProperty_StreamFormat,
