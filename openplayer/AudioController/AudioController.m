@@ -39,23 +39,14 @@ static OSStatus playbackCallback(void *inRefCon,
     AudioBuffer outputBuffer = ioData->mBuffers[0]; //mono/?
 
     AudioController *this = (__bridge AudioController *)inRefCon;
-    if (this->_channels == 2) {
-        // for stereo source audio will be interleaved
-        
-    }
-    if (this->_channels == 1) {
-        // mono audio source
-    }
+ 
     if (srcbuffer1!=nil && bufsize1 > 0) {
         
         UInt32 size = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
         
        
-        //memcpy((short *)buffer.mData, srcbuffer1 + offset1, size*2 );
-        for (int i=0;i<size;i++) {
-            ((short *)outputBuffer.mData)[i] = ((srcbuffer1 + offset1)[i*2] + (srcbuffer1 + offset1)[i*2 + 1])/2;
-        }
-        offset1 += 2*size; // frames, not bytes, we're using shorts for a frame
+        memcpy((short *)outputBuffer.mData, srcbuffer1 + offset1, size*2 );
+        offset1 += size; // frames, not bytes, we're using shorts for a frame
         
         if (!dump && bufsize1 > 2000000) {
             NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
