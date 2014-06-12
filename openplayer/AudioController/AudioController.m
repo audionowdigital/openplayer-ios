@@ -176,6 +176,11 @@ static OSStatus playbackCallback(void *inRefCon,
     audioUnit = nil;
 }
 
+- (void) pause
+{
+    AudioOutputUnitStop(audioUnit);
+}
+
 /**
  Change this funtion to decide what is done with incoming
  audio data from the microphone.

@@ -36,6 +36,7 @@ double lastLibraryOutputTimestamp = 0;
         _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
         _type = type;
         _state = STATE_STOPPED;
+        waitPlayCondition = [NSCondition new];
     }
     return self;
 }
@@ -108,9 +109,12 @@ double lastLibraryOutputTimestamp = 0;
     if (![self isReadyToPlay]) {
         NSLog(@"Player Error: stream must be ready to play before starting to play");
         return;
-    } else {
-        //[_audioEngine play];
     }
+    
+    _state = STATE_PLAYING;
+    [waitPlayCondition signal];
+    
+    [iosAudio start];
 }
 
 -(void)pause
@@ -119,6 +123,10 @@ double lastLibraryOutputTimestamp = 0;
         NSLog(@"Player Error: stream must be playing before trying to pause it");
         return;
     }
+    
+    _state = STATE_READY_TO_PLAY;
+    
+    [iosAudio pause];
 }
 
 -(void)stop
@@ -149,26 +157,31 @@ double lastLibraryOutputTimestamp = 0;
 -(void)onStartReadingHeader
 {
     NSLog(@"onStartReadingHeader");
+    
+    _state = STATE_READING_HEADER;
 }
 
 -(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
 {
-    NSLog(@"on start %lu %lu %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
+    NSLog(@"on start %d %d %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
     
     _sampleRate = sampleRate;
     _channels = channels;
     
+    NSError *error = nil;
+    
+    if (error != nil) {
+        NSLog(@" audioEngine error: %@",error);
+    }
+    
+    // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
+    iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+    
+    _state = STATE_READY_TO_PLAY;
+    [self play];
+    
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error = nil;
         
-        // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
-        iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
-        [iosAudio start];
-
-        
-        if (error != nil) {
-            NSLog(@" audioEngine error: %@",error);
-        }
         //TODO: if it's the first time send onStart, else send onTrackInfo
         NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
         NSString *ns_title = [NSString stringWithUTF8String:ptitle];
@@ -183,14 +196,32 @@ double lastLibraryOutputTimestamp = 0;
 
 -(void)onStop
 {
-    NSLog(@"Test callback !!!");
+    _state = STATE_STOPPED;
+    
     [iosAudio stop];
 }
+
+
+-(void)waitPlay
+{
+        
+    [waitPlayCondition lock];
+    
+    while (_state == STATE_READY_TO_PLAY) {
+        [waitPlayCondition wait];
+    }
+    
+    [waitPlayCondition unlock];
+
+}
+
 
 -(int)onReadEncodedData:(char **)buffer ofSize:(long)amount
 {
     NSError *error;
     NSData *data;
+    
+    [self waitPlay];
     
     // log demand
 
@@ -224,6 +255,9 @@ double lastLibraryOutputTimestamp = 0;
 
 -(void)onWritePCMData:(short *)pcmData ofSize:(int)amount
 {
+    
+    [self waitPlay];
+    
     // log data
     if (lastLibraryOutputTimestamp != 0) {
         double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastLibraryOutputTimestamp;

@@ -38,6 +38,7 @@ typedef enum decode_status{
     int _type, _sampleRate, _channels;
     PlayerEvents *_playerEvents;
     StreamConnection *_streamConnection;
+    NSCondition *waitPlayCondition;
     
     long _streamSize;
     NSTimeInterval _streamLength;       // seconds
