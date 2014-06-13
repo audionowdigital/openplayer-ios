@@ -299,6 +299,10 @@ double lastLibraryOutputTimestamp = 0;
     memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
     bufsize1 += amount;
     
+    CircularBuffer buf = new CircularBuffer;
+    
+    buf.init();
+    
     
     [waitBufferCondition signal];
     
