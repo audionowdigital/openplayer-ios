@@ -114,6 +114,8 @@ double lastLibraryOutputTimestamp = 0;
     _state = STATE_PLAYING;
     [waitPlayCondition signal];
     
+    
+    [_streamConnection resumeConnection];
     [iosAudio start];
 }
 
@@ -126,6 +128,7 @@ double lastLibraryOutputTimestamp = 0;
     
     _state = STATE_READY_TO_PLAY;
     
+    [_streamConnection pauseConnection];
     [iosAudio pause];
 }
 

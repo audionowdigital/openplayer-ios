@@ -34,6 +34,8 @@ double lastTimeStamp = 0;
     self = [super init];
     if( self )
     {
+        pauseCondition = [NSCondition new];
+        
         // create a simple GET request from the url
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         [request setHTTPMethod:@"GET"];
@@ -276,6 +278,38 @@ double lastTimeStamp = 0;
     return YES;
 }
 
+
+-(void)waitIfPaused
+{
+    [pauseCondition lock];
+    
+    while (_isPaused) {
+        [pauseCondition wait];
+    }
+    
+    [pauseCondition unlock];
+}
+
+-(void)pauseConnection
+{
+    [pauseCondition lock];
+    
+    _isPaused = YES;
+    
+    [pauseCondition signal];
+    [pauseCondition unlock];
+}
+
+-(void)resumeConnection
+{
+    [pauseCondition lock];
+    
+    _isPaused = NO;
+    
+    [pauseCondition signal];
+    [pauseCondition unlock];
+}
+
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     
     // set the download size if it was not set
@@ -288,6 +322,8 @@ double lastTimeStamp = 0;
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    [self waitIfPaused];
+    
     // add data to the internal buffer
     // do this in a syncronized queue
     dispatch_sync(queue, ^{

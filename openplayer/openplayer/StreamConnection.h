@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface StreamConnection : NSObject
+@interface StreamConnection : NSObject <NSURLConnectionDelegate>
+{
+    NSCondition *pauseCondition;
+    BOOL _isPaused;
+}
 
 @property long long podcastSize;
 @property BOOL connectionTerminated;
@@ -19,4 +23,6 @@
 -(NSData *)readBytesForLength:(NSUInteger)length error:(NSError **)error;
 -(BOOL)seekToPosition:(NSUInteger)position error:(NSError **)error;
 -(void)stopStream;
+-(void)pauseConnection;
+-(void)resumeConnection;
 @end
