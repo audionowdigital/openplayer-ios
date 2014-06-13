@@ -18,7 +18,7 @@
 		628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
-		9922789B1938751C0005DB1F /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.m */; };
+		9922789B1938751C0005DB1F /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.mm */; };
 		992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F01938C2060005DB1F /* CoreGraphics.framework */; };
 		992278F31938C2060005DB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F21938C2060005DB1F /* UIKit.framework */; };
@@ -27,7 +27,7 @@
 		992278FF1938C2060005DB1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278FE1938C2060005DB1F /* AppDelegate.m */; };
 		992279011938C2060005DB1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992279001938C2060005DB1F /* Images.xcassets */; };
 		9922791A1938C2120005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
-		9922791B1938C2150005DB1F /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.m */; };
+		9922791B1938C2150005DB1F /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.mm */; };
 		99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A894EB193DB06A007D3EDF /* MainViewController.m */; };
 		99A894EE193DB094007D3EDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A894ED193DB094007D3EDF /* Main.storyboard */; };
 		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
@@ -55,7 +55,7 @@
 		62656C0B1940D62F00F66F61 /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
 		627DC892194AFB64002D02EB /* CircularBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularBuffer.cpp; sourceTree = "<group>"; };
-		627DC893194AFB64002D02EB /* CircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularBuffer.h; sourceTree = "<group>"; };
+		627DC893194AFB64002D02EB /* CircularBuffer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = CircularBuffer.h; sourceTree = "<group>"; };
 		628CE76C193DADC3009FB38C /* PlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEvents.h; sourceTree = "<group>"; };
 		628CE76D193DADC3009FB38C /* PlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerEvents.m; sourceTree = "<group>"; };
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,7 +64,7 @@
 		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
 		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
 		992278981938751C0005DB1F /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
-		992278991938751C0005DB1F /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		992278991938751C0005DB1F /* Player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Player.mm; sourceTree = "<group>"; };
 		992278EE1938C2060005DB1F /* openplayerdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openplayerdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		992278F01938C2060005DB1F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		992278F21938C2060005DB1F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -183,7 +183,7 @@
 				992278961938751C0005DB1F /* StreamConnection.h */,
 				992278971938751C0005DB1F /* StreamConnection.m */,
 				992278981938751C0005DB1F /* Player.h */,
-				992278991938751C0005DB1F /* Player.m */,
+				992278991938751C0005DB1F /* Player.mm */,
 				628CE76C193DADC3009FB38C /* PlayerEvents.h */,
 				628CE76D193DADC3009FB38C /* PlayerEvents.m */,
 			);
@@ -299,7 +299,7 @@
 				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				627DC894194AFB64002D02EB /* CircularBuffer.cpp in Sources */,
 				62656C0C1940D62F00F66F61 /* AudioController.m in Sources */,
-				9922789B1938751C0005DB1F /* Player.m in Sources */,
+				9922789B1938751C0005DB1F /* Player.mm in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,7 +315,7 @@
 				628CE76F193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,
 				992278FB1938C2060005DB1F /* main.m in Sources */,
-				9922791B1938C2150005DB1F /* Player.m in Sources */,
+				9922791B1938C2150005DB1F /* Player.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

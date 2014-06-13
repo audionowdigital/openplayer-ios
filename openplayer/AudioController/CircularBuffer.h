@@ -9,7 +9,6 @@
 #ifndef __openplayer__CircularBuffer__
 #define __openplayer__CircularBuffer__
 
-#include <iostream>
 
 #define MAX_CIRCULAR_SIZE 1024*1024
 
@@ -19,7 +18,7 @@ class CircularBuffer {
         short val;
         node *next;
     };
-    node *first, *last, *read, *write
+    node *first, *last, *read, *write;
     
     void init() {
         for (int i = 0; i < MAX_CIRCULAR_SIZE; i++) {

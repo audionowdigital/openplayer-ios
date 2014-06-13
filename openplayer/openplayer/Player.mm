@@ -9,6 +9,7 @@
 #import "Player.h"
 #import "OpusDecoder.h"
 #import "VorbisDecoder.h"
+#import "CircularBuffer.h"
 
 @interface Player()
 
@@ -180,6 +181,12 @@ double lastLibraryOutputTimestamp = 0;
     
     // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
     iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+    
+    buffer = new CircularBuffer;
+    buffer.init();
+    
+
+    
     
     _state = STATE_READY_TO_PLAY;
     [self play];
