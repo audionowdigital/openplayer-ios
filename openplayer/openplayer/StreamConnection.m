@@ -27,6 +27,8 @@
 }
 // the queue
 dispatch_queue_t queue;
+dispatch_queue_t queue2;
+
 double lastTimeStamp = 0;
 
 -(id)initWithURL:(NSURL *)url error:(NSError **)error {
@@ -50,8 +52,7 @@ double lastTimeStamp = 0;
                                       userInfo:userInfo];
             return nil;
         }
-        // init for the internal buffer
-        self.responseBuffer = [[NSMutableData alloc] init];
+        
         
         if(!self.responseBuffer) {
             NSString *domain = @"com.audio.now.internalBufferError";
@@ -64,8 +65,24 @@ double lastTimeStamp = 0;
             return nil;
         }
         
-        // create an asincron connection from the request
-        self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+//        dispatch_async(queue2, ^{
+        
+            // create an asincron connection from the request
+            self.connection = [[NSURLConnection alloc]
+                               initWithRequest:request
+                               delegate:self
+                               startImmediately:NO];
+            
+            // don't need the runLoop here
+//            NSRunLoop *runLoop = [NSRunLoop currentRunLoop]; // Get the runloop
+//            [self.connection scheduleInRunLoop:runLoop forMode:NSDefaultRunLoopMode];
+//            [runLoop run];
+        
+            [self.connection start];
+            
+            NSLog(@" ****** Started connection on main thread:%@", [NSThread isMainThread] ? @"YES" : @" NO");
+            
+//        });
         
         if (!self.connection) {
             NSString *domain = @"com.audio.now.connectionError";
@@ -77,21 +94,6 @@ double lastTimeStamp = 0;
                                      userInfo:userInfo];
             return nil;
         }
-        
-        // start the queue
-        queue = dispatch_queue_create("com.audio.now.streaming", NULL);
-        
-        // start the connection
-        [self.connection start];
-        // change the connection terminated flag
-        self.connectionTerminated = NO;
-        
-        // set the podcast size to -1 = not initialized
-        self.podcastSize = -1;
-        // set the internal error to nil
-        self.connectionError = nil;
-        // set the download index to 0
-        self.downloadIndex = 0;
         
         return self;
         
@@ -175,11 +177,14 @@ double lastTimeStamp = 0;
    // NSLog(@" - read %lu bytes from the internal buffer",(unsigned long)returnData.length);
    // NSLog(@" - internal buffer droped to %lu bytes",(unsigned long) self.internalBuffer.length);
     
-    if (self.connectionTerminated == YES) {
+    // find the size of the combined buffes
+    long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
+    
+    if (self.connectionTerminated == YES && totalBuffersSize < kMaxBufferSize / 2) {
         // jump to the position
         [self localJumpToPosition:self.downloadIndex];
         // start the connection
-        [self.connection start];
+        // [self.connection start];
         // change the connection terminated flag
         self.connectionTerminated = NO;
         NSLog(@" - restarted the stream connection");
@@ -260,8 +265,24 @@ double lastTimeStamp = 0;
         return NO;
     }
     
-    // create an asincron connection from the request
-    self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+    dispatch_sync(queue2, ^{
+        
+        // create an asincron connection from the request
+        self.connection = [[NSURLConnection alloc]
+                           initWithRequest:request
+                           delegate:self
+                           startImmediately:NO];
+        
+        // need the runLoop here
+        NSRunLoop *runLoop = [NSRunLoop currentRunLoop]; // Get the runloop
+        [self.connection scheduleInRunLoop:runLoop forMode:NSDefaultRunLoopMode];
+        [runLoop run];
+        
+        [self.connection start];
+        
+        NSLog(@" ****** REStarted connection on main thread:%@", [NSThread isMainThread] ? @"YES" : @" NO");
+        
+    });
     
     if (!self.connection) {
         NSString *domain = @"com.audio.now.connectionError";
@@ -335,21 +356,21 @@ double lastTimeStamp = 0;
         self.downloadIndex += data.length;
     }
     
-    // find the size of the combined buffes
-    long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
     
     // log data
     if (lastTimeStamp != 0) {
         double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastTimeStamp ;
-        NSLog(@" network transfer: %d bytes in %f ns",[data length],timeSpent);
+        NSLog(@" network transfer: %lu bytes in %f ns",(unsigned long)[data length],timeSpent);
     }
     
     lastTimeStamp = [NSDate timeIntervalSinceReferenceDate];
     
 
+    // find the size of the combined buffes
+    long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
+
     // if the total buffer size excedes the defined max buffer size
-    
-    if ( totalBuffersSize > kMaxBufferSize) {
+    if ( totalBuffersSize > kMaxBufferSize ) {
         
         // it's not a stream
         // and the rest of the download is bigger than the min buffer size

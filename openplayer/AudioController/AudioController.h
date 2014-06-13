@@ -21,7 +21,7 @@
 
 @interface AudioController : NSObject {
 	AudioComponentInstance audioUnit;
-    @public int _sampleRate, _channels;
+    @public int _sampleRate, _channels, _bytesPerFrame;
     
 }
 

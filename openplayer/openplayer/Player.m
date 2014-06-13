@@ -270,19 +270,27 @@ double lastLibraryOutputTimestamp = 0;
     
     NSLog(@"Write %d from opusPlayer", amount);
 
-    // convert to mono
+   /* // convert to mono
     short *monoBuffer;
     int len = amount / _channels;
     monoBuffer = (short *)malloc(len * sizeof(short));
-    for (int i = 0; i < len; i++) {
-        if (_channels == 2) monoBuffer[i] = (pcmData[i * 2] + pcmData[i * 2 + 1]) / 2;
-        else if (_channels == 1) monoBuffer[i] = pcmData[i];
-    }
+    if (_channels == 2)
+        for (int i = 0; i < len; i++) monoBuffer[i] = (pcmData[i * 2] + pcmData[i * 2 + 1]) / 2;
+    else
+        monoBuffer = pcmData;
+    
     if (srcbuffer1 == nil ) {
         srcbuffer1 = (short *) malloc(1920*1024*10);
     }
     memcpy(srcbuffer1 + bufsize1, monoBuffer, len * sizeof(short));
-    bufsize1 += len;
+    bufsize1 += len;*/
+    
+    if (srcbuffer1 == nil ) {
+        srcbuffer1 = (short *) malloc(1920*1024*10);
+    }
+    memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
+    bufsize1 += amount;
+    
     
     
     /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
