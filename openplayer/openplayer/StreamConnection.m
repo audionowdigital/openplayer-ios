@@ -38,6 +38,22 @@ double lastTimeStamp = 0;
     {
         pauseCondition = [NSCondition new];
         
+        // start the queue
+        queue = dispatch_queue_create("com.audio.now.streaming", NULL);
+        queue2 = dispatch_queue_create("com.audio.now.streaming.queue", NULL);
+        
+        // init for the internal buffer
+        self.responseBuffer = [[NSMutableData alloc] init];
+        // change the connection terminated flag
+        self.connectionTerminated = NO;
+        
+        // set the podcast size to -1 = not initialized
+        self.podcastSize = -1;
+        // set the internal error to nil
+        self.connectionError = nil;
+        // set the download index to 0
+        self.downloadIndex = 0;
+        
         // create a simple GET request from the url
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         [request setHTTPMethod:@"GET"];
@@ -65,24 +81,26 @@ double lastTimeStamp = 0;
             return nil;
         }
         
-//        dispatch_async(queue2, ^{
+        // create an asincron connection from the request
+        self.connection = [[NSURLConnection alloc]
+                           initWithRequest:request
+                           delegate:self
+                           startImmediately:NO];
         
-            // create an asincron connection from the request
-            self.connection = [[NSURLConnection alloc]
-                               initWithRequest:request
-                               delegate:self
-                               startImmediately:NO];
+        
+        dispatch_async(queue2, ^{
+        
             
             // don't need the runLoop here
-//            NSRunLoop *runLoop = [NSRunLoop currentRunLoop]; // Get the runloop
-//            [self.connection scheduleInRunLoop:runLoop forMode:NSDefaultRunLoopMode];
-//            [runLoop run];
+            NSRunLoop *runLoop = [NSRunLoop currentRunLoop]; // Get the runloop
+            [self.connection scheduleInRunLoop:runLoop forMode:NSRunLoopCommonModes];
         
             [self.connection start];
             
             NSLog(@" ****** Started connection on main thread:%@", [NSThread isMainThread] ? @"YES" : @" NO");
             
-//        });
+            [runLoop run];
+        });
         
         if (!self.connection) {
             NSString *domain = @"com.audio.now.connectionError";
@@ -265,23 +283,23 @@ double lastTimeStamp = 0;
         return NO;
     }
     
-    dispatch_sync(queue2, ^{
-        
-        // create an asincron connection from the request
-        self.connection = [[NSURLConnection alloc]
-                           initWithRequest:request
-                           delegate:self
-                           startImmediately:NO];
+    // create an asincron connection from the request
+    self.connection = [[NSURLConnection alloc]
+                       initWithRequest:request
+                       delegate:self
+                       startImmediately:NO];
+    
+    dispatch_async(queue2, ^{
         
         // need the runLoop here
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop]; // Get the runloop
         [self.connection scheduleInRunLoop:runLoop forMode:NSDefaultRunLoopMode];
-        [runLoop run];
         
         [self.connection start];
         
         NSLog(@" ****** REStarted connection on main thread:%@", [NSThread isMainThread] ? @"YES" : @" NO");
         
+        [runLoop run];
     });
     
     if (!self.connection) {
@@ -344,6 +362,8 @@ double lastTimeStamp = 0;
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [self waitIfPaused];
+    
+    NSLog(@" ****** Got response on main thread:%@", [NSThread isMainThread] ? @"YES" : @" NO");
     
     // add data to the internal buffer
     // do this in a syncronized queue

@@ -240,7 +240,7 @@ double lastLibraryOutputTimestamp = 0;
         data = [_streamConnection readBytesForLength:amount error:&error];
         
         if (data.length == 0) {
-            [NSThread sleepForTimeInterval:0.1]; // will only affect the initial buffering time
+            [NSThread sleepForTimeInterval:1]; // will only affect the initial buffering time
         }
         
         if (error) {
