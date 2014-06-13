@@ -242,7 +242,6 @@ double lastLibraryOutputTimestamp = 0;
         if (data.length == 0) {
             [NSThread sleepForTimeInterval:1]; // will only affect the initial buffering time
         }
-        
         if (error) {
             NSLog(@"Error reading from input stream");
             return 0;
@@ -270,24 +269,12 @@ double lastLibraryOutputTimestamp = 0;
     
     NSLog(@"Write %d from opusPlayer", amount);
 
-   /* // convert to mono
-    short *monoBuffer;
-    int len = amount / _channels;
-    monoBuffer = (short *)malloc(len * sizeof(short));
-    if (_channels == 2)
-        for (int i = 0; i < len; i++) monoBuffer[i] = (pcmData[i * 2] + pcmData[i * 2 + 1]) / 2;
-    else
-        monoBuffer = pcmData;
     
     if (srcbuffer1 == nil ) {
         srcbuffer1 = (short *) malloc(1920*1024*10);
     }
-    memcpy(srcbuffer1 + bufsize1, monoBuffer, len * sizeof(short));
-    bufsize1 += len;*/
     
-    if (srcbuffer1 == nil ) {
-        srcbuffer1 = (short *) malloc(1920*1024*10);
-    }
+    // copy all pcm data, be that mono-channel, or interleaved stereo
     memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
     bufsize1 += amount;
     
