@@ -37,6 +37,7 @@ double lastLibraryOutputTimestamp = 0;
         _type = type;
         _state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];
+        waitBufferCondition = [NSCondition new];
     }
     return self;
 }
@@ -218,6 +219,17 @@ double lastLibraryOutputTimestamp = 0;
 
 }
 
+-(void)waitBuffer
+{
+    [waitBufferCondition lock];
+    
+    while (0) {    // replace with buffer percent condition
+        [waitBufferCondition wait];
+    }
+    
+    [waitBufferCondition unlock];
+}
+
 
 -(int)onReadEncodedData:(char **)buffer ofSize:(long)amount
 {
@@ -261,6 +273,8 @@ double lastLibraryOutputTimestamp = 0;
     
     [self waitPlay];
     
+    [self waitBuffer];
+    
     // log data
     if (lastLibraryOutputTimestamp != 0) {
         double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastLibraryOutputTimestamp;
@@ -291,6 +305,8 @@ double lastLibraryOutputTimestamp = 0;
     memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
     bufsize1 += amount;
     
+    
+    [waitBufferCondition signal];
     
     
     /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
