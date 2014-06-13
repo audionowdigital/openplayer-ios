@@ -9,6 +9,7 @@
 #import "Player.h"
 #import "OpusDecoder.h"
 #import "VorbisDecoder.h"
+#import "CircularBuffer.h"
 
 @interface Player()
 
@@ -291,6 +292,10 @@ double lastLibraryOutputTimestamp = 0;
     // copy all pcm data, be that mono-channel, or interleaved stereo
     memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
     bufsize1 += amount;
+    
+    CircularBuffer buf = new CircularBuffer;
+    
+    buf.init();
     
     
     [waitBufferCondition signal];
