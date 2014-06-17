@@ -182,7 +182,7 @@ double lastLibraryOutputTimestamp = 0;
     // init audiocontroller and pass freq and channels as parameters
     iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
 
-    buffer = [CircularBuffer alloc];
+    buffer = [[CircularBuffer alloc]init];
 
     
     
