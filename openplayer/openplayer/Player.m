@@ -9,7 +9,6 @@
 #import "Player.h"
 #import "OpusDecoder.h"
 #import "VorbisDecoder.h"
-#import "CircularBuffer.h"
 
 @interface Player()
 
@@ -251,6 +250,12 @@ double lastLibraryOutputTimestamp = 0;
     
     lastNetworkRequestTimestamp = [NSDate timeIntervalSinceReferenceDate];
     
+    // block until we need data
+    do {
+        [NSThread sleepForTimeInterval:0.1];
+    } while ([_audio getBufferFill] > 10);
+    
+    // block until we have data from the network
     do {
         
         data = [_streamConnection readBytesForLength:amount error:&error];
@@ -264,10 +269,7 @@ double lastLibraryOutputTimestamp = 0;
         }
     } while (!error && data.length == 0);
     
-    NSLog(@"Read %lu encoded bytes from input stream.", (unsigned long)data.length);
-    
     *buffer = (char *)[data bytes];
-    
     return (int) data.length;
 }
 
@@ -276,7 +278,7 @@ double lastLibraryOutputTimestamp = 0;
     
     [self waitPlay];
     
-    [self waitBuffer];
+   // [self waitBuffer];
     
     // log data
     if (lastLibraryOutputTimestamp != 0) {
@@ -292,7 +294,7 @@ double lastLibraryOutputTimestamp = 0;
     TPCircularBufferProduceBytes(&_audio->circbuffer, pcmData, amount * sizeof(short));
 
     
-    [waitBufferCondition signal];
+   // [waitBufferCondition signal];
     
     
     /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];

@@ -150,10 +150,7 @@ static OSStatus playbackCallback(void *inRefCon,
 - (int) getBufferFill {
     int32_t availableBytes;
     TPCircularBufferTail(&circbuffer, &availableBytes);
-    
-    int p = 100 * availableBytes / kBufferLength;
-    NSLog(@"percent:%d", p);
-    return p;
+    return 100 * availableBytes / kBufferLength;
 }
 
 
