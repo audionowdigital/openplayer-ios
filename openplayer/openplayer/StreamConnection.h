@@ -10,7 +10,6 @@
 
 @interface StreamConnection : NSObject <NSURLConnectionDelegate>
 {
-    NSCondition *pauseCondition;
     BOOL _isPaused;
 }
 

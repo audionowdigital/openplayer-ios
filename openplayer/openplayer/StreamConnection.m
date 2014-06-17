@@ -36,8 +36,6 @@ double lastTimeStamp = 0;
     self = [super init];
     if( self )
     {
-        pauseCondition = [NSCondition new];
-        
         // start the queue
         queue = dispatch_queue_create("com.audio.now.streaming", NULL);
         queue2 = dispatch_queue_create("com.audio.now.streaming.queue", NULL);
@@ -317,36 +315,22 @@ double lastTimeStamp = 0;
     return YES;
 }
 
-
--(void)waitIfPaused
-{
-    [pauseCondition lock];
-    
-    while (_isPaused) {
-        [pauseCondition wait];
-    }
-    
-    [pauseCondition unlock];
-}
-
 -(void)pauseConnection
 {
-    [pauseCondition lock];
+    //stop the stream
+    [self.connection cancel];
     
-    _isPaused = YES;
-    
-    [pauseCondition signal];
-    [pauseCondition unlock];
+    // change the connection terminated flag
+    self.connectionTerminated = YES;
 }
 
 -(void)resumeConnection
 {
-    [pauseCondition lock];
-    
-    _isPaused = NO;
-    
-    [pauseCondition signal];
-    [pauseCondition unlock];
+    // jump to the position
+    [self localJumpToPosition:self.downloadIndex];
+
+    self.connectionTerminated = NO;
+    NSLog(@" - restarted the stream connection");
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
@@ -361,9 +345,7 @@ double lastTimeStamp = 0;
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    [self waitIfPaused];
-    
-    NSLog(@" ****** Got response on main thread:%@", [NSThread isMainThread] ? @"YES" : @" NO");
+     NSLog(@"didReceiveData of size: %d", data.length);
     
     // add data to the internal buffer
     // do this in a syncronized queue
