@@ -179,12 +179,10 @@ double lastLibraryOutputTimestamp = 0;
         NSLog(@" audioEngine error: %@",error);
     }
     
-    // aici initializam audiocontroller-ul . Va trebui sa pasam corect parametrii primiti in onStart: frecventa si nr canale
+    // init audiocontroller and pass freq and channels as parameters
     iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
-    
-    buffer = new CircularBuffer;
-    buffer.init();
-    
+
+    buffer = [CircularBuffer alloc];
 
     
     
@@ -208,7 +206,7 @@ double lastLibraryOutputTimestamp = 0;
 -(void)onStop
 {
     _state = STATE_STOPPED;
-    
+    [buffer deinit];
     [iosAudio stop];
 }
 
@@ -299,9 +297,9 @@ double lastLibraryOutputTimestamp = 0;
     memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
     bufsize1 += amount;
     
-    CircularBuffer buf = new CircularBuffer;
+   // CircularBuffer buf = new CircularBuffer;
     
-    buf.init();
+   // buf.init();
     
     
     [waitBufferCondition signal];

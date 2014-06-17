@@ -11,7 +11,7 @@
 #import "INativeInterface.h"
 #import "PlayerEvents.h"
 #import "AudioController.h"
-#import "CircularBuffer.h"
+#include "CircularBuffer.h"
 
 typedef enum player_state{
     STATE_READY_TO_PLAY = 0,    // player is ready to play, this is the state used also for Pause
@@ -37,7 +37,7 @@ typedef enum decode_status{
     //id<IPlayerHandler> _playerHandler;
 
     int _type, _sampleRate, _channels;
-    CircularBuffer buffer;
+    CircularBuffer *buffer;
     PlayerEvents *_playerEvents;
     StreamConnection *_streamConnection;
     NSCondition *waitPlayCondition;
