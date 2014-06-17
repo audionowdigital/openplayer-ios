@@ -27,8 +27,6 @@
 
 @implementation Player
 
-double lastNetworkRequestTimestamp = 0;
-double lastLibraryOutputTimestamp = 0;
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
@@ -37,7 +35,6 @@ double lastLibraryOutputTimestamp = 0;
         _type = type;
         _state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];
-        waitBufferCondition = [NSCondition new];
     }
     return self;
 }
@@ -158,37 +155,25 @@ double lastLibraryOutputTimestamp = 0;
     return _state == STATE_READING_HEADER;
 }
 
--(void)onStartReadingHeader
-{
+-(void)onStartReadingHeader {
     NSLog(@"onStartReadingHeader");
-    
     _state = STATE_READING_HEADER;
 }
 
--(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack
-{
+// Called by the native decoder when we got the header data
+-(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack {
     NSLog(@"on start %d %d %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
     
     _sampleRate = sampleRate;
     _channels = channels;
     
-    NSError *error = nil;
-    
-    if (error != nil) {
-        NSLog(@" audioEngine error: %@",error);
-    }
-    
     // init audiocontroller and pass freq and channels as parameters
     _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
 
-    
-    
     _state = STATE_READY_TO_PLAY;
     [self play];
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        //TODO: if it's the first time send onStart, else send onTrackInfo
         NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
         NSString *ns_title = [NSString stringWithUTF8String:ptitle];
         NSString *ns_artist = [NSString stringWithUTF8String:partist];
@@ -196,70 +181,41 @@ double lastLibraryOutputTimestamp = 0;
         NSString *ns_date = [NSString stringWithUTF8String:pdate];
         NSString *ns_track = [NSString stringWithUTF8String:ptrack];
         [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
-        
     });
 }
 
--(void)onStop
-{
+// Called by the native decoder when decoding is finished (end of source or error)
+-(void)onStop {
     _state = STATE_STOPPED;
-    //[circBuffer deinit];
-    
     [_audio stop];
 }
 
-
--(void)waitPlay
-{
-        
+// Blocks the current thread
+-(void)waitPlay {
     [waitPlayCondition lock];
     
     while (_state == STATE_READY_TO_PLAY) {
         [waitPlayCondition wait];
     }
-    
     [waitPlayCondition unlock];
-
 }
 
--(void)waitBuffer
-{
-    [waitBufferCondition lock];
-    
-    while ([_audio getBufferFill] > 10) {    // replace with buffer percent condition
-        [waitBufferCondition wait];
-    }
-    
-    [waitBufferCondition unlock];
-}
-
-
--(int)onReadEncodedData:(char **)buffer ofSize:(long)amount
-{
-    NSError *error;
-    NSData *data;
-    
+// Called when the decoder asks for encoded data to decode . A few blocking conditions apply here
+-(int)onReadEncodedData:(char **)buffer ofSize:(long)amount {
+    // block if paused
     [self waitPlay];
     
-    // log demand
-
-    if (lastNetworkRequestTimestamp != 0) {
-        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastNetworkRequestTimestamp;
-        NSLog(@" decoder request: %ld bytes in %f ns",amount,timeSpent);
+    // block until we need data
+    while ([_audio getBufferFill] > 50) {
+        [NSThread sleepForTimeInterval:0.1];
+        NSLog(@"Circular audio buffer overfill, waiting..");
     }
     
-    lastNetworkRequestTimestamp = [NSDate timeIntervalSinceReferenceDate];
-    
-    // block until we need data
-    do {
-        [NSThread sleepForTimeInterval:0.1];
-    } while ([_audio getBufferFill] > 10);
-    
     // block until we have data from the network
+    NSData *data;
+    NSError *error;
     do {
-        
         data = [_streamConnection readBytesForLength:amount error:&error];
-        
         if (data.length == 0) {
             [NSThread sleepForTimeInterval:1]; // will only affect the initial buffering time
         }
@@ -273,38 +229,14 @@ double lastLibraryOutputTimestamp = 0;
     return (int) data.length;
 }
 
--(void)onWritePCMData:(short *)pcmData ofSize:(int)amount
-{
-    
+// Called when decoded data is available - we take it and write it to the circular buffer
+-(void)onWritePCMData:(short *)pcmData ofSize:(int)amount {
+    // block if paused
     [self waitPlay];
-    
-   // [self waitBuffer];
-    
-    // log data
-    if (lastLibraryOutputTimestamp != 0) {
-        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastLibraryOutputTimestamp;
-        NSLog(@" decoder output: %d bytes in %f ns",amount,timeSpent);
-    }
-    lastLibraryOutputTimestamp = [NSDate timeIntervalSinceReferenceDate];
-    
     NSLog(@"Write %d from opusPlayer", amount);
-
     
     // before writting any bytes, see if the buffer is not full. using the waitBuffer for that
     TPCircularBufferProduceBytes(&_audio->circbuffer, pcmData, amount * sizeof(short));
-
-    
-   // [waitBufferCondition signal];
-    
-    
-    /*NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
-    FILE *f3 = fopen([file3 UTF8String], "ab");
-    fwrite(pcmData, 2, amount, f3);
-    fclose(f3);*/
-
-    
-    // just a random buffer, will crash when filled
-    
 }
 
 

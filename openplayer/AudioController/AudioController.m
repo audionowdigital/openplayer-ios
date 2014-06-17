@@ -113,7 +113,6 @@ static OSStatus playbackCallback(void *inRefCon,
     _sampleRate = sampleRate;
     _channels = channels;
     
-    // alloc circular buffer
     // Initialise buffer
     TPCircularBufferInit(&circbuffer, kBufferLength);
     
@@ -137,9 +136,8 @@ static OSStatus playbackCallback(void *inRefCon,
     AudioUnitUninitialize(audioUnit);
     AudioComponentInstanceDispose(audioUnit);
     audioUnit = nil;
-    
+    // free circular buffer
     TPCircularBufferCleanup(&circbuffer);
-    
 }
 
 - (void) pause

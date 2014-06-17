@@ -50,17 +50,15 @@
 //    @"http://www.markosoft.ro/opus/countdown.opus"
     
    // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
- //   @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
+  //  @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
 //    @"http://revolutionradio.ru:8000/live.ogg"; //vorbis
 //    @"http://ice01.va.audionow.com:8000/radioamericaopus.ogg"; //stereo opus ok.
 //    @"http://icecast.timlradio.co.uk/ar64.opus"; // not ok
 //    @"http://icecast.timlradio.co.uk/ac96.opus"; //not ok
     //@"http://opus.ai-radio.org:8000/radio.opus";
     //http://radioserver1.delfa.net:80/256.opus";
-    //http://opus.ai-radio.org:8000/radio.opus";
     //http://ogg.ai-radio.org:8000/radio.ogg";
-    //http://ai-radio.org:8000/radio.opus";
-    //http://www.markosoft.ro/opus/02_Archangel.opus";
+
     //
 
     self.urlLabel.text = urlString;

@@ -33,18 +33,15 @@ typedef enum decode_status{
 
 @interface Player : NSObject <INativeInterface>
 {
-    //id<IPlayerHandler> _playerHandler;
-
     int _type, _sampleRate, _channels;
     PlayerEvents *_playerEvents;
     StreamConnection *_streamConnection;
     AudioController *_audio;
     
     NSCondition *waitPlayCondition;
-    NSCondition *waitBufferCondition;
     
-    long _streamSize;
-    NSTimeInterval _streamLength;       // seconds
+   // long _streamSize;
+   // NSTimeInterval _streamLength;       // seconds
 }
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type ;

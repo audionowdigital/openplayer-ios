@@ -19,7 +19,9 @@
 #define min( a, b ) ( ((a) < (b)) ? (a) : (b) )
 #endif
 
-#define kBufferLength 1048576
+// The buffer size combined with the threshold for buffer-fill, will greatly affect the playback
+// When choosing this value, we need to think of the download rate, and the playback rate
+#define kBufferLength 256000 //256KB buffer
 
 @interface AudioController : NSObject {
 	AudioComponentInstance audioUnit;
