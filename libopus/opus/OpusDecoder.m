@@ -157,7 +157,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 					if (header == OPUS_HEADERS) { // first header
 						//if (op.b_o_s && op.bytes >= 8 && !memcmp(op.packet, "OpusHead", 8)) {
 						if (op.bytes < 8 || memcmp(op.packet, "OpusHead", 8) != 0) {
-							err = NOT_HEADER;
+							err = INVALID_HEADER;
 							break;
 						}
 						// prepare opus structures

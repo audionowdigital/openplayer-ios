@@ -12,6 +12,7 @@
 #import "PlayerEvents.h"
 #import "AudioController.h"
 
+/* Define internal player states */
 typedef enum player_state{
     STATE_READY_TO_PLAY = 0,    // player is ready to play, this is the state used also for Pause
     STATE_PLAYING = 1,          // player is currently playing
@@ -19,22 +20,23 @@ typedef enum player_state{
     STATE_READING_HEADER = 3    // player is currently reading the header
 } PlayerState;
 
+/* Define player types , affecting the decoder being used */
 typedef enum player_types {
     PLAYER_OPUS = 1,
     PLAYER_VORBIS = 2
 } PlayerType;
 
+/* Error codes returned. Made similar to Android implementation */
 typedef enum decode_status{
     SUCCESS = 0,                // Everything was a success
-    NOT_A_HEADER = -1,          // The data is not in the expected header format
-    CORRUPT_HEADER = -2,        // The  header is corrupt
-    DECODE_ERROR = -3           // Failed to decode
+    INVALID_HEADER = -1,        // The data is not in the expected header format
+    DECODE_ERROR = -2           // Failed to decode, for some reason
 } DecodingStatus;
 
 @interface Player : NSObject <INativeInterface>
 {
-    int _type, _sampleRate, _channels;
-    PlayerEvents *_playerEvents;
+    int _type, _sampleRate, _channels;      // globals to hold the parameters for the current track
+    PlayerEvents *_playerEvents;            // player events
     StreamConnection *_streamConnection;
     AudioController *_audio;
     

@@ -78,14 +78,8 @@
                     [_playerEvents sendEvent:PLAYING_FINISHED];
                     break;
                 
-                case NOT_A_HEADER:
-                    NSLog(@"Not a header error received");
-                    //[self sendEvent:PLAYING_FAILED];
-                    [_playerEvents sendEvent:PLAYING_FAILED];
-                    break;
-                    
-                case CORRUPT_HEADER:
-                    NSLog(@"Corrupt header error received");
+                case INVALID_HEADER:
+                    NSLog(@"Invalid header error received");
                     //[self sendEvent:PLAYING_FAILED];
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;

@@ -179,7 +179,7 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
 					if(vorbis_synthesis_headerin(&vi,&vc,&op) < 0) {
 						// error case; not a vorbis header
                         fprintf(stderr, "Err: not a vorbis header.");
-						err = NOT_HEADER;
+						err = INVALID_HEADER;
 						break;
 					}
 					// signal next header
@@ -206,7 +206,7 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
 						if(vorbis_synthesis_init(&vd,&vi) != 0) {
 							// corrupt header
                             fprintf(stderr, "Err: corrupt header.");
-							err = CORRUPT_HEADER;
+							err = INVALID_HEADER;
 							break;
 						}
 						// central decode state

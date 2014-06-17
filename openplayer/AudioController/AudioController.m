@@ -16,7 +16,6 @@
  This callback is called when the audioUnit needs new data to play through the
  speakers. If you don't have any, just don't write anything in the buffers
  */
-bool dump = false;
 static OSStatus playbackCallback(void *inRefCon, 
 								 AudioUnitRenderActionFlags *ioActionFlags, 
 								 const AudioTimeStamp *inTimeStamp, 
@@ -49,17 +48,13 @@ static OSStatus playbackCallback(void *inRefCon,
 @synthesize audioUnit;
 
 
-/**
- Initialize the audioUnit and allocate our own temporary buffer.
- The temporary buffer will hold the latest data coming in from the microphone,
- and will be copied to the output when this is requested.
- */
+/* Initialize the audioUnit and allocate our own temporary buffer.
+The temporary buffer will hold the latest data coming in from the microphone,
+and will be copied to the output when this is requested. */
 - (id) initWithSampleRate:(int)sampleRate channels:(int)channels {
     self = [super init];
     
-    // Configure the search parameters to find the default playback output unit
-    // (called the kAudioUnitSubType_RemoteIO on iOS but
-    // kAudioUnitSubType_DefaultOutput on Mac OS X)
+    // Find the default playback output unit (kAudioUnitSubType_RemoteIO on iOS/kAudioUnitSubType_DefaultOutput on Mac OS X)
     AudioComponentDescription defaultOutputDescription;
     defaultOutputDescription.componentType = kAudioUnitType_Output;
     defaultOutputDescription.componentSubType = kAudioUnitSubType_RemoteIO;
@@ -87,9 +82,6 @@ static OSStatus playbackCallback(void *inRefCon,
                                sizeof(input));
     NSAssert1(err == noErr, @"Error setting callback: %ld", err);
     
-    // TODO: handle all error cases properly.
-    // TODO: implement the circular buffer
-    
     // init audio output based on given channels and samplerate
     AudioStreamBasicDescription streamFormat;
     streamFormat.mSampleRate = sampleRate;
@@ -109,9 +101,9 @@ static OSStatus playbackCallback(void *inRefCon,
     NSAssert1(err == noErr, @"Error setting stream format: %ld", err);
     
     // save format data to our current instance
-    _bytesPerFrame = streamFormat.mBytesPerFrame;
-    _sampleRate = sampleRate;
-    _channels = channels;
+    //_bytesPerFrame = streamFormat.mBytesPerFrame;
+    //_sampleRate = sampleRate;
+    //_channels = channels;
     
     // Initialise buffer
     TPCircularBufferInit(&circbuffer, kBufferLength);
@@ -119,9 +111,9 @@ static OSStatus playbackCallback(void *inRefCon,
     return self;
 }
 
-// Start the audioUnit. requested for feeding to the speakers, by use of the provided callbacks.
+/* Start the audioUnit. requested for feeding to the speakers, by use of the provided callbacks. */
 - (void) start {
-    // Finalize parameters on the unit
+    // Finalize parameters on the unit if any unreleased
     OSErr err = AudioUnitInitialize(audioUnit);
     NSAssert1(err == noErr, @"Error initializing unit: %ld", err);
     
@@ -129,7 +121,7 @@ static OSStatus playbackCallback(void *inRefCon,
     NSAssert1(status == noErr, @"Error starting audioOutputUnit: %ld", status);
 }
 
-// Stop the audioUnit
+/* Stop the audioUnit and free all resources */
 - (void) stop {
     // free it in reverse order
     AudioOutputUnitStop(audioUnit);
@@ -140,11 +132,12 @@ static OSStatus playbackCallback(void *inRefCon,
     TPCircularBufferCleanup(&circbuffer);
 }
 
-- (void) pause
-{
+/* Pause the audioUnit */
+- (void) pause {
     AudioOutputUnitStop(audioUnit);
 }
 
+/* Get the buffer fill percent */
 - (int) getBufferFill {
     int32_t availableBytes;
     TPCircularBufferTail(&circbuffer, &availableBytes);

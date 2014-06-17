@@ -10,10 +10,10 @@
 #define lib_ErrorCodes_h
 
 /*Define message codes*/
-#define NOT_HEADER -1
-#define CORRUPT_HEADER -2
-#define DECODE_ERROR -3
 #define SUCCESS 0
+#define INVALID_HEADER -1
+#define DECODE_ERROR -2
+
 
 
 #endif
