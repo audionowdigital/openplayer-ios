@@ -36,8 +36,9 @@ static OSStatus playbackCallback(void *inRefCon,
     //a single channel: mono or interleaved stereo
     AudioBuffer outputBuffer = ioData->mBuffers[0];
 
+    [this.circBuffer pull:outputBuffer.mData amount:inNumberFrames];
     // TODO: serve only if available, to make sure the offset remains low
-    if (srcbuffer1 != nil && bufsize1 > 0) {
+    /*if (srcbuffer1 != nil && bufsize1 > 0) {
         
         int minFramesAvailable = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
         memcpy((short *)outputBuffer.mData, srcbuffer1 + offset1, minFramesAvailable * this->_bytesPerFrame);
@@ -53,7 +54,7 @@ static OSStatus playbackCallback(void *inRefCon,
         NSLog(@"No Buffer size:%d offset:%d take:%d",
               bufsize1, offset1, minFramesAvailable);
        
-    }
+    }*/
   
 	
     return noErr;

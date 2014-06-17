@@ -8,16 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
-#define MAX_CIRCULAR_SIZE 1024*1024
+#define MAX_CIRCULAR_SIZE 1048576 //1MB
+
+#ifndef max
+#define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
+#endif
+
+#ifndef min
+#define min( a, b ) ( ((a) < (b)) ? (a) : (b) )
+#endif
 
 @interface Node : NSObject
 {
-    short val;
-    Node *next;
+    //@public short val;
+    //@public Node *next;
 }
+@property short val;
+@property Node *next;
 @end
 
-@interface CircularBuffer  {
+@interface CircularBuffer : NSObject  {
     @public Node *first, *last, *read, *write;
 }
 

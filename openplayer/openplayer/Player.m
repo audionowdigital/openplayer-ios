@@ -181,8 +181,8 @@ double lastLibraryOutputTimestamp = 0;
     
     // init audiocontroller and pass freq and channels as parameters
     iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
-
-    buffer = [[CircularBuffer alloc]init];
+    iosAudio.circBuffer = [[CircularBuffer alloc]init];
+    //circBuffer = [[CircularBuffer alloc]init];
 
     
     
@@ -206,7 +206,9 @@ double lastLibraryOutputTimestamp = 0;
 -(void)onStop
 {
     _state = STATE_STOPPED;
-    [buffer deinit];
+    //[circBuffer deinit];
+    [iosAudio.circBuffer deinit];
+    
     [iosAudio stop];
 }
 
@@ -289,13 +291,16 @@ double lastLibraryOutputTimestamp = 0;
     NSLog(@"Write %d from opusPlayer", amount);
 
     
-    if (srcbuffer1 == nil ) {
+    /*if (srcbuffer1 == nil ) {
         srcbuffer1 = (short *) malloc(1920*1024*10);
-    }
+    }*/
     
     // copy all pcm data, be that mono-channel, or interleaved stereo
-    memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
-    bufsize1 += amount;
+    //memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
+    //bufsize1 += amount;
+    [iosAudio.circBuffer push:pcmData amount:amount];
+    int x = [iosAudio.circBuffer checkFillPercent];
+    NSLog(@"Filled %d" , x);
     
    // CircularBuffer buf = new CircularBuffer;
     

@@ -9,6 +9,7 @@
 // http://www.cocoawithlove.com/2010/10/ios-tone-generator-introduction-to.html
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "CircularBuffer.h"
 
 #ifndef max
 #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
@@ -22,11 +23,12 @@
 @interface AudioController : NSObject {
 	AudioComponentInstance audioUnit;
     @public int _sampleRate, _channels, _bytesPerFrame;
+   // @public CircularBuffer *circBuffer;
     
 }
 
 @property (readonly) AudioComponentInstance audioUnit;
-@property AudioBuffer tempBuffer;
+@property CircularBuffer *circBuffer;
 
 
 
