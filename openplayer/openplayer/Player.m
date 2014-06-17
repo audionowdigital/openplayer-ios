@@ -118,7 +118,7 @@ double lastLibraryOutputTimestamp = 0;
     
     
     [_streamConnection resumeConnection];
-    [iosAudio start];
+    [_audio start];
 }
 
 -(void)pause
@@ -131,7 +131,7 @@ double lastLibraryOutputTimestamp = 0;
     _state = STATE_READY_TO_PLAY;
     
     [_streamConnection pauseConnection];
-    [iosAudio pause];
+    [_audio pause];
 }
 
 -(void)stop
@@ -180,9 +180,7 @@ double lastLibraryOutputTimestamp = 0;
     }
     
     // init audiocontroller and pass freq and channels as parameters
-    iosAudio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
-    iosAudio.circBuffer = [[CircularBuffer alloc]init];
-    //circBuffer = [[CircularBuffer alloc]init];
+    _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
 
     
     
@@ -207,9 +205,8 @@ double lastLibraryOutputTimestamp = 0;
 {
     _state = STATE_STOPPED;
     //[circBuffer deinit];
-    [iosAudio.circBuffer deinit];
     
-    [iosAudio stop];
+    [_audio stop];
 }
 
 
@@ -230,7 +227,7 @@ double lastLibraryOutputTimestamp = 0;
 {
     [waitBufferCondition lock];
     
-    while (0) {    // replace with buffer percent condition
+    while ([_audio getBufferFill] > 10) {    // replace with buffer percent condition
         [waitBufferCondition wait];
     }
     
@@ -291,21 +288,9 @@ double lastLibraryOutputTimestamp = 0;
     NSLog(@"Write %d from opusPlayer", amount);
 
     
-    /*if (srcbuffer1 == nil ) {
-        srcbuffer1 = (short *) malloc(1920*1024*10);
-    }*/
-    
-    // copy all pcm data, be that mono-channel, or interleaved stereo
-    //memcpy(srcbuffer1 + bufsize1, pcmData, amount * sizeof(short));
-    //bufsize1 += amount;
-    [iosAudio.circBuffer push:pcmData amount:amount];
-    int x = [iosAudio.circBuffer checkFillPercent];
-    NSLog(@"Filled %d" , x);
-    
-   // CircularBuffer buf = new CircularBuffer;
-    
-   // buf.init();
-    
+    // before writting any bytes, see if the buffer is not full. using the waitBuffer for that
+    TPCircularBufferProduceBytes(&_audio->circbuffer, pcmData, amount * sizeof(short));
+
     
     [waitBufferCondition signal];
     

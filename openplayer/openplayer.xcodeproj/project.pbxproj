@@ -12,6 +12,8 @@
 		62128DDF1950390600D7884D /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
 		62128DE01950390B00D7884D /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		62128DE11950390E00D7884D /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
+		62128DE419504CCC00D7884D /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 62128DE219504CCC00D7884D /* TPCircularBuffer.c */; };
+		62128DE519504CDC00D7884D /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 62128DE219504CCC00D7884D /* TPCircularBuffer.c */; };
 		6226D983193C79E50060BDD4 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 		62656BE1193F665200F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE0193F665200F66F61 /* libvorbis.a */; };
 		62656BE8193F835900F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE7193F835900F66F61 /* libvorbis.a */; };
@@ -46,6 +48,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		62128DE219504CCC00D7884D /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		62128DE319504CCC00D7884D /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		6226D982193C79E50060BDD4 /* libopus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libopus.a; sourceTree = "<group>"; };
 		62656BDE193F664700F66F61 /* INativeInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeInterface.h; sourceTree = "<group>"; };
 		62656BE0193F665200F66F61 /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbis.a; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 		62656C091940D62F00F66F61 /* AudioController */ = {
 			isa = PBXGroup;
 			children = (
+				62128DE219504CCC00D7884D /* TPCircularBuffer.c */,
+				62128DE319504CCC00D7884D /* TPCircularBuffer.h */,
 				62656C0A1940D62F00F66F61 /* AudioController.h */,
 				62656C0B1940D62F00F66F61 /* AudioController.m */,
 				627DC895194F1FCD002D02EB /* CircularBuffer.h */,
@@ -296,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62128DE419504CCC00D7884D /* TPCircularBuffer.c in Sources */,
 				627DC897194F1FCD002D02EB /* CircularBuffer.m in Sources */,
 				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				62656C0C1940D62F00F66F61 /* AudioController.m in Sources */,
@@ -308,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62128DE519504CDC00D7884D /* TPCircularBuffer.c in Sources */,
 				62128DDF1950390600D7884D /* AudioController.m in Sources */,
 				62128DDE1950390200D7884D /* CircularBuffer.m in Sources */,
 				62128DDD195038EC00D7884D /* Player.m in Sources */,

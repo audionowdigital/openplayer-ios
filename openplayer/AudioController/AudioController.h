@@ -9,7 +9,7 @@
 // http://www.cocoawithlove.com/2010/10/ios-tone-generator-introduction-to.html
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "CircularBuffer.h"
+#import "TPCircularBuffer.h"
 
 #ifndef max
 #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
@@ -19,16 +19,15 @@
 #define min( a, b ) ( ((a) < (b)) ? (a) : (b) )
 #endif
 
+#define kBufferLength 1048576
 
 @interface AudioController : NSObject {
 	AudioComponentInstance audioUnit;
     @public int _sampleRate, _channels, _bytesPerFrame;
-   // @public CircularBuffer *circBuffer;
-    
+    TPCircularBuffer circbuffer;
 }
 
 @property (readonly) AudioComponentInstance audioUnit;
-@property CircularBuffer *circBuffer;
 
 
 
@@ -36,15 +35,8 @@
 - (void) start;
 - (void) stop;
 - (void) pause;
-- (void) processAudio: (AudioBufferList*) bufferList;
-- (AudioBuffer) getBuffer;
+- (int) getBufferFill;
 
 @end
 
 
-// setup a global iosAudio variable, accessible everywhere
-extern AudioController* iosAudio;
-
-extern short *srcbuffer1, *srcbuffer2;
-extern bool use1, use2;
-extern long bufsize1, bufsize2;

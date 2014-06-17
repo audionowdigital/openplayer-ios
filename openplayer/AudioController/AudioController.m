@@ -12,13 +12,6 @@
 #define kOutputBus 0
 
 
-AudioController* iosAudio;
-short *srcbuffer1 = nil, *srcbuffer2 = nil;
-bool use1 = false, use2 = false;
-long bufsize1, bufsize2, offset1;
-
-
-
 /**
  This callback is called when the audioUnit needs new data to play through the
  speakers. If you don't have any, just don't write anything in the buffers
@@ -34,31 +27,22 @@ static OSStatus playbackCallback(void *inRefCon,
     AudioController *this = (__bridge AudioController *)inRefCon;
     
     //a single channel: mono or interleaved stereo
-    AudioBuffer outputBuffer = ioData->mBuffers[0];
-
-    [this.circBuffer pull:outputBuffer.mData amount:inNumberFrames];
-    // TODO: serve only if available, to make sure the offset remains low
-    /*if (srcbuffer1 != nil && bufsize1 > 0) {
-        
-        int minFramesAvailable = min(inNumberFrames, bufsize1 - offset1); // dont copy more data then we have, or then
-        memcpy((short *)outputBuffer.mData, srcbuffer1 + offset1, minFramesAvailable * this->_bytesPerFrame);
-        offset1 += this->_channels * minFramesAvailable; // frames, not bytes, we're using shorts for a frame
-        
-        if (!dump && bufsize1 > 2000000) {
-            NSString *file3= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/testfile6.dat"];
-            FILE *f3 = fopen([file3 UTF8String], "wb");
-            fwrite(srcbuffer1, 2, bufsize1, f3);
-            fclose(f3);
-            dump = true;
-        }
-        NSLog(@"No Buffer size:%d offset:%d take:%d",
-              bufsize1, offset1, minFramesAvailable);
-       
-    }*/
-  
+    short *targetBuffer = (SInt16*)ioData->mBuffers[0].mData;
+    int bytesToCopy = ioData->mBuffers[0].mDataByteSize;
+    
+    // Pull audio from playthrough buffer
+    int32_t availableBytes;
+    short *buffer = TPCircularBufferTail(&this->circbuffer, &availableBytes);
+    // how much dow we need vs how much do we have
+    int bytes = min(bytesToCopy, availableBytes);
+    // push bytes
+    memcpy(targetBuffer, buffer, bytes);
+    TPCircularBufferConsume(&this->circbuffer, bytes);
 	
     return noErr;
 }
+
+
 
 @implementation AudioController
 
@@ -129,6 +113,10 @@ static OSStatus playbackCallback(void *inRefCon,
     _sampleRate = sampleRate;
     _channels = channels;
     
+    // alloc circular buffer
+    // Initialise buffer
+    TPCircularBufferInit(&circbuffer, kBufferLength);
+    
     return self;
 }
 
@@ -149,11 +137,23 @@ static OSStatus playbackCallback(void *inRefCon,
     AudioUnitUninitialize(audioUnit);
     AudioComponentInstanceDispose(audioUnit);
     audioUnit = nil;
+    
+    TPCircularBufferCleanup(&circbuffer);
+    
 }
 
 - (void) pause
 {
     AudioOutputUnitStop(audioUnit);
+}
+
+- (int) getBufferFill {
+    int32_t availableBytes;
+    TPCircularBufferTail(&circbuffer, &availableBytes);
+    
+    int p = 100 * availableBytes / kBufferLength;
+    NSLog(@"percent:%d", p);
+    return p;
 }
 
 
