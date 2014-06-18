@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[Player alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS];
+    player = [[ANDOpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS];
 }
 
 - (void)viewDidLoad

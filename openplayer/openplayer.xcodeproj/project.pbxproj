@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		62128DDD195038EC00D7884D /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.m */; };
+		62128DDD195038EC00D7884D /* ANDOpenPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* ANDOpenPlayer.m */; };
 		62128DDF1950390600D7884D /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
 		62128DE01950390B00D7884D /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
-		62128DE11950390E00D7884D /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
+		62128DE11950390E00D7884D /* ANDPlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* ANDPlayerEvents.m */; };
 		62128DE419504CCC00D7884D /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 62128DE219504CCC00D7884D /* TPCircularBuffer.c */; };
 		62128DE519504CDC00D7884D /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 62128DE219504CCC00D7884D /* TPCircularBuffer.c */; };
 		6226D983193C79E50060BDD4 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 		62656BE1193F665200F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE0193F665200F66F61 /* libvorbis.a */; };
 		62656BE8193F835900F66F61 /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62656BE7193F835900F66F61 /* libvorbis.a */; };
 		62656C0C1940D62F00F66F61 /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
-		628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
+		628CE76E193DADC3009FB38C /* ANDPlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* ANDPlayerEvents.m */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
-		9922789B1938751C0005DB1F /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* Player.m */; };
+		9922789B1938751C0005DB1F /* ANDOpenPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* ANDOpenPlayer.m */; };
 		992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F01938C2060005DB1F /* CoreGraphics.framework */; };
 		992278F31938C2060005DB1F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F21938C2060005DB1F /* UIKit.framework */; };
@@ -30,6 +30,8 @@
 		992279011938C2060005DB1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992279001938C2060005DB1F /* Images.xcassets */; };
 		99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A894EB193DB06A007D3EDF /* MainViewController.m */; };
 		99A894EE193DB094007D3EDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A894ED193DB094007D3EDF /* Main.storyboard */; };
+		99FB06FE19518611001217F1 /* ANDOpenPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 992278981938751C0005DB1F /* ANDOpenPlayer.h */; };
+		99FB06FF19518611001217F1 /* ANDPlayerEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 628CE76C193DADC3009FB38C /* ANDPlayerEvents.h */; };
 		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 /* End PBXBuildFile section */
 
@@ -37,9 +39,11 @@
 		62BDC48C1934704C00CF7520 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				99FB06FE19518611001217F1 /* ANDOpenPlayer.h in CopyFiles */,
+				99FB06FF19518611001217F1 /* ANDPlayerEvents.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,15 +60,15 @@
 		62656C0A1940D62F00F66F61 /* AudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioController.h; sourceTree = "<group>"; };
 		62656C0B1940D62F00F66F61 /* AudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioController.m; sourceTree = "<group>"; };
 		627C7C95193C66DD0031B485 /* OpusDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpusDecoder.h; sourceTree = "<group>"; };
-		628CE76C193DADC3009FB38C /* PlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerEvents.h; sourceTree = "<group>"; };
-		628CE76D193DADC3009FB38C /* PlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerEvents.m; sourceTree = "<group>"; };
+		628CE76C193DADC3009FB38C /* ANDPlayerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDPlayerEvents.h; sourceTree = "<group>"; };
+		628CE76D193DADC3009FB38C /* ANDPlayerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDPlayerEvents.m; sourceTree = "<group>"; };
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
 		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
-		992278981938751C0005DB1F /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
-		992278991938751C0005DB1F /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		992278981938751C0005DB1F /* ANDOpenPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDOpenPlayer.h; sourceTree = "<group>"; };
+		992278991938751C0005DB1F /* ANDOpenPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDOpenPlayer.m; sourceTree = "<group>"; };
 		992278EE1938C2060005DB1F /* openplayerdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openplayerdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		992278F01938C2060005DB1F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		992278F21938C2060005DB1F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -182,10 +186,10 @@
 			children = (
 				992278961938751C0005DB1F /* StreamConnection.h */,
 				992278971938751C0005DB1F /* StreamConnection.m */,
-				992278981938751C0005DB1F /* Player.h */,
-				992278991938751C0005DB1F /* Player.m */,
-				628CE76C193DADC3009FB38C /* PlayerEvents.h */,
-				628CE76D193DADC3009FB38C /* PlayerEvents.m */,
+				992278981938751C0005DB1F /* ANDOpenPlayer.h */,
+				992278991938751C0005DB1F /* ANDOpenPlayer.m */,
+				628CE76C193DADC3009FB38C /* ANDPlayerEvents.h */,
+				628CE76D193DADC3009FB38C /* ANDPlayerEvents.m */,
 			);
 			path = openplayer;
 			sourceTree = "<group>";
@@ -297,9 +301,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				62128DE419504CCC00D7884D /* TPCircularBuffer.c in Sources */,
-				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
+				628CE76E193DADC3009FB38C /* ANDPlayerEvents.m in Sources */,
 				62656C0C1940D62F00F66F61 /* AudioController.m in Sources */,
-				9922789B1938751C0005DB1F /* Player.m in Sources */,
+				9922789B1938751C0005DB1F /* ANDOpenPlayer.m in Sources */,
 				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,8 +314,8 @@
 			files = (
 				62128DE519504CDC00D7884D /* TPCircularBuffer.c in Sources */,
 				62128DDF1950390600D7884D /* AudioController.m in Sources */,
-				62128DDD195038EC00D7884D /* Player.m in Sources */,
-				62128DE11950390E00D7884D /* PlayerEvents.m in Sources */,
+				62128DDD195038EC00D7884D /* ANDOpenPlayer.m in Sources */,
+				62128DE11950390E00D7884D /* ANDPlayerEvents.m in Sources */,
 				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,
 				62128DE01950390B00D7884D /* StreamConnection.m in Sources */,

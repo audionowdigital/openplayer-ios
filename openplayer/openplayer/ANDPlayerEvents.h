@@ -24,7 +24,7 @@ typedef enum player_event{
 
 @end
 
-@interface PlayerEvents : NSObject
+@interface ANDPlayerEvents : NSObject
 {
     id<IPlayerHandler> _playerHandler;
 }

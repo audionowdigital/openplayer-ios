@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Player.h"
+#import "ANDOpenPlayer.h"
 
 @interface MainViewController : UIViewController <IPlayerHandler>
 {
-    Player *player;
+    ANDOpenPlayer *player;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *urlLabel;
