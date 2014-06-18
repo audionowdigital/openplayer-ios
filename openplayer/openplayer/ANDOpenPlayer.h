@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StreamConnection.h"
 #import "INativeInterface.h"
 #import "ANDPlayerEvents.h"
-#import "AudioController.h"
+
+@class StreamConnection;
+@class AudioController;
 
 /* Define internal player states */
 typedef enum player_state{

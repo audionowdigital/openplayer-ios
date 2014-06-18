@@ -32,6 +32,7 @@
 		99A894EE193DB094007D3EDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A894ED193DB094007D3EDF /* Main.storyboard */; };
 		99FB06FE19518611001217F1 /* ANDOpenPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 992278981938751C0005DB1F /* ANDOpenPlayer.h */; };
 		99FB06FF19518611001217F1 /* ANDPlayerEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 628CE76C193DADC3009FB38C /* ANDPlayerEvents.h */; };
+		99FB07571951B850001217F1 /* INativeInterface.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62656BDE193F664700F66F61 /* INativeInterface.h */; };
 		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				99FB07571951B850001217F1 /* INativeInterface.h in CopyFiles */,
 				99FB06FE19518611001217F1 /* ANDOpenPlayer.h in CopyFiles */,
 				99FB06FF19518611001217F1 /* ANDPlayerEvents.h in CopyFiles */,
 			);

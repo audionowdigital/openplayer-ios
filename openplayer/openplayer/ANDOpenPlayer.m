@@ -9,6 +9,8 @@
 #import "ANDOpenPlayer.h"
 #import "OpusDecoder.h"
 #import "VorbisDecoder.h"
+#import "StreamConnection.h"
+#import "AudioController.h"
 
 @interface ANDOpenPlayer()
 
