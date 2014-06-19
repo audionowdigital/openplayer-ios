@@ -123,13 +123,13 @@ and will be copied to the output when this is requested. */
 
 /* Stop the audioUnit and free all resources */
 - (void) stop {
+    // free circular buffer
+    TPCircularBufferCleanup(&circbuffer);
     // free it in reverse order
     AudioOutputUnitStop(audioUnit);
     AudioUnitUninitialize(audioUnit);
     AudioComponentInstanceDispose(audioUnit);
     audioUnit = nil;
-    // free circular buffer
-    TPCircularBufferCleanup(&circbuffer);
 }
 
 /* Pause the audioUnit */

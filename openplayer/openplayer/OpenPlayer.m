@@ -223,14 +223,17 @@
     
     // count data
     _writtenPCMData += amount;
-    _writtenMiliSeconds += [self convertBytesToMs:amount];
-    NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _writtenMiliSeconds);
+    _writtenMiliSeconds += [self convertSamplesToMs:amount];
     
-    // send a notification of progress
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [_playerEvents sendEvent:PLAY_UPDATE withParam:(_writtenMiliSeconds/1000)];
-    });
-    
+    // limit the sending frequency to one second, or we get playback problems
+    if (_seconds != (_writtenMiliSeconds/1000)) {
+        _seconds = _writtenMiliSeconds / 1000;
+        NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
+        // send a notification of progress
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [_playerEvents sendEvent:PLAY_UPDATE withParam:_seconds];
+        });
+    }
 }
 
 // Called at the very beginning , just before we start reading the header
@@ -302,12 +305,12 @@
     [waitPlayCondition unlock];
 }
 
--(int)convertBytesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels {
+-(int)convertSamplesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels {
     return (int)(1000L * bytes / (sampleRate * channels));
 }
 
--(int)convertBytesToMs:(long) bytes {
-    return [self convertBytesToMs:bytes sampleRate:_sampleRate channels:_channels];
+-(int)convertSamplesToMs:(long) bytes {
+    return [self convertSamplesToMs:bytes sampleRate:_sampleRate channels:_channels];
 }
 
 

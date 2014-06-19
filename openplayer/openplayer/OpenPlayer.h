@@ -36,8 +36,9 @@ typedef enum decode_status{
 
 @interface OpenPlayer : NSObject <INativeInterface>
 {
-    int _type, _sampleRate, _channels;      // globals to hold the parameters for the current track
+    int _type, _sampleRate, _channels, _seconds;      // globals to hold the parameters for the current track
     long _writtenPCMData, _writtenMiliSeconds;
+    
     PlayerEvents *_playerEvents;            // player events
     StreamConnection *_streamConnection;
     AudioController *_audio;
@@ -62,8 +63,8 @@ typedef enum decode_status{
 -(BOOL)isReadingHeader;
 
 
--(int)convertBytesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels;
--(int)convertBytesToMs:(long)bytes;
+-(int)convertSamplesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels;
+-(int)convertSamplesToMs:(long)bytes;
 
 
 @property PlayerState state;

@@ -8,7 +8,7 @@
 
 #import "StreamConnection.h"
 
-#define kMaxBufferSize 131072 //128KB
+#define kMaxBufferSize 65535 //64KB
 #define kMinBufferSize 1024     //1KB
 
 @interface StreamConnection()
