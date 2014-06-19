@@ -62,13 +62,11 @@
     
     NSString *urlString =
 //    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
-  //  @"http://www.markosoft.ro/opus/02_Archangel.opus";
+    @"http://www.markosoft.ro/opus/02_Archangel.opus";
    // @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
   //  @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
-//    @"http://www.markosoft.ro/opus/02_Archangel.opus";
-    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
 
-//    @"http://www.markosoft.ro/opus/countdown.opus"
+  //  @"http://www.markosoft.ro/opus/countdown.opus";
     
    // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
   //  @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
@@ -121,9 +119,17 @@
 // We just got the track info
 -(void)onPlayerEvent:(PlayerEvent)event withParams:(NSDictionary *)params {
     
-    NSLog(@"Slider did end sliding... Do your stuff here");
-    
-    NSLog(@"Player event received in client. %d", event);
+    NSLog(@"CLIENT: Player event received: %d", event);
+    if (event == READING_HEADER) {
+        NSLog(@"Reading header - player starting point");
+    }
+    if (event == READY_TO_PLAY) {
+        NSLog(@"Ready to play, just press PLAY");
+    }
+    if (event == PLAY_UPDATE) {
+        NSLog(@"Track progress received, send percent / time to UI");
+        // TODO: finish this.
+    }
     if (event == TRACK_INFO) {
         NSString *vendor =  (NSString *)[params objectForKey:@"vendor"];
         NSString *title = (NSString *)[params objectForKey:@"title"];
@@ -142,8 +148,12 @@
             self.infoLabel.text =
             [NSString stringWithFormat:@"vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@", vendor , title , artist , album , date , track];
         });
-
-        
+    }
+    if (event == PLAYING_FAILED) {
+        NSLog(@"Playing stopped with error.");
+    }
+    if (event == PLAYING_FINISHED) {
+        NSLog(@"Playing stopped with success.");
     }
     
 }

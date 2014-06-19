@@ -144,5 +144,9 @@ and will be copied to the output when this is requested. */
     return 100 * availableBytes / kBufferLength;
 }
 
+/* Empty the circular buffer - needed for seeking */
+- (void) emptyBuffer {
+    TPCircularBufferClear(&circbuffer);
+}
 
 @end

@@ -76,19 +76,16 @@
                 
                 case SUCCESS:
                     NSLog(@"Successfully finished decoding");
-                    //[self sendEvent:PLAYING_FINISHED];
                     [_playerEvents sendEvent:PLAYING_FINISHED];
                     break;
                 
                 case INVALID_HEADER:
                     NSLog(@"Invalid header error received");
-                    //[self sendEvent:PLAYING_FAILED];
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
                     
                 case DECODE_ERROR:
                     NSLog(@"Decoding error received");
-                    //[self sendEvent:PLAYING_FAILED];
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
                 }
@@ -140,19 +137,18 @@
         // TODO: can stop the playing
         // if playing is not stopped gives a nice feeling but bugs can appear
         
-        // find the pozition
-        NSUInteger pozition = _streamConnection.podcastSize * percent;
+        // find the position
+        NSUInteger position = _streamConnection.podcastSize * percent;
         
         // try to do a connection seek
         NSError *error = nil;
         
-        if (![_streamConnection seekToPosition:pozition error:&error]) {
+        if (![_streamConnection seekToPosition:position error:&error]) {
             // network seek failed
             NSLog(@" error: %@",error);
         } else {
-            // network seek was ok
-            
-            // TODO: flush the circular buffer
+            // network seek was ok, empty the circular buffer so we play the new content
+            [_audio emptyBuffer];
         }
     }
 }
@@ -181,6 +177,9 @@
 -(void)onStartReadingHeader {
     NSLog(@"onStartReadingHeader");
     _state = STATE_READING_HEADER;
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [_playerEvents sendEvent:READING_HEADER];
+    });
 }
 
 // Called by the native decoder when we got the header data

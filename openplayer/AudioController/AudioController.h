@@ -41,6 +41,8 @@
 - (void) pause;
 /* Get the buffer fill percent */
 - (int) getBufferFill;
+/* Empty the circular buffer - needed for seeking */
+- (void) emptyBuffer;
 
 @end
 
