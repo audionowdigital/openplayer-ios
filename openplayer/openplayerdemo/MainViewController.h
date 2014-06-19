@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Player.h"
+#import "ANDOpenPlayer.h"
 
 @interface MainViewController : UIViewController <IPlayerHandler>
 {
-    Player *player;
+    ANDOpenPlayer *player;
 }
 
 @property (strong, nonatomic) IBOutlet UILabel *urlLabel;
@@ -20,5 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pauseBtn;
 @property (weak, nonatomic) IBOutlet UIButton *stopBtn;
+
+@property (weak, nonatomic) IBOutlet UIProgressView *progressIndicator;
+@property (weak, nonatomic) IBOutlet UISlider *seekBar;
 
 @end

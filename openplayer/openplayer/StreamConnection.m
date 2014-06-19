@@ -212,25 +212,34 @@ double lastTimeStamp = 0;
 
 -(BOOL)seekToPosition:(NSUInteger)position error:(NSError **)error{
     
-    BOOL seekState =  [self localJumpToPosition:position];
-    
-    if (seekState == YES) {
+    if (self.podcastSize == -1) {
+     
+        NSString *domain = @"com.audio.now.noSeekPermittedError";
+        NSString *desc = NSLocalizedString(@"Cannot do seek on the current stream", @"");
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
         
+        self.connectionError = [NSError errorWithDomain:domain
+                                                   code:-106
+                                               userInfo:userInfo];
+        return NO;
+    } else {
+    
         // reset the buffer
         [self resetBuffers];
-        *error = self.connectionError;
         
-        // start the connection
-        [self.connection start];
+        self.downloadIndex = position;
+        
+        BOOL seekState =  [self localJumpToPosition:position];
         
         // change the connection terminated flag
         self.connectionTerminated = NO;
         
-        return YES;
-    } else {
-        *error = self.connectionError;
-        return NO;
+         *error = self.connectionError;
+        
+        return  seekState;
+    
     }
+    
 }
 
 -(BOOL)localJumpToPosition:(NSUInteger)position{

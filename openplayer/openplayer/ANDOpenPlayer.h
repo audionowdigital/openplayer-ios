@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "StreamConnection.h"
 #import "INativeInterface.h"
-#import "PlayerEvents.h"
-#import "AudioController.h"
+#import "ANDPlayerEvents.h"
+
+@class StreamConnection;
+@class AudioController;
 
 /* Define internal player states */
 typedef enum player_state{
@@ -33,10 +34,10 @@ typedef enum decode_status{
     DECODE_ERROR = -2           // Failed to decode, for some reason
 } DecodingStatus;
 
-@interface Player : NSObject <INativeInterface>
+@interface ANDOpenPlayer : NSObject <INativeInterface>
 {
     int _type, _sampleRate, _channels;      // globals to hold the parameters for the current track
-    PlayerEvents *_playerEvents;            // player events
+    ANDPlayerEvents *_playerEvents;            // player events
     StreamConnection *_streamConnection;
     AudioController *_audio;
     
@@ -52,6 +53,7 @@ typedef enum decode_status{
 -(void)play;
 -(void)pause;
 -(void)stop;
+-(void)seekToPercent:(float)percent;
 
 -(BOOL)isReadyToPlay;
 -(BOOL)isPlaying;

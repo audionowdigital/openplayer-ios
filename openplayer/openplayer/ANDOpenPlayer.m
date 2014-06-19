@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 Audio Now Digital. All rights reserved.
 //
 
-#import "Player.h"
+#import "ANDOpenPlayer.h"
 #import "OpusDecoder.h"
 #import "VorbisDecoder.h"
+#import "StreamConnection.h"
+#import "AudioController.h"
 
-@interface Player()
+@interface ANDOpenPlayer()
 
 -(void)sendEvent:(PlayerEvent)event;
 -(void)sendEvent:(PlayerEvent)event
@@ -25,13 +27,13 @@
 
 @end
 
-@implementation Player
+@implementation ANDOpenPlayer
 
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
     if (self = [super init]) {
-        _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
+        _playerEvents = [[ANDPlayerEvents alloc] initWithPlayerHandler:handler];
         _type = type;
         _state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];
@@ -128,6 +130,33 @@
 {
     [_streamConnection stopStream];
 }
+
+-(void)seekToPercent:(float)percent{
+
+    // test if connectin supports seek
+    // done here for safety
+    if (_streamConnection.podcastSize != -1) {
+
+        // TODO: can stop the playing
+        // if playing is not stopped gives a nice feeling but bugs can appear
+        
+        // find the pozition
+        NSUInteger pozition = _streamConnection.podcastSize * percent;
+        
+        // try to do a connection seek
+        NSError *error = nil;
+        
+        if (![_streamConnection seekToPosition:pozition error:&error]) {
+            // network seek failed
+            NSLog(@" error: %@",error);
+        } else {
+            // network seek was ok
+            
+            // TODO: flush the circular buffer
+        }
+    }
+}
+
 
 -(BOOL)isReadyToPlay
 {
