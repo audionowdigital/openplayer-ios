@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 AudioNowDigital. All rights reserved.
 //
 
-#import "ANDPlayerEvents.h"
+#import "PlayerEvents.h"
 
-@implementation ANDPlayerEvents
+@implementation PlayerEvents
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler {
     if (self = [super init]) {

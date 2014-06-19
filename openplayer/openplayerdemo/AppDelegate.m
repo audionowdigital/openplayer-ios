@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "OpusDecoder.h"
-#import "ANDOpenPlayer.h"
+#import "OpenPlayer.h"
 
 @implementation AppDelegate
 

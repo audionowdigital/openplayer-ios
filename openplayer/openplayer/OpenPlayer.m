@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Audio Now Digital. All rights reserved.
 //
 
-#import "ANDOpenPlayer.h"
+#import "OpenPlayer.h"
 #import "OpusDecoder.h"
 #import "VorbisDecoder.h"
 #import "StreamConnection.h"
 #import "AudioController.h"
 
-@interface ANDOpenPlayer()
+@interface OpenPlayer()
 
 -(void)sendEvent:(PlayerEvent)event;
 -(void)sendEvent:(PlayerEvent)event
@@ -27,13 +27,13 @@
 
 @end
 
-@implementation ANDOpenPlayer
+@implementation OpenPlayer
 
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
     if (self = [super init]) {
-        _playerEvents = [[ANDPlayerEvents alloc] initWithPlayerHandler:handler];
+        _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
         _type = type;
         _state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];

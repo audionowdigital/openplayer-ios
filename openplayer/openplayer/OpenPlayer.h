@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "INativeInterface.h"
-#import "ANDPlayerEvents.h"
+#import "PlayerEvents.h"
 
 @class StreamConnection;
 @class AudioController;
@@ -34,10 +34,10 @@ typedef enum decode_status{
     DECODE_ERROR = -2           // Failed to decode, for some reason
 } DecodingStatus;
 
-@interface ANDOpenPlayer : NSObject <INativeInterface>
+@interface OpenPlayer : NSObject <INativeInterface>
 {
     int _type, _sampleRate, _channels;      // globals to hold the parameters for the current track
-    ANDPlayerEvents *_playerEvents;            // player events
+    PlayerEvents *_playerEvents;            // player events
     StreamConnection *_streamConnection;
     AudioController *_audio;
     
