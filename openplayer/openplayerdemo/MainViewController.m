@@ -115,7 +115,6 @@
 
 - (IBAction)touchUp:(id)sender {
     NSLog(@" value changed to: %f", [(UISlider *)sender value]);
-    [self.progressIndicator setProgress:[(UISlider *)sender value]];
     [player seekToPercent:[(UISlider *)sender value]];
 }
 
