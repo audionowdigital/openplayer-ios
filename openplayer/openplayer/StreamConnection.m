@@ -8,8 +8,8 @@
 
 #import "StreamConnection.h"
 
-#define kMaxBufferSize 50000
-#define kMinBufferSize 1000
+#define kMaxBufferSize 131072 //128KB
+#define kMinBufferSize 1024     //1KB
 
 @interface StreamConnection()
 @property (atomic,strong) NSMutableData *responseBuffer;
@@ -29,7 +29,6 @@
 dispatch_queue_t queue;
 dispatch_queue_t queue2;
 
-double lastTimeStamp = 0;
 
 -(id)initWithURL:(NSURL *)url error:(NSError **)error {
 
@@ -354,7 +353,7 @@ double lastTimeStamp = 0;
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-     NSLog(@"didReceiveData of size: %d", data.length);
+     NSLog(@"didReceiveData: %d Bytes", data.length);
     
     // add data to the internal buffer
     // do this in a syncronized queue
@@ -366,16 +365,6 @@ double lastTimeStamp = 0;
     if (self.podcastSize != -1) {
         self.downloadIndex += data.length;
     }
-    
-    
-    // log data
-    if (lastTimeStamp != 0) {
-        double timeSpent = [NSDate timeIntervalSinceReferenceDate] - lastTimeStamp ;
-        NSLog(@" network transfer: %lu bytes in %f ns",(unsigned long)[data length],timeSpent);
-    }
-    
-    lastTimeStamp = [NSDate timeIntervalSinceReferenceDate];
-    
 
     // find the size of the combined buffes
     long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;

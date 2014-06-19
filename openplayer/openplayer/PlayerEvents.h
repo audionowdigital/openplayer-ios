@@ -20,6 +20,8 @@ typedef enum player_event{
 
 @protocol IPlayerHandler
 
+//-(void)onPlayerEvent:(PlayerEvent) event;
+//-(void)onPlayerEvent:(PlayerEvent) event withParam:(int)param;
 -(void)onPlayerEvent:(PlayerEvent) event withParams:(NSDictionary *)params;
 
 @end

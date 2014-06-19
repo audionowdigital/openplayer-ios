@@ -29,6 +29,7 @@
 
 @implementation OpenPlayer
 
+// --------------- Section 1: Client interface - initialization and methods to control the Player --------------- //
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
@@ -153,6 +154,8 @@
     }
 }
 
+// --------------- Section 2: Client interface - methods to read Player state --------------- //
+
 
 -(BOOL)isReadyToPlay
 {
@@ -174,56 +177,14 @@
     return _state == STATE_READING_HEADER;
 }
 
--(void)onStartReadingHeader {
-    NSLog(@"onStartReadingHeader");
-    _state = STATE_READING_HEADER;
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [_playerEvents sendEvent:READING_HEADER];
-    });
-}
 
-// Called by the native decoder when we got the header data
--(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack {
-    NSLog(@"on start %d %d %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
-    
-    _sampleRate = sampleRate;
-    _channels = channels;
-    
-    // init audiocontroller and pass freq and channels as parameters
-    _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
-
-    _state = STATE_READY_TO_PLAY;
-    [self play];
-    
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
-        NSString *ns_title = [NSString stringWithUTF8String:ptitle];
-        NSString *ns_artist = [NSString stringWithUTF8String:partist];
-        NSString *ns_album = [NSString stringWithUTF8String:palbum];
-        NSString *ns_date = [NSString stringWithUTF8String:pdate];
-        NSString *ns_track = [NSString stringWithUTF8String:ptrack];
-        [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
-    });
-}
-
-// Called by the native decoder when decoding is finished (end of source or error)
--(void)onStop {
-    _state = STATE_STOPPED;
-    [_audio stop];
-}
-
-// Blocks the current thread
--(void)waitPlay {
-    [waitPlayCondition lock];
-    
-    while (_state == STATE_READY_TO_PLAY) {
-        [waitPlayCondition wait];
-    }
-    [waitPlayCondition unlock];
-}
+// --------------- Section 3: Decoder callback interface  --------------- //
 
 // Called when the decoder asks for encoded data to decode . A few blocking conditions apply here
 -(int)onReadEncodedData:(char **)buffer ofSize:(long)amount {
+    
+    if ([self isStopped]) return 0;
+        
     // block if paused
     [self waitPlay];
     
@@ -259,6 +220,94 @@
     
     // before writting any bytes, see if the buffer is not full. using the waitBuffer for that
     TPCircularBufferProduceBytes(&_audio->circbuffer, pcmData, amount * sizeof(short));
+    
+    // count data
+    _writtenPCMData += amount;
+    _writtenMiliSeconds += [self convertBytesToMs:amount];
+    NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _writtenMiliSeconds);
+    
+    // send a notification of progress
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [_playerEvents sendEvent:PLAY_UPDATE withParam:(_writtenMiliSeconds/1000)];
+    });
+    
+}
+
+// Called at the very beginning , just before we start reading the header
+-(void)onStartReadingHeader {
+    NSLog(@"onStartReadingHeader");
+    if ([self isStopped]) {
+        _state = STATE_READING_HEADER;
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [_playerEvents sendEvent:READING_HEADER];
+        });
+    }
+}
+
+// Called by the native decoder when we got the header data
+-(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack {
+    NSLog(@"on start %d %d %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
+    
+    _sampleRate = sampleRate;
+    _channels = channels;
+    
+    // init audiocontroller and pass freq and channels as parameters
+    _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+
+    _state = STATE_READY_TO_PLAY;
+    [self play];
+    
+    if ([self isReadingHeader]) {
+        _state = STATE_READY_TO_PLAY;
+        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [_playerEvents sendEvent:READY_TO_PLAY];
+        });
+    }
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
+        NSString *ns_title = [NSString stringWithUTF8String:ptitle];
+        NSString *ns_artist = [NSString stringWithUTF8String:partist];
+        NSString *ns_album = [NSString stringWithUTF8String:palbum];
+        NSString *ns_date = [NSString stringWithUTF8String:pdate];
+        NSString *ns_track = [NSString stringWithUTF8String:ptrack];
+        [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
+    });
+}
+
+// Called by the native decoder when decoding is finished (end of source or error)
+-(void)onStop {
+    NSLog(@"onStop called");
+    if (![self isStopped]) {
+        _writtenPCMData = 0;
+        _writtenMiliSeconds = 0;
+        
+        // empty the circular buffer than stop and dealloc all audio related objects
+        [_audio emptyBuffer];
+        [_audio stop];
+    }
+    _state = STATE_STOPPED;
+}
+
+
+// --------------- Section 4: helper functions  --------------- //
+
+// Blocks the current thread
+-(void)waitPlay {
+    [waitPlayCondition lock];
+    
+    while (_state == STATE_READY_TO_PLAY) {
+        [waitPlayCondition wait];
+    }
+    [waitPlayCondition unlock];
+}
+
+-(int)convertBytesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels {
+    return (int)(1000L * bytes / (sampleRate * channels));
+}
+
+-(int)convertBytesToMs:(long) bytes {
+    return [self convertBytesToMs:bytes sampleRate:_sampleRate channels:_channels];
 }
 
 

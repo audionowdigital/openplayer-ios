@@ -62,9 +62,10 @@
     
     NSString *urlString =
 //    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
-    @"http://www.markosoft.ro/opus/02_Archangel.opus";
-   // @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
-  //  @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
+   // @"http://www.markosoft.ro/opus/02_Archangel.opus";
+//    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
+     @"http://www.pocketmagic.net/tmp3/countdown.opus";
+   //  @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
 
   //  @"http://www.markosoft.ro/opus/countdown.opus";
     
@@ -116,6 +117,10 @@
     [player seekToPercent:[(UISlider *)sender value]];
 }
 
+-(void)onPlayerEvent:(PlayerEvent)event {
+    
+}
+
 // We just got the track info
 -(void)onPlayerEvent:(PlayerEvent)event withParams:(NSDictionary *)params {
     
@@ -127,8 +132,8 @@
         NSLog(@"Ready to play, just press PLAY");
     }
     if (event == PLAY_UPDATE) {
-        NSLog(@"Track progress received, send percent / time to UI");
-        // TODO: finish this.
+        int progress =  (int)[params objectForKey:@"param"];
+        NSLog(@"Track progress received, send percent / time to UI:%d", progress);
     }
     if (event == TRACK_INFO) {
         NSString *vendor =  (NSString *)[params objectForKey:@"vendor"];
