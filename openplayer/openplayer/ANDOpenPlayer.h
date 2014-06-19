@@ -53,6 +53,7 @@ typedef enum decode_status{
 -(void)play;
 -(void)pause;
 -(void)stop;
+-(void)seekToPercent:(float)percent;
 
 -(BOOL)isReadyToPlay;
 -(BOOL)isPlaying;

@@ -43,10 +43,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    
+    // FOR RADU
+    // ca sa schimbi valori la slidere ...
+    /*
+     
+     self.seekBar.minimumValue = 0;
+     self.seekBar.maximumValue = 1234567;    <- marimea podcastului
+     
+     float myValue = ??? <-- byte index unde ai ajuns
+
+     nu trebuie sa convertesti in % .. ii setezi min si max si face singur asta
+      work smart not hard :)
+     
+     [self.seekBar setValue:myValue];
+     */
+    
     NSString *urlString =
 //    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
-  //  @"http://www.markosoft.ro/opus/02_Archangel.opus";
-    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
+    @"http://www.markosoft.ro/opus/02_Archangel.opus";
+//    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
 //    @"http://www.markosoft.ro/opus/countdown.opus"
     
    // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
@@ -74,6 +91,7 @@
 - (IBAction)initBtnPressed:(id)sender {
 
     [player setDataSource:[NSURL URLWithString:self.urlLabel.text]];
+
 }
 
 - (IBAction)playBtnPressed:(id)sender {
@@ -91,8 +109,17 @@
     [player stop];
 }
 
+- (IBAction)touchUp:(id)sender {
+    NSLog(@" value changed to: %f", [(UISlider *)sender value]);
+    [self.progressIndicator setProgress:[(UISlider *)sender value]];
+    [player seekToPercent:[(UISlider *)sender value]];
+}
+
 // We just got the track info
 -(void)onPlayerEvent:(PlayerEvent)event withParams:(NSDictionary *)params {
+    
+    NSLog(@"Slider did end sliding... Do your stuff here");
+    
     NSLog(@"Player event received in client. %d", event);
     if (event == TRACK_INFO) {
         NSString *vendor =  (NSString *)[params objectForKey:@"vendor"];

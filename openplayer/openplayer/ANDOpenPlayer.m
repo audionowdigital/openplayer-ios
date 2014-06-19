@@ -131,6 +131,33 @@
     [_streamConnection stopStream];
 }
 
+-(void)seekToPercent:(float)percent{
+
+    // test if connectin supports seek
+    // done here for safety
+    if (_streamConnection.podcastSize != -1) {
+
+        // TODO: can stop the playing
+        // if playing is not stopped gives a nice feeling but bugs can appear
+        
+        // find the pozition
+        NSUInteger pozition = _streamConnection.podcastSize * percent;
+        
+        // try to do a connection seek
+        NSError *error = nil;
+        
+        if (![_streamConnection seekToPosition:pozition error:&error]) {
+            // network seek failed
+            NSLog(@" error: %@",error);
+        } else {
+            // network seek was ok
+            
+            // TODO: flush the circular buffer
+        }
+    }
+}
+
+
 -(BOOL)isReadyToPlay
 {
     return _state == STATE_READY_TO_PLAY;

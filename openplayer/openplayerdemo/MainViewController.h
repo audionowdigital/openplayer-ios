@@ -21,4 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *pauseBtn;
 @property (weak, nonatomic) IBOutlet UIButton *stopBtn;
 
+@property (weak, nonatomic) IBOutlet UIProgressView *progressIndicator;
+@property (weak, nonatomic) IBOutlet UISlider *seekBar;
+
 @end
