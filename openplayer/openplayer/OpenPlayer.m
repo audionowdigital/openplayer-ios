@@ -203,7 +203,7 @@
             [NSThread sleepForTimeInterval:1]; // will only affect the initial buffering time
         }
         if (error) {
-            NSLog(@"Error reading from input stream");
+            NSLog(@"Error reading from input stream: %@",error);
             return 0;
         }
     } while (!error && data.length == 0);
@@ -258,7 +258,7 @@
     _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
 
     _state = STATE_READY_TO_PLAY;
-    [self play];
+    //[self play];
     
     if ([self isReadingHeader]) {
         _state = STATE_READY_TO_PLAY;
