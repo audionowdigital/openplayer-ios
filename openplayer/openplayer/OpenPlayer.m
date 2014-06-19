@@ -257,9 +257,6 @@
     // init audiocontroller and pass freq and channels as parameters
     _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
 
-    _state = STATE_READY_TO_PLAY;
-    //[self play];
-    
     if ([self isReadingHeader]) {
         _state = STATE_READY_TO_PLAY;
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
