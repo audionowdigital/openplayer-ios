@@ -78,6 +78,7 @@ dispatch_queue_t queue2;
             return nil;
         }
         
+        [request setCachePolicy:NSURLCacheStorageNotAllowed];
         // create an asincron connection from the request
         self.connection = [[NSURLConnection alloc]
                            initWithRequest:request
@@ -198,8 +199,6 @@ dispatch_queue_t queue2;
     if (self.connectionTerminated == YES && totalBuffersSize < kMaxBufferSize / 2) {
         // jump to the position
         [self localJumpToPosition:self.downloadIndex];
-        // start the connection
-        // [self.connection start];
         // change the connection terminated flag
         self.connectionTerminated = NO;
         NSLog(@" - restarted the stream connection");
@@ -289,6 +288,7 @@ dispatch_queue_t queue2;
         return NO;
     }
     
+    [request setCachePolicy:NSURLCacheStorageNotAllowed];
     // create an asincron connection from the request
     self.connection = [[NSURLConnection alloc]
                        initWithRequest:request
