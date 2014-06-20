@@ -181,7 +181,7 @@
 // --------------- Section 3: Decoder callback interface  --------------- //
 
 // Called when the decoder asks for encoded data to decode . A few blocking conditions apply here
--(int)onReadEncodedData:(char **)buffer ofSize:(long)amount {
+-(int)onReadEncodedData:(char *)buffer ofSize:(long)amount {
     
     if ([self isStopped]) return 0;
         
@@ -207,8 +207,9 @@
             return 0;
         }
     } while (!error && data.length == 0);
-    
-    *buffer = (char *)[data bytes];
+
+    memcpy((char *)buffer,(char *)[data bytes], data.length);
+
     return (int) data.length;
 }
 

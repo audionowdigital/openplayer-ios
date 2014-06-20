@@ -84,17 +84,13 @@ int opusDecodeLoop(id<INativeInterface> callback) {
         // READ DATA : submit a 4k block to Ogg layer
         buffer = ogg_sync_buffer(&oy,BUFFER_LENGTH);
         
-        char *buferCopy;
-        
-        bytes = [callback onReadEncodedData:&buferCopy ofSize:BUFFER_LENGTH];
-        
-        memcpy(buffer, buferCopy, bytes);
+        bytes = [callback onReadEncodedData:buffer ofSize:BUFFER_LENGTH];
 
         ogg_sync_wrote(&oy,bytes);
 
         // Check available data
         if (bytes == 0) {
-            fprintf(stderr, "Data source finished.");
+            fprintf(stderr,     "Data source finished.");
         	err = SUCCESS;
         	break;
         }
