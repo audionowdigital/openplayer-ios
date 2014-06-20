@@ -45,7 +45,7 @@
 
 
 -(void)setDataSource:(NSURL *)sourceUrl {
-    NSLog(@"setData source call, state:%d", _state);
+    NSLog(@"CMD: setDataSource call. state:%d", _state);
     
     if (![self isStopped]) {
         NSLog(@"Player Error: stream must be stopped before setting a data source");
@@ -99,6 +99,8 @@
 
 -(void)play
 {
+    NSLog(@"CMD: play call. state:%d", _state);
+    
     if (![self isReadyToPlay]) {
         NSLog(@"Player Error: stream must be ready to play before starting to play");
         return;
@@ -115,6 +117,8 @@
 
 -(void)pause
 {
+    NSLog(@"CMD: pause call. state:%d", _state);
+    
     if (![self isPlaying]) {
         NSLog(@"Player Error: stream must be playing before trying to pause it");
         return;
@@ -128,11 +132,17 @@
 
 -(void)stop
 {
-    NSLog(@"Player stop cmd called, state:%d", _state);
- //   _state = STATE_STOPPED;
+    NSLog(@"CMD: stop call. state:%d", _state);
     
-    [_audio stop];
-    [_streamConnection stopStream];
+    if (![self isStopped]) {
+        _writtenPCMData = 0;
+        _writtenMiliSeconds = 0;
+        
+        // empty the circular buffer than stop and dealloc all audio related objects
+        [_audio emptyBuffer];
+        [_audio stop];
+    }
+    _state = STATE_STOPPED;
 }
 
 -(void)seekToPercent:(float)percent{
@@ -255,19 +265,23 @@
 
 // Called by the native decoder when we got the header data
 -(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack {
-    NSLog(@"on start %d %d %s %s %s %s %s %s", sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack);
+   
+    NSLog(@"onStart called %d %d %s %s %s %s %s %s, state:%d",
+          sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack, _state);
     
-    _sampleRate = sampleRate;
-    _channels = channels;
-    
-    // init audiocontroller and pass freq and channels as parameters
-    _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+
 
     if ([self isReadingHeader]) {
         _state = STATE_READY_TO_PLAY;
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [_playerEvents sendEvent:READY_TO_PLAY];
         });
+
+        _sampleRate = sampleRate;
+        _channels = channels;
+        
+        // init audiocontroller and pass freq and channels as parameters
+        _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
     }
     
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -284,15 +298,8 @@
 // Called by the native decoder when decoding is finished (end of source or error)
 -(void)onStop {
     NSLog(@"onStop called");
-    if (![self isStopped]) {
-        _writtenPCMData = 0;
-        _writtenMiliSeconds = 0;
-        
-        // empty the circular buffer than stop and dealloc all audio related objects
-        [_audio emptyBuffer];
-        [_audio stop];
-    }
-    _state = STATE_STOPPED;
+    
+    [self stop];
 }
 
 
