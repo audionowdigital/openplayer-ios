@@ -11,16 +11,17 @@
 
 @interface MainViewController : UIViewController <IPlayerHandler>
 {
-    OpenPlayer *player;
+     OpenPlayer *player;
 }
 
-@property (strong, nonatomic) IBOutlet UILabel *urlLabel;
-@property (strong, nonatomic) IBOutlet UILabel *infoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *urlLabel;
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property (weak, nonatomic) IBOutlet UIButton *initializeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pauseBtn;
 @property (weak, nonatomic) IBOutlet UIButton *stopBtn;
 
 @property (weak, nonatomic) IBOutlet UISlider *seekBar;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end
