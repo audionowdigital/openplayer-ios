@@ -176,7 +176,9 @@ dispatch_queue_t queue2;
     // set the error flag to nil
     self.connectionError = nil;
     
-    if (position > self.podcastSize) {
+    NSLog(@"Start connection form position: %d", position);
+    
+    if (position > self.podcastSize && self.podcastSize >= 0) {
         NSString *domain = @"com.audio.now.wrongSeekPosition";
         NSString *desc = NSLocalizedString(@"Cannot seek to the requested position", @"");
         NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
