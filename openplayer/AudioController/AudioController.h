@@ -34,7 +34,7 @@
  and will be copied to the output when this is requested. */
 - (id) initWithSampleRate:(int)sampleRate channels:(int)channels;
 /* Start the audioUnit. requested for feeding to the speakers, by use of the provided callbacks. */
-- (void) start;
+- (BOOL) start;
 /* Stop the audioUnit */
 - (void) stop;
 /* Pause the audioUnit */

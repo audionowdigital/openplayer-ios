@@ -112,13 +112,17 @@ and will be copied to the output when this is requested. */
 }
 
 /* Start the audioUnit. requested for feeding to the speakers, by use of the provided callbacks. */
-- (void) start {
+- (BOOL) start {
     // Finalize parameters on the unit if any unreleased
     OSErr err = AudioUnitInitialize(audioUnit);
     NSAssert1(err == noErr, @"Error initializing unit: %ld", err);
+    if (err != noErr) return false;
     
 	OSStatus status = AudioOutputUnitStart(audioUnit);
     NSAssert1(status == noErr, @"Error starting audioOutputUnit: %ld", status);
+    if (err != noErr) return false;
+    
+    return true;
 }
 
 /* Stop the audioUnit and free all resources */
