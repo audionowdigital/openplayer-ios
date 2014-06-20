@@ -11,6 +11,7 @@
 @interface StreamConnection : NSObject <NSURLConnectionDelegate>
 {
     BOOL _isPaused;
+    NSURL *streamUrl;
 }
 
 @property long long podcastSize;

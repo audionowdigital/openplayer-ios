@@ -41,75 +41,12 @@ dispatch_queue_t queue2;
         
         // init for the internal buffer
         self.responseBuffer = [[NSMutableData alloc] init];
-        // change the connection terminated flag
-        self.connectionTerminated = NO;
         
-        // set the podcast size to -1 = not initialized
-        self.podcastSize = -1;
-        // set the internal error to nil
-        self.connectionError = nil;
-        // set the download index to 0
-        self.downloadIndex = 0;
+        [self resetBuffers];
         
-        // create a simple GET request from the url
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-        [request setHTTPMethod:@"GET"];
+        streamUrl = url;
         
-        if(!request){
-            NSString *domain = @"com.audio.now.requestError";
-            NSString *desc = NSLocalizedString(@"Unable to create GET request", @"");
-            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
-            
-             *error = [NSError errorWithDomain:domain
-                                          code:-101
-                                      userInfo:userInfo];
-            return nil;
-        }
-        
-        
-        if(!self.responseBuffer) {
-            NSString *domain = @"com.audio.now.internalBufferError";
-            NSString *desc = NSLocalizedString(@"Unable to create internal buffer", @"");
-            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
-            
-            *error = [NSError errorWithDomain:domain
-                                         code:-102
-                                     userInfo:userInfo];
-            return nil;
-        }
-        
-        [request setCachePolicy:NSURLCacheStorageNotAllowed];
-        // create an asincron connection from the request
-        self.connection = [[NSURLConnection alloc]
-                           initWithRequest:request
-                           delegate:self
-                           startImmediately:NO];
-        
-        
-        dispatch_async(queue2, ^{
-        
-            
-            // don't need the runLoop here
-            NSRunLoop *runLoop = [NSRunLoop currentRunLoop]; // Get the runloop
-            [self.connection scheduleInRunLoop:runLoop forMode:NSRunLoopCommonModes];
-        
-            [self.connection start];
-            
-            NSLog(@" ****** Started connection on main thread:%@", [NSThread isMainThread] ? @"YES" : @" NO");
-            
-            [runLoop run];
-        });
-        
-        if (!self.connection) {
-            NSString *domain = @"com.audio.now.connectionError";
-            NSString *desc = NSLocalizedString(@"Unable to create connection", @"");
-            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
-            
-            *error = [NSError errorWithDomain:domain
-                                         code:-103
-                                     userInfo:userInfo];
-            return nil;
-        }
+        [self startConnectionFromPosition:0];
         
         return self;
         
@@ -196,15 +133,11 @@ dispatch_queue_t queue2;
     // find the size of the combined buffes
     long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
     
-    if (self.connectionTerminated == YES && totalBuffersSize < kMaxBufferSize / 2) {
-        // jump to the position
-        [self localJumpToPosition:self.downloadIndex];
-        // change the connection terminated flag
-        self.connectionTerminated = NO;
-        NSLog(@" - restarted the stream connection");
-        
+    if (self.connectionTerminated == YES && totalBuffersSize < kMaxBufferSize / 2)
+    {
+        [self startConnectionFromPosition:self.downloadIndex];
     }
-    // return the data
+
     return returnData;
 }
 
@@ -222,39 +155,26 @@ dispatch_queue_t queue2;
         return NO;
     } else {
     
-        // reset the buffer
         [self resetBuffers];
         
         self.downloadIndex = position;
         
-        BOOL seekState =  [self localJumpToPosition:position];
-        
-        // change the connection terminated flag
-        self.connectionTerminated = NO;
+        BOOL seekState = [self startConnectionFromPosition:position];
         
          *error = self.connectionError;
         
-        return  seekState;
+        return seekState;
     
     }
     
 }
 
--(BOOL)localJumpToPosition:(NSUInteger)position{
-    
+-(BOOL)startConnectionFromPosition:(NSUInteger)position
+{
+    // change the connection terminated flag
+    self.connectionTerminated = NO;
     // set the error flag to nil
     self.connectionError = nil;
-    
-    if (self.podcastSize == -1) {
-        NSString *domain = @"com.audio.now.noSeekPermittedError";
-        NSString *desc = NSLocalizedString(@"Cannot do seek on the current stream", @"");
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
-        
-        self.connectionError = [NSError errorWithDomain:domain
-                                                   code:-106
-                                               userInfo:userInfo];
-        return NO;
-    }
     
     if (position > self.podcastSize) {
         NSString *domain = @"com.audio.now.wrongSeekPosition";
@@ -267,15 +187,9 @@ dispatch_queue_t queue2;
         return NO;
     }
     
-    // get the url of the current connection
-    NSURL *url = [self.connection.currentRequest URL];
     // create a simple GET request from that url
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:streamUrl];
     [request setHTTPMethod:@"GET"];
-    
-    // set the range where to jump to
-    NSString *seekValue = [ NSString stringWithFormat:@"bytes=%lu-%lld",(unsigned long)position,self.podcastSize];
-    [request addValue:seekValue forHTTPHeaderField:@"Range"];
     
     if(!request){
         NSString *domain = @"com.audio.now.requestError";
@@ -288,12 +202,26 @@ dispatch_queue_t queue2;
         return NO;
     }
     
-    [request setCachePolicy:NSURLCacheStorageNotAllowed];
+    // set the range where to jump to
+    NSString *seekValue = [ NSString stringWithFormat:@"bytes=%lu-%lld",(unsigned long)position,self.podcastSize];
+    [request addValue:seekValue forHTTPHeaderField:@"Range"];
+    
     // create an asincron connection from the request
     self.connection = [[NSURLConnection alloc]
                        initWithRequest:request
                        delegate:self
                        startImmediately:NO];
+    
+    if (!self.connection) {
+        NSString *domain = @"com.audio.now.connectionError";
+        NSString *desc = NSLocalizedString(@"Unable to create connection", @"");
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
+        
+        self.connectionError = [NSError errorWithDomain:domain
+                                                   code:-103
+                                               userInfo:userInfo];
+        return NO;
+    }
     
     dispatch_async(queue2, ^{
         
@@ -308,37 +236,19 @@ dispatch_queue_t queue2;
         [runLoop run];
     });
     
-    if (!self.connection) {
-        NSString *domain = @"com.audio.now.connectionError";
-        NSString *desc = NSLocalizedString(@"Unable to create connection", @"");
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
-        
-        self.connectionError = [NSError errorWithDomain:domain
-                                                   code:-103
-                                               userInfo:userInfo];
-        return NO;
-    }
-    
-    
     return YES;
 }
 
+
 -(void)pauseConnection
 {
-    //stop the stream
-    [self.connection cancel];
-    
-    // change the connection terminated flag
-    self.connectionTerminated = YES;
+    [self cancelConnection];
 }
 
 -(void)resumeConnection
 {
     // jump to the position
-    [self localJumpToPosition:self.downloadIndex];
-
-    self.connectionTerminated = NO;
-    NSLog(@" - restarted the stream connection");
+    [self startConnectionFromPosition:self.downloadIndex];
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
@@ -353,7 +263,7 @@ dispatch_queue_t queue2;
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-     NSLog(@"didReceiveData: %d Bytes", data.length);
+     NSLog(@"didReceiveData: %lu Bytes", (unsigned long)data.length);
     
     // add data to the internal buffer
     // do this in a syncronized queue
@@ -375,12 +285,9 @@ dispatch_queue_t queue2;
         // it's not a stream
         // and the rest of the download is bigger than the min buffer size
         // or it's a stream
-        if( (self.podcastSize != -1 && (self.podcastSize - self.downloadIndex) > kMinBufferSize) ) {
-            [self.connection cancel];
-            // change the connection terminated flag
-            self.connectionTerminated = YES;
-            
-            NSLog(@" - stopped the connection");
+        if( (self.podcastSize != -1 && (self.podcastSize - self.downloadIndex) > kMinBufferSize) )
+        {
+            [self cancelConnection];
         }
     }
 }
@@ -388,10 +295,8 @@ dispatch_queue_t queue2;
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     // the connection had an error so save the error
     self.connectionError =  error;
-    //stop the stream
-    [self.connection cancel];
-    // change the connection terminated flag
-    self.connectionTerminated = YES;
+    
+    [self cancelConnection];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
@@ -403,33 +308,27 @@ dispatch_queue_t queue2;
     self.connectionError = [NSError errorWithDomain:domain
                                                code:-105
                                            userInfo:userInfo];
-    //stop the stream
+    [self cancelConnection];
+}
+
+-(void)cancelConnection
+{
     [self.connection cancel];
-    // change the connection terminated flag
     self.connectionTerminated = YES;
 }
 
 -(void)stopStream{
-    //stop the stream
-    [self.connection cancel];
-    // change the connection terminated flag
-    self.connectionTerminated = YES;
-    //reset the buffers
-    [self resetBuffers];
-    // set the podcast size to -1 = not initialized
-    self.podcastSize = -1;
-    // set the internal error to nil
-    self.connectionError = nil;
-    // set the download index to 0
-    self.downloadIndex = 0;
     
+    [self cancelConnection];
+    [self resetBuffers];
 }
 
 -(void)resetBuffers{
-    // set the internal error to nil
+
     self.connectionError = nil;
-    // clear all the buffers
     self.internalBuffer = nil;
+    self.podcastSize = -1;
+    self.downloadIndex = 0;
     
     dispatch_sync(queue, ^{
         self.responseBuffer.length = 0;
