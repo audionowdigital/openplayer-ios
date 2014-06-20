@@ -205,9 +205,9 @@
     [self waitPlay];
     
     // block until we need data
-    while ([_audio getBufferFill] > 50) {
+    while ([_audio getBufferFill] > 30) {
         [NSThread sleepForTimeInterval:0.1];
-        NSLog(@"Circular audio buffer overfill, waiting..");
+        //NSLog(@"Circular audio buffer overfill, waiting..");
     }
     
     // block until we have data from the network
@@ -233,7 +233,7 @@
 -(void)onWritePCMData:(short *)pcmData ofSize:(int)amount {
     // block if paused
     [self waitPlay];
-    NSLog(@"Write %d from opusPlayer", amount);
+    //NSLog(@"Write %d from opusPlayer", amount);
     
     // before writting any bytes, see if the buffer is not full. using the waitBuffer for that
     TPCircularBufferProduceBytes(&_audio->circbuffer, pcmData, amount * sizeof(short));
@@ -245,7 +245,7 @@
     // limit the sending frequency to one second, or we get playback problems
     if (_seconds != (_writtenMiliSeconds/1000)) {
         _seconds = _writtenMiliSeconds / 1000;
-        NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
+        // NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
         // send a notification of progress
         dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [_playerEvents sendEvent:PLAY_UPDATE withParam:_seconds];

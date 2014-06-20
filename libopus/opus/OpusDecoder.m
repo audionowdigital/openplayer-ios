@@ -141,7 +141,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 					}
 					frame_size = (ret < convsize?ret : convsize);
                     
-                    fprintf(stderr, "Decoding %ld to %d channels:%d\n", op.bytes,  frame_size, channels );
+                    //fprintf(stderr, "Decoding %ld to %d channels:%d\n", op.bytes,  frame_size, channels );
                     
                     [callback onWritePCMData:convbuffer ofSize:channels*frame_size];
 
