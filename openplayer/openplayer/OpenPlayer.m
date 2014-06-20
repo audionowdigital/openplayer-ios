@@ -44,8 +44,9 @@
 
 
 
--(void)setDataSource:(NSURL *)sourceUrl
-{
+-(void)setDataSource:(NSURL *)sourceUrl {
+    NSLog(@"setData source call, state:%d", _state);
+    
     if (![self isStopped]) {
         NSLog(@"Player Error: stream must be stopped before setting a data source");
         return;
@@ -106,6 +107,7 @@
     _state = STATE_PLAYING;
     [waitPlayCondition signal];
     
+    NSLog(@"Ready to play, go for stream and audio");
     
     [_streamConnection resumeConnection];
     [_audio start];
@@ -126,6 +128,10 @@
 
 -(void)stop
 {
+    NSLog(@"Player stop cmd called, state:%d", _state);
+ //   _state = STATE_STOPPED;
+    
+    [_audio stop];
     [_streamConnection stopStream];
 }
 
