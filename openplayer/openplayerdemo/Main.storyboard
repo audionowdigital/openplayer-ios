@@ -73,13 +73,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4gy-Ge-f70">
-                                <rect key="frame" x="18" y="353" width="284" height="31"/>
+                                <rect key="frame" x="84" y="353" width="218" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="touchUp:" destination="ZpU-Iy-S2N" eventType="touchUpOutside" id="8YS-qB-aWc"/>
                                     <action selector="touchUp:" destination="ZpU-Iy-S2N" eventType="touchUpInside" id="Z5a-tD-sI6"/>
                                 </connections>
                             </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ScO-Sz-Ct3">
+                                <rect key="frame" x="15" y="357" width="53" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -90,6 +97,7 @@
                         <outlet property="playBtn" destination="gVE-Xj-rge" id="jzB-Zl-fRr"/>
                         <outlet property="seekBar" destination="4gy-Ge-f70" id="BjL-n2-AHU"/>
                         <outlet property="stopBtn" destination="Eey-eL-HPF" id="bOC-lm-Rha"/>
+                        <outlet property="timeLabel" destination="ScO-Sz-Ct3" id="Xn9-12-was"/>
                         <outlet property="urlLabel" destination="DbR-d8-Xxw" id="CSC-qc-mJe"/>
                     </connections>
                 </viewController>
