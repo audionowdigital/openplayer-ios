@@ -199,26 +199,26 @@ dispatch_queue_t queue2;
     // set the range where to jump to
     NSString *seekValue = [ NSString stringWithFormat:@"bytes=%lu-%lld",(unsigned long)position,self.podcastSize];
     [request addValue:seekValue forHTTPHeaderField:@"Range"];
-
-    // create an asincron connection from the request
-    self.connection = [[NSURLConnection alloc]
-                       initWithRequest:request
-                       delegate:self
-                       startImmediately:NO];
-
-    if (!self.connection) {
-        NSString *domain = @"com.audio.now.connectionError";
-        NSString *desc = NSLocalizedString(@"Unable to create connection", @"");
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
-
-        self.connectionError = [NSError errorWithDomain:domain
-                                                   code:-103
-                                               userInfo:userInfo];
-        return NO;
-    }
-
+    
     dispatch_async(queue2, ^{
-
+        
+        // create an asincron connection from the request
+        self.connection = [[NSURLConnection alloc]
+                           initWithRequest:request
+                           delegate:self
+                           startImmediately:NO];
+        
+        if (!self.connection) {
+            NSString *domain = @"com.audio.now.connectionError";
+            NSString *desc = NSLocalizedString(@"Unable to create connection", @"");
+            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
+            
+            self.connectionError = [NSError errorWithDomain:domain
+                                                       code:-103
+                                                   userInfo:userInfo];
+            return;
+        }
+        
         // need the runLoop here
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop]; // Get the runloop
         [self.connection scheduleInRunLoop:runLoop forMode:NSDefaultRunLoopMode];
@@ -241,7 +241,8 @@ dispatch_queue_t queue2;
 
 -(void)resumeConnection
 {
-    // jump to the position
+    // this is called at every Play button pressed - not needed the first time
+    
     [self startConnectionFromPosition:self.downloadIndex];
 }
 
