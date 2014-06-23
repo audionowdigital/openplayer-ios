@@ -8,7 +8,7 @@
 
 #import "StreamConnection.h"
 
-#define kMaxBufferSize 131072    //128KB
+#define kMaxBufferSize 65535    //64KB
 #define kMinBufferSize 2048     //1KB
 
 @interface StreamConnection()
@@ -57,31 +57,31 @@ dispatch_queue_t queue2;
     return nil;
 }
 
--(NSData *)readAllBytesWithError:(NSError **)error{
-    
-    if (self.responseBuffer.length == 0) {
-        NSString *domain = @"com.audio.now.emptyBuffer";
-        NSString *desc = NSLocalizedString(@"Internal buffer is empty", @"");
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
-        
-        *error = [NSError errorWithDomain:domain
-                                     code:-104
-                                 userInfo:userInfo];
-        return nil;
-    } else {
-        
-        __block NSData *returnBytes;
-        dispatch_sync(queue, ^{
-            // copy the internal buffer
-            returnBytes = [self.responseBuffer copy];
-            // empty the internal buffer
-            self.responseBuffer.length = 0;
-        });
-       
-        // return the copy of the buffer
-        return returnBytes;
-    }
-}
+//-(NSData *)readAllBytesWithError:(NSError **)error{
+//    
+//    if (self.responseBuffer.length == 0) {
+//        NSString *domain = @"com.audio.now.emptyBuffer";
+//        NSString *desc = NSLocalizedString(@"Internal buffer is empty", @"");
+//        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : desc };
+//        
+//        *error = [NSError errorWithDomain:domain
+//                                     code:-104
+//                                 userInfo:userInfo];
+//        return nil;
+//    } else {
+//        
+//        __block NSData *returnBytes;
+//        dispatch_sync(queue, ^{
+//            // copy the internal buffer
+//            returnBytes = [self.responseBuffer copy];
+//            // empty the internal buffer
+//            self.responseBuffer.length = 0;
+//        });
+//       
+//        // return the copy of the buffer
+//        return returnBytes;
+//    }
+//}
 
 -(NSData *)readBytesForLength:(NSUInteger)length error:(NSError **)error{
     
@@ -96,7 +96,7 @@ dispatch_queue_t queue2;
     
     // if the internal buffer is empty put stuff in it
     if (self.internalBuffer == nil) {
-    // internal buffer is new or empty and the connection is ok
+        
         // read in the internal buffer
         dispatch_sync(queue, ^{
             // copy the internal buffer
@@ -105,7 +105,6 @@ dispatch_queue_t queue2;
             self.responseBuffer.length = 0;
         });
         
-        //NSLog(@" - read response buffer into internal buffer for %lu bytes",(unsigned long)self.internalBuffer.length);
     }
     
     // create the return buffer
@@ -117,7 +116,6 @@ dispatch_queue_t queue2;
         returnData = [self.internalBuffer subdataWithRange:NSMakeRange(0, length)];
         
         // cut the returned part from the internal buffer
-        // TODO: check might duplicate a byte
         self.internalBuffer = [self.internalBuffer subdataWithRange:NSMakeRange(length, self.internalBuffer.length - length)];
     }else {
         // the internal buffer has less than asked for
@@ -127,13 +125,7 @@ dispatch_queue_t queue2;
         self.internalBuffer = nil;
     }
     
-   // NSLog(@" - read %lu bytes from the internal buffer",(unsigned long)returnData.length);
-   // NSLog(@" - internal buffer droped to %lu bytes",(unsigned long) self.internalBuffer.length);
-    
-    // find the size of the combined buffes
-    long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
-    
-    if (self.connectionTerminated == YES && totalBuffersSize < kMaxBufferSize / 2)
+    if (self.connectionTerminated == YES && self.internalBuffer.length < kMaxBufferSize / 2)
     {
         [self startConnectionFromPosition:self.downloadIndex];
     }
@@ -258,9 +250,13 @@ dispatch_queue_t queue2;
     // set the download size if it was not set
     if (self.podcastSize == -1) {
         self.podcastSize = [response expectedContentLength];
+        
+        if (self.podcastSize == -1) {
+            NSLog(@"Stream appears to be LIVE from the returned size (-1)");
+        } else {
+            NSLog(@"Stream appears to be RECORDED from the returned size (%lld)", self.podcastSize);
+        }
     }
-    // if the podcastSize is -1 at this point
-    // it means this is a livestream not a podcast
 }
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -271,27 +267,22 @@ dispatch_queue_t queue2;
     // do this in a syncronized queue
     dispatch_sync(queue, ^{
         [self.responseBuffer appendData:data];
-    });
-    
-    // add the data length to the downloadIndex only it it's a stream not a podcast
-    if (self.podcastSize != -1) {
-        self.downloadIndex += data.length;
-    }
-
-    // find the size of the combined buffes
-    long totalBuffersSize = self.internalBuffer.length + self.responseBuffer.length;
-
-    // if the total buffer size excedes the defined max buffer size
-    if ( totalBuffersSize > kMaxBufferSize ) {
         
-        // it's not a stream
-        // and the rest of the download is bigger than the min buffer size
-        // or it's a stream
-        if( (self.podcastSize != -1 && (self.podcastSize - self.downloadIndex) > kMinBufferSize) )
-        {
+        // add the data length to the downloadIndex only it it's a stream not a podcast
+        if (self.podcastSize != -1) {
+            self.downloadIndex += data.length;
+        }
+        
+        // if the total buffer size excedes the defined max buffer size
+        if (self.responseBuffer.length > kMaxBufferSize) {
+            
+            if (self.podcastSize == -1) {
+                NSLog(@"!!! Download rate for live stream is too high, cancel connection !!!");
+            }
+            
             [self cancelConnection];
         }
-    }
+    });
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{

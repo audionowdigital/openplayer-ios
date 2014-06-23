@@ -1,4 +1,4 @@
-//
+
 //  MainViewController.m
 //  openplayer
 //
@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS];
+    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_VORBIS];
 }
 
 - (void)viewDidLoad
@@ -50,12 +50,12 @@
 //    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
 //    @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
 //    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
-  //  @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
-     @"http://www.pocketmagic.net/tmp3/countdown.opus";
+//    @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
+//     @"http://www.pocketmagic.net/tmp3/countdown.opus";
    //  @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
 
-   // @"http://www.markosoft.ro/opus/countdown.opus";
-    //    @"http://www.markosoft.ro/opus/02_Archangel.opus";
+//   @"http://www.markosoft.ro/opus/countdown.opus";
+//        @"http://www.markosoft.ro/opus/02_Archangel.opus";
    // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
   //  @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
 //    @"http://revolutionradio.ru:8000/live.ogg"; //vorbis
@@ -65,6 +65,10 @@
     //@"http://opus.ai-radio.org:8000/radio.opus";
     //http://radioserver1.delfa.net:80/256.opus";
     //http://ogg.ai-radio.org:8000/radio.ogg";
+    
+    @"http://markosoft.ro/test.ogg";
+//    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+//    @"http://test01.va.audionow.com:8000/eugen_vorbis";
 
     //
 
