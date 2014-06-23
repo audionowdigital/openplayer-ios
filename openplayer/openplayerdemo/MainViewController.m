@@ -42,11 +42,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    
+
 
     
     NSString *url1String =
+
 //    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
 //    @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
 //    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
@@ -67,10 +67,7 @@
     //http://ogg.ai-radio.org:8000/radio.ogg";
     
     @"http://icecast1.pulsradio.com:80/mxHD.ogg";
-//    @"http://test01.va.audionow.com:8000/eugen_vorbis";
-
-    //
-    
+   
     NSString *url2String =
     @"http://markosoft.ro/test.ogg";
 
@@ -95,17 +92,17 @@
 }
 
 - (IBAction)playBtnPressed:(id)sender {
-    
+
     [player play];
 }
 
 - (IBAction)pauseBtnPressed:(id)sender {
-    
+
     [player pause];
 }
 
 - (IBAction)stopBtnPressed:(id)sender {
-    
+
     [player stop];
 }
 
@@ -115,12 +112,12 @@
 }
 
 -(void)onPlayerEvent:(PlayerEvent)event {
-    
+
 }
 
 // We just got the track info
 -(void)onPlayerEvent:(PlayerEvent)event withParams:(NSDictionary *)params {
-    
+
     NSLog(@"CLIENT: Player event received: %d", event);
     if (event == READING_HEADER) {
         NSLog(@"Reading header - player starting point");
@@ -131,19 +128,19 @@
     if (event == PLAY_UPDATE) {
         int progress =  [[params objectForKey:@"param"] intValue];
         NSLog(@"Track progress received, send percent / time to UI:%d", progress);
-        
+
         // FOR RADU
         // ca sa schimbi valori la slidere ...
         /*
-         
+
          self.seekBar.minimumValue = 0;
          self.seekBar.maximumValue = 1234567;    <- marimea podcastului
-         
+
          float myValue = ??? <-- byte index unde ai ajuns
-         
+
          nu trebuie sa convertesti in % .. ii setezi min si max si face singur asta
          work smart not hard :)
-         
+
          [self.seekBar setValue:myValue];
          */
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -158,7 +155,7 @@
         NSString *album = (NSString *)[params objectForKey:@"album"];
         NSString *date = (NSString *)[params objectForKey:@"date"];
         NSString *track = (NSString *)[params objectForKey:@"track"];
-    
+
         NSLog(@"Track info: vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@",
                                 vendor, title, artist, album, date, track);
         // only the main thread can make changes to the User Interface
@@ -173,7 +170,7 @@
     if (event == PLAYING_FINISHED) {
         NSLog(@"Playing stopped with success.");
     }
-    
+
 }
 
 
