@@ -46,7 +46,7 @@
     
 
     
-    NSString *urlString =
+    NSString *url1String =
 //    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
 //    @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
 //    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
@@ -66,13 +66,16 @@
     //http://radioserver1.delfa.net:80/256.opus";
     //http://ogg.ai-radio.org:8000/radio.ogg";
     
-    @"http://markosoft.ro/test.ogg";
-//    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
 //    @"http://test01.va.audionow.com:8000/eugen_vorbis";
 
     //
+    
+    NSString *url2String =
+    @"http://markosoft.ro/test.ogg";
 
-    self.urlLabel.text = urlString;
+    self.urlLabel1.text = url1String;
+    self.urlLabel2.text = url2String;
     self.infoLabel.text = @"Waiting for info";
 }
 
@@ -82,10 +85,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)initBtnPressed:(id)sender {
+- (IBAction)initBtn1Pressed:(id)sender {
 
-    [player setDataSource:[NSURL URLWithString:self.urlLabel.text]];
+    [player setDataSource:[NSURL URLWithString:self.urlLabel1.text]];
 
+}
+- (IBAction)initBtn2Pressed:(id)sender {
+    [player setDataSource:[NSURL URLWithString:self.urlLabel2.text]];
 }
 
 - (IBAction)playBtnPressed:(id)sender {
