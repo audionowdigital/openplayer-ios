@@ -353,7 +353,7 @@ dispatch_queue_t queue2;
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-     NSLog(@"didReceiveData: %d Bytes", data.length);
+   //  NSLog(@"didReceiveData: %d Bytes", data.length);
     
     // add data to the internal buffer
     // do this in a syncronized queue
