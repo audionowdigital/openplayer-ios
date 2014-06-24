@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_VORBIS];
+    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS];
 }
 
 - (void)viewDidLoad
@@ -47,7 +47,7 @@
     
     NSString *url1String =
 
-//    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
+    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
 //    @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
 //    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
 //    @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
@@ -74,6 +74,65 @@
     self.urlLabel1.text = url1String;
     self.urlLabel2.text = url2String;
     self.infoLabel.text = @"Waiting for info";
+    
+    [self initNetworkCommunication:url1String];
+}
+
+-  (void)initNetworkCommunication:(NSString*)urlStr1 {
+    NSString *urlStr = @"http://www.markosoft.ro:80/opus/02_Archangel.opus";
+    if (![urlStr isEqualToString:@""]) {
+        NSURL *website = [NSURL URLWithString:urlStr];
+        if (!website) {
+            NSLog(@"%@ is not a valid URL");
+            return;
+            
+        } else NSLog(@"%@ host, port: %@, path: %@", [website host], [website port], [website path]);
+        
+        CFReadStreamRef readStream;
+        CFWriteStreamRef writeStream;
+        CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)[website host], 80, &readStream, &writeStream);
+        
+        inputStream = (__bridge_transfer NSInputStream *)readStream;
+        outputStream = (__bridge_transfer NSOutputStream *)writeStream;
+        //[inputStream setDelegate:self];
+        //[outputStream setDelegate:self];
+        [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [inputStream open];
+        [outputStream open];
+        
+        // wait for output stream to connect : TODO: implement Timeout and failure!
+        while ([outputStream streamStatus] != NSStreamStatusOpen) {
+             [NSThread sleepForTimeInterval:0.1];
+        }
+        NSLog(@"connected");
+        
+        // do a HTTP Get on the resource we want
+        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\n\r\n", [website path]];
+        NSLog(@"Do get for: %@", str);
+        const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
+        [outputStream write:rawstring maxLength:strlen(rawstring)];
+        [outputStream close];
+        
+        // wait for input stream to connect: probably already connected : TODO: implement Timeout and failure!
+        while ([inputStream streamStatus] != NSStreamStatusOpen) {
+            [NSThread sleepForTimeInterval:0.1];
+        }
+        
+        
+        NSInteger result;
+        uint8_t buffer[100]; // BUFFER_LEN can be any positive integer
+        while((result = [inputStream read:buffer maxLength:100]) != 0) {
+            if(result > 0) {
+                // buffer contains result bytes of data to be handled
+                NSLog(@"test ok %d", result);
+            } else {
+                // The stream had an error. You can get an NSError object using [iStream streamError]
+                // TODO: implement end of stream too
+                NSLog(@"Error %@", [inputStream streamError]);
+            }
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,10 +142,60 @@
 }
 
 - (IBAction)initBtn1Pressed:(id)sender {
-
     [player setDataSource:[NSURL URLWithString:self.urlLabel1.text]];
-
 }
+
+- (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent {
+    
+	switch (streamEvent) {
+            
+		case NSStreamEventOpenCompleted:
+			if (theStream == inputStream) {
+                NSLog(@"Input stream open");
+            }
+            if (theStream == outputStream) {
+                NSLog(@"Output stream open");
+            }
+             break;
+            
+		case NSStreamEventHasBytesAvailable:
+            NSLog(@"bytes available");
+                        if (theStream == inputStream) NSLog(@"available on input stream open");
+            char buf[100];
+            int len2 = [inputStream read:buf maxLength:100];
+            for (int i=0;i<10;i++)
+                NSLog(@"2 - len:%d:%c", len2, buf[i]);
+			
+            
+			break;
+            
+		case NSStreamEventErrorOccurred:
+			NSLog(@"Can not connect to the host!");
+			break;
+            
+		case NSStreamEventEndEncountered:
+            NSLog(@"end ocurred");
+			break;
+        case NSStreamEventHasSpaceAvailable:
+        {
+            NSLog(@"NSStreamEventHasSpaceAvailable");
+            
+            if (theStream == outputStream) {
+                NSString * str = [NSString stringWithFormat:
+                                  @"GET / HTTP/1.0\r\n\r\n"];
+                const uint8_t * rawstring =
+                (const uint8_t *)[str UTF8String];
+                [outputStream write:rawstring maxLength:strlen(rawstring)];
+                [outputStream close];
+            }
+            break;
+        }
+		default:
+			NSLog(@"Unknown event: %d", streamEvent);
+	}
+    
+}
+
 - (IBAction)initBtn2Pressed:(id)sender {
     [player setDataSource:[NSURL URLWithString:self.urlLabel2.text]];
 }

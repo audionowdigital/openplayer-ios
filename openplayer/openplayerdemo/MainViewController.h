@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "OpenPlayer.h"
 
-@interface MainViewController : UIViewController <IPlayerHandler>
+@interface MainViewController : UIViewController <IPlayerHandler, NSStreamDelegate>
 {
      OpenPlayer *player;
+    
+    NSInputStream *inputStream;
+    NSOutputStream *outputStream;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *urlLabel1;

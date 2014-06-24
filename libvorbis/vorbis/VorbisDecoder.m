@@ -10,6 +10,9 @@
 the jni callbacks. Decodes simple and chained OggOpus files from beginning
 to end. */
 
+#import <Foundation/Foundation.h>
+#import "mach/mach.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -35,7 +38,12 @@ to end. */
 #define max(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
 #define min(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a < _b ? _a : _b; })
 
-
+vm_size_t usedMemory(void) {
+    struct task_basic_info info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
+    return (kerr == KERN_SUCCESS) ? info.resident_size : 0; // size in bytes
+}
 
 // This is the only function we need ot call, assuming we have the interface already configured
 int vorbisDecodeLoop(id<INativeInterface> callback) {
@@ -77,17 +85,20 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
     int err = SUCCESS;
     int i;
     
+    int last = 0, now = 0;
     // start source reading / decoding loop
     while (1) {
     	if (err != SUCCESS) {
     		fprintf(stderr, "Global loop closing for error: %d", err);
     		break;
     	}
-        
+        now = usedMemory();
+        NSLog(@"Vorbis log --- %d", now - last);
+        last = now;
         // READ DATA : submit a 4k block to Ogg layer
-        buffer = ogg_sync_buffer(&oy,BUFFER_LENGTH);
+        buffer = ogg_sync_buffer(&oy,2500);//BUFFER_LENGTH);
         
-        bytes = [callback onReadEncodedData:buffer ofSize:BUFFER_LENGTH];
+        bytes = [callback onReadEncodedData:buffer ofSize:2500];//BUFFER_LENGTH];
         
         ogg_sync_wrote(&oy,bytes);
         
@@ -161,6 +172,7 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
                         [callback onWritePCMData:convbuffer ofSize:frame_size*vi.channels];
 						vorbis_synthesis_read(&vd,frame_size); // tell libvorbis how many samples we actually consumed
 					}
+                    //free(&pcm);
 				} // decoding done
                 
 				// do we need the header? that's the first thing to take
@@ -236,6 +248,8 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
 			}
         	// page if
         } // while pages
+        
+        //free(buffer);
         
     }
     
