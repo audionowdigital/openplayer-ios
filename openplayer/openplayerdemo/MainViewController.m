@@ -120,12 +120,16 @@
         }
         
         
+        // Try data on demand with our own buffer
         NSInteger result;
         uint8_t buffer[100]; // BUFFER_LEN can be any positive integer
         while((result = [inputStream read:buffer maxLength:100]) != 0) {
             if(result > 0) {
                 // buffer contains result bytes of data to be handled
                 NSLog(@"test ok %d", result);
+                for (int i=0;i<result; i++)
+                    NSLog(@"test: %c", buffer[i]);
+               // exit(1);
             } else {
                 // The stream had an error. You can get an NSError object using [iStream streamError]
                 // TODO: implement end of stream too
@@ -145,6 +149,8 @@
     [player setDataSource:[NSURL URLWithString:self.urlLabel1.text]];
 }
 
+
+// not used
 - (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent {
     
 	switch (streamEvent) {
