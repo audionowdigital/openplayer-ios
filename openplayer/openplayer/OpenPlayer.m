@@ -11,6 +11,7 @@
 #import "VorbisDecoder.h"
 #import "StreamConnection.h"
 #import "AudioController.h"
+#import "InputStreamConnection.h"
 
 @interface OpenPlayer()
 
@@ -54,7 +55,10 @@
     
     NSError *error;
     
-    _streamConnection = [[StreamConnection alloc] initWithURL:sourceUrl error:&error];
+//    _streamConnection = [[StreamConnection alloc] initWithURL:sourceUrl error:&error];
+    
+    inputStreamConnection = [[InputStreamConnection alloc] initWithUrl:sourceUrl];
+    
 
     if (error) {
         NSLog(@"Stream could not be initialized");
@@ -111,7 +115,6 @@
     
     NSLog(@"Ready to play, go for stream and audio");
     
-    [_streamConnection resumeConnection];
     [_audio start];
 }
 
@@ -126,7 +129,6 @@
     
     _state = STATE_READY_TO_PLAY;
     
-    [_streamConnection pauseConnection];
     [_audio pause];
 }
 
@@ -147,27 +149,6 @@
 
 -(void)seekToPercent:(float)percent{
 
-    // test if connectin supports seek
-    // done here for safety
-    if (_streamConnection.podcastSize != -1) {
-
-        // TODO: can stop the playing
-        // if playing is not stopped gives a nice feeling but bugs can appear
-        
-        // find the position
-        NSUInteger position = _streamConnection.podcastSize * percent;
-        
-        // try to do a connection seek
-        NSError *error = nil;
-        
-        if (![_streamConnection seekToPosition:position error:&error]) {
-            // network seek failed
-            NSLog(@" error: %@",error);
-        } else {
-            // network seek was ok, empty the circular buffer so we play the new content
-            [_audio emptyBuffer];
-        }
-    }
 }
 
 // --------------- Section 2: Client interface - methods to read Player state --------------- //
@@ -210,23 +191,27 @@
         //NSLog(@"Circular audio buffer overfill, waiting..");
     }
     
+    return [inputStreamConnection readData:buffer maxLength:amount];
+    
     // block until we have data from the network
-    NSData *data;
-    NSError *error;
-    do {
-        data = [_streamConnection readBytesForLength:amount error:&error];
-        if (data.length == 0) {
-            [NSThread sleepForTimeInterval:1]; // will only affect the initial buffering time
-        }
-        if (error) {
-            NSLog(@"Error reading from input stream: %@",error);
-            return 0;
-        }
-    } while (!error && data.length == 0);
-
-    memcpy((char *)buffer,(char *)[data bytes], data.length);
-
-    return (int) data.length;
+//    NSData *data;
+//    NSError *error;
+//    
+//    do {
+//        data = [_streamConnection readBytesForLength:amount error:&error];
+//        if (data.length == 0) {
+//            [NSThread sleepForTimeInterval:1]; // will only affect the initial buffering time
+//        }
+//        if (error) {
+//            NSLog(@"Error reading from input stream: %@",error);
+//            return 0;
+//        }
+//    } while (!error && data.length == 0);
+//
+//    memcpy((char *)buffer,(char *)[data bytes], data.length);
+//
+//    return (int) data.length;
+    
 }
 
 // Called when decoded data is available - we take it and write it to the circular buffer

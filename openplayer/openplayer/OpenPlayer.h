@@ -10,6 +10,7 @@
 #import "INativeInterface.h"
 #import "PlayerEvents.h"
 
+@class InputStreamConnection;
 @class StreamConnection;
 @class AudioController;
 
@@ -34,13 +35,13 @@ typedef enum decode_status{
     DECODE_ERROR = -2           // Failed to decode, for some reason
 } DecodingStatus;
 
-@interface OpenPlayer : NSObject <INativeInterface>
+@interface OpenPlayer : NSObject <INativeInterface, NSStreamDelegate>
 {
     int _type, _sampleRate, _channels, _seconds;      // globals to hold the parameters for the current track
     long _writtenPCMData, _writtenMiliSeconds;
     
     PlayerEvents *_playerEvents;            // player events
-    StreamConnection *_streamConnection;
+    InputStreamConnection *inputStreamConnection;
     AudioController *_audio;
     
     NSCondition *waitPlayCondition;
