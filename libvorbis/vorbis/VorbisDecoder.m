@@ -92,13 +92,19 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
     		fprintf(stderr, "Global loop closing for error: %d", err);
     		break;
     	}
-        now = usedMemory();
-        NSLog(@"Vorbis log --- %d", now - last);
-        last = now;
+        //now = usedMemory();
+        //NSLog(@"Vorbis log --- %d", now - last);
+        //last = now;
         // READ DATA : submit a 4k block to Ogg layer
         buffer = ogg_sync_buffer(&oy,2500);//BUFFER_LENGTH);
         
         bytes = [callback onReadEncodedData:buffer ofSize:2500];//BUFFER_LENGTH];
+        
+        if (bytes < 0) {
+            fprintf(stderr, "Data source error.");
+        	err = DATA_ERROR;
+        	break;
+        }
         
         ogg_sync_wrote(&oy,bytes);
         

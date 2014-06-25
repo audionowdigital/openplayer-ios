@@ -13,6 +13,7 @@
 #define SUCCESS 0
 #define INVALID_HEADER -1
 #define DECODE_ERROR -2
+#define DATA_ERROR -3
 
 
 

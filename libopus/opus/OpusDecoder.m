@@ -85,7 +85,12 @@ int opusDecodeLoop(id<INativeInterface> callback) {
         buffer = ogg_sync_buffer(&oy,BUFFER_LENGTH);
         
         bytes = [callback onReadEncodedData:buffer ofSize:BUFFER_LENGTH];
-
+        if (bytes < 0) {
+            fprintf(stderr, "Data source error.");
+        	err = DATA_ERROR;
+        	break;
+        }
+        
         ogg_sync_wrote(&oy,bytes);
 
         // Check available data
