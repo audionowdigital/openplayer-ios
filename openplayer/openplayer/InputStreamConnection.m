@@ -84,7 +84,7 @@
     NSLog(@"Do get for: %@", str);
     const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
     [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
-    [outputStream close];
+    // leave the outputstream open
     
     if (![self openStream:inputStream]) {
         NSLog(@"Error opening input stream !");
@@ -129,7 +129,16 @@
 -(BOOL)skip:(long)offset {
     if (offset > srcSize) return NO;
     
-    if (outputStream );
+    if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
+    
+    // do a HTTP Get on the resource we want
+    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld\r\n\r\n", [sourceUrl path], offset];
+    NSLog(@"SKIP Get: %@", str);
+
+    const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
+    [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
+    
+
     return YES;
 }
 
