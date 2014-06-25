@@ -15,18 +15,18 @@
     if (self = [super init]) {
         sourceUrl = url;
         
+        BOOL ret = YES;
         if ([sourceUrl isFileURL]) {
             NSLog(@"Initialize stream from file url: %@", url);
+            ret = [self initFileConnection];
         } else {
             NSLog(@"Initialize stream from network url: %@", url);
+            ret = [self initSocketConnection];
         }
         
-//        dispatch_async(dispatch_queue_create("com.audionnowdigital.streamconnection", NULL), ^
-//        {
-//            
-//            
-//        });
-        
+        if (!ret) {
+            self = nil;
+        }
     }
     return self;
 }
@@ -91,7 +91,7 @@
     NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\n\r\n", [sourceUrl path]];
     NSLog(@"Do get for: %@", str);
     const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
-    [outputStream write:rawstring maxLength:strlen(rawstring)];
+    [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
     [outputStream close];
     
     if (![self openStream:inputStream]) {
@@ -105,24 +105,25 @@
     
 }
 
-- (void)initFileConnection
+- (BOOL)initFileConnection
 {
-    
+    return YES;
 }
 
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length
 {
     
-    if (inputStream == nil) {
-        if ([sourceUrl isFileURL]){
-            [self initFileConnection];
-        } else {
-            [self initSocketConnection];
-        }
-    }
-    
     return [inputStream read:buffer maxLength:length];
     
+}
+
+-(void)closeStream
+{
+    [outputStream close];
+    [inputStream close];
+    
+    outputStream = nil;
+    inputStream = nil;
 }
 
 

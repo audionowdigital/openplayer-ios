@@ -53,22 +53,17 @@
         return;
     }
     
-    NSError *error;
-    
-//    _streamConnection = [[StreamConnection alloc] initWithURL:sourceUrl error:&error];
-    
-    inputStreamConnection = [[InputStreamConnection alloc] initWithUrl:sourceUrl];
-    
-
-    if (error) {
-        NSLog(@"Stream could not be initialized");
-        //[self sendEvent:PLAYING_FAILED];
-        [_playerEvents sendEvent:PLAYING_FAILED];
-    }
-    
-    __block int result;
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        inputStreamConnection = [[InputStreamConnection alloc] initWithUrl:sourceUrl];
+        
+        if (!inputStreamConnection) {
+            NSLog(@"Input stream could not be opened");
+            [_playerEvents sendEvent:PLAYING_FAILED];
+            return;
+        }
+        
+        int result;
         
         if (_type == PLAYER_OPUS )
             result = opusDecodeLoop(self);
@@ -139,6 +134,9 @@
     if (![self isStopped]) {
         _writtenPCMData = 0;
         _writtenMiliSeconds = 0;
+    
+        [inputStreamConnection closeStream];
+        inputStreamConnection = nil;
         
         // empty the circular buffer than stop and dealloc all audio related objects
         [_audio emptyBuffer];
@@ -192,25 +190,6 @@
     }
     
     return [inputStreamConnection readData:buffer maxLength:amount];
-    
-    // block until we have data from the network
-//    NSData *data;
-//    NSError *error;
-//    
-//    do {
-//        data = [_streamConnection readBytesForLength:amount error:&error];
-//        if (data.length == 0) {
-//            [NSThread sleepForTimeInterval:1]; // will only affect the initial buffering time
-//        }
-//        if (error) {
-//            NSLog(@"Error reading from input stream: %@",error);
-//            return 0;
-//        }
-//    } while (!error && data.length == 0);
-//
-//    memcpy((char *)buffer,(char *)[data bytes], data.length);
-//
-//    return (int) data.length;
     
 }
 
