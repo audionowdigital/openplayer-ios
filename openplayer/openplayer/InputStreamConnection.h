@@ -25,5 +25,6 @@
 -(id)initWithUrl:(NSURL *)url;
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length;
 -(void)closeStream;
+-(BOOL)skip:(long)offset;
 
 @end

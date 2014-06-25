@@ -80,11 +80,11 @@
     NSLog(@"output socket stream opened");
        
     // do a HTTP Get on the resource we want
-    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\n\r\n", [sourceUrl path]];
+    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=0-60000\r\n\r\n", [sourceUrl path]];
     NSLog(@"Do get for: %@", str);
     const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
     [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
-    [outputStream close];
+    // leave the outputstream open
     
     if (![self openStream:inputStream]) {
         NSLog(@"Error opening input stream !");
@@ -145,7 +145,24 @@
     }
     
     return YES;
+}
+
+-(BOOL)skip:(long)offset {
+   // if (offset > srcSize) return NO;
     
+    if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
+    
+    if ([sourceUrl isFileURL]) {
+        // do a skip on file handler
+    } else {
+        // do a HTTP Get on the resource we want
+        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-%ld\r\n\r\n", [sourceUrl path], offset,offset*2];
+        NSLog(@"SKIP Get: %@", str);
+
+        const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
+        [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
+    }
+    return YES;
 }
 
 - (BOOL)initFileConnection
