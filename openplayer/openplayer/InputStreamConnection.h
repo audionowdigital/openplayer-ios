@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define kTimeout 2000   // timeout for network operations in miliseconds
+
 @interface InputStreamConnection : NSObject
 {
     NSURL *sourceUrl;

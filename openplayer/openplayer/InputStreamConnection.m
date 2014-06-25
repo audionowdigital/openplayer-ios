@@ -34,43 +34,29 @@
     return self;
 }
 
--(BOOL)openStream:(NSStream *)stream
-{
-    BOOL streamOpened = NO;
-    BOOL streamError = NO;
-    
+-(BOOL)openStream:(NSStream *)stream {
     [stream open];
     
-    while (!streamOpened && !streamError) {
+    double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0;
+    
+    while ((long)([NSDate timeIntervalSinceReferenceDate] * 1000.0 - startTime) < kTimeout) {
         
         NSLog(@"Stream state: %d", [stream streamStatus]);
         
         switch ([stream streamStatus]) {
             case NSStreamStatusOpen:
-                streamOpened = YES;
-                break;
+                return YES;
                 
             case NSStreamStatusClosed:
             case NSStreamStatusError:
+                return NO;
                 
-                streamError = YES;
-                break;
-                
-            default:
-                break;
+            default: break;
         }
         
         [NSThread sleepForTimeInterval:0.1];  // maybe we can reduce this value
     }
     
-    if (streamOpened){
-        return YES;
-    }
-    
-    if (streamError) {
-        return NO;
-    }
-
     return NO;
 }
 
