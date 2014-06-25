@@ -17,6 +17,8 @@
     NSInputStream *inputStream;
     NSOutputStream *outputStream;
     
+    NSMutableDictionary *returnHeaders;
+    
     long srcSize;                   // source length in bytes if none . If invalid or unavailable, this is -1
 }
 
