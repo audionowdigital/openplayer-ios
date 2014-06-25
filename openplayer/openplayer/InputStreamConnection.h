@@ -14,6 +14,8 @@
     
     NSInputStream *inputStream;
     NSOutputStream *outputStream;
+    
+    long srcSize;                   // source length in bytes if none . If invalid or unavailable, this is -1
 }
 
 -(id)initWithUrl:(NSURL *)url;

@@ -13,6 +13,9 @@
 -(id)initWithUrl:(NSURL *)url
 {
     if (self = [super init]) {
+        
+        srcSize = -1;
+        
         sourceUrl = url;
         
         BOOL ret = YES;
