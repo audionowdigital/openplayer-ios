@@ -84,9 +84,6 @@
     self.urlLabel2.text = url2String;
     self.infoLabel.text = @"Waiting for info";
     
-    
-    
-    
 //    [self initNetworkCommunication:url1String];
 }
 
@@ -140,22 +137,29 @@
         // read header
         
         
-        // Try data on demand with our own buffer
+        NSMutableString *strResult = [NSMutableString string];
+        
         NSInteger result;
-        uint8_t buffer[100]; // BUFFER_LEN can be any positive integer
-        while((result = [inputStream read:buffer maxLength:100]) != 0) {
+        int eoh = 0;
+        uint8_t ch;
+        while((result = [inputStream read:&ch maxLength:1]) != 0) {
             if(result > 0) {
-                // buffer contains result bytes of data to be handled
-                NSLog(@"test ok %d", result);
-                for (int i=0;i<result; i++)
-                    NSLog(@"test: %X %c", buffer[i], buffer[i]);
-               // exit(1);
+                [strResult appendFormat:@"%c", ch];
+                if (ch == '\r' || ch == '\n') eoh ++;
+                else if (eoh > 0) eoh --;
+                
+                if (eoh == 4) {
+                    NSLog(@"Res:%@", strResult);
+                    exit(1);
+                }
+                
             } else {
-                // The stream had an error. You can get an NSError object using [iStream streamError]
-                // TODO: implement end of stream too
                 NSLog(@"Error %@", [inputStream streamError]);
             }
         }
+        // test header data
+      //  NSString *t1 = [strResult rangeOfString:@"\r\n"];
+        
     }
 }
 
