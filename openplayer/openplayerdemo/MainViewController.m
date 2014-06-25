@@ -76,7 +76,7 @@
     self.urlLabel2.text = url2String;
     self.infoLabel.text = @"Waiting for info";
     
-   [self initNetworkCommunication:url1String];
+   //[self initNetworkCommunication:url1String];
 }
 
 -  (void)initNetworkCommunication:(NSString*)urlStr1 {

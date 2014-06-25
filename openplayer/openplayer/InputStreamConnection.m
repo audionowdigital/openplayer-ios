@@ -105,7 +105,7 @@
             // if we have the header ending characters, stop
             if (eoh == 4) {
                 NSLog(@"HTTP Header received:%@", strHeader);
-                exit(1);
+                break;
             }
             // if there is no header, quit
             if (eoh > 1000) {
@@ -119,9 +119,14 @@
     }
     // Check header data
     
-    
     return YES;
+}
+
+-(BOOL)skip:(long)offset {
+    if (offset > srcSize) return NO;
     
+    if (outputStream );
+    return YES;
 }
 
 - (BOOL)initFileConnection
