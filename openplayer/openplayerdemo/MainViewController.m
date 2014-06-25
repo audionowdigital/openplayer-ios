@@ -73,8 +73,8 @@
     //http://radioserver1.delfa.net:80/256.opus";
     //http://ogg.ai-radio.org:8000/radio.ogg";
     
-    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
-//    @"http://www.markosoft.ro/opus/02_Archangel.opus";
+//    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+    @"http://www.markosoft.ro/opus/02_Archangel.opus";
 //    file_path;
    
     NSString *url2String =
