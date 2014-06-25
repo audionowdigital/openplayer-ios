@@ -80,7 +80,7 @@
     NSLog(@"output socket stream opened");
        
     // do a HTTP Get on the resource we want
-    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=0-60000\r\n\r\n", [sourceUrl path]];
+    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\n\r\n", [sourceUrl path]];
     NSLog(@"Do get for: %@", str);
     const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
     [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
