@@ -137,7 +137,7 @@
 
 -(void)seekToPercent:(float)percent{
     NSLog(@"skip request: %f" , percent);
-    [inputStreamConnection skip:1000000]; // just a quit test
+    [inputStreamConnection skip:percent]; // just a quit test
 }
 
 #pragma mark - Section 2: Client interface - methods to read Player state -
