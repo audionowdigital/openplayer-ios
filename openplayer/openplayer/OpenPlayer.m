@@ -89,8 +89,12 @@
                     NSLog(@"Decoding error received");
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
-                }
-
+                
+                case DATA_ERROR:
+                    NSLog(@"Decoding data error received");
+                    [_playerEvents sendEvent:PLAYING_FAILED];
+                    break;
+            }
         });
         
     });

@@ -32,7 +32,8 @@ typedef enum player_types {
 typedef enum decode_status{
     SUCCESS = 0,                // Everything was a success
     INVALID_HEADER = -1,        // The data is not in the expected header format
-    DECODE_ERROR = -2           // Failed to decode, for some reason
+    DECODE_ERROR = -2,           // Failed to decode, for some reason
+    DATA_ERROR = -3             // When we got a -1 from the input stream, resulting in PLAYING_FAILED
 } DecodingStatus;
 
 @interface OpenPlayer : NSObject <INativeInterface, NSStreamDelegate>
