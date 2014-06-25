@@ -127,7 +127,7 @@
         NSLog(@"Do get for: %@", str);
         const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
         [outputStream write:rawstring maxLength:strlen(rawstring)];
-        [outputStream close];
+        //[outputStream close];
         
         // wait for input stream to connect: probably already connected : TODO: implement Timeout and failure!
         while ([inputStream streamStatus] != NSStreamStatusOpen) {
@@ -171,59 +171,6 @@
 
 - (IBAction)initBtn1Pressed:(id)sender {
     [player setDataSource:[NSURL URLWithString:self.urlLabel1.text]];
-}
-
-
-// not used
-- (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent {
-    
-	switch (streamEvent) {
-            
-		case NSStreamEventOpenCompleted:
-			if (theStream == inputStream) {
-                NSLog(@"Input stream open");
-            }
-            if (theStream == outputStream) {
-                NSLog(@"Output stream open");
-            }
-             break;
-            
-		case NSStreamEventHasBytesAvailable:
-            NSLog(@"bytes available");
-                        if (theStream == inputStream) NSLog(@"available on input stream open");
-            char buf[100];
-            int len2 = [inputStream read:buf maxLength:100];
-            for (int i=0;i<10;i++)
-                NSLog(@"2 - len:%d:%c", len2, buf[i]);
-			
-            
-			break;
-            
-		case NSStreamEventErrorOccurred:
-			NSLog(@"Can not connect to the host!");
-			break;
-            
-		case NSStreamEventEndEncountered:
-            NSLog(@"end ocurred");
-			break;
-        case NSStreamEventHasSpaceAvailable:
-        {
-            NSLog(@"NSStreamEventHasSpaceAvailable");
-            
-            if (theStream == outputStream) {
-                NSString * str = [NSString stringWithFormat:
-                                  @"GET / HTTP/1.0\r\n\r\n"];
-                const uint8_t * rawstring =
-                (const uint8_t *)[str UTF8String];
-                [outputStream write:rawstring maxLength:strlen(rawstring)];
-                [outputStream close];
-            }
-            break;
-        }
-		default:
-			NSLog(@"Unknown event: %d", streamEvent);
-	}
-    
 }
 
 - (IBAction)initBtn2Pressed:(id)sender {
