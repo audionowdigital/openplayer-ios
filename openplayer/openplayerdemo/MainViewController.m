@@ -102,6 +102,12 @@
         [outputStream open];
         
         // wait for output stream to connect : TODO: implement Timeout and failure!
+        double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0;
+        [NSThread sleepForTimeInterval:0.2];
+        double stopTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0;
+        
+        NSLog(@"dif: %d", (int)(stopTime - startTime));
+        
         while ([outputStream streamStatus] != NSStreamStatusOpen) {
              [NSThread sleepForTimeInterval:0.1];
         }
@@ -119,6 +125,8 @@
             [NSThread sleepForTimeInterval:0.1];
         }
         
+        // read header
+        
         
         // Try data on demand with our own buffer
         NSInteger result;
@@ -128,7 +136,7 @@
                 // buffer contains result bytes of data to be handled
                 NSLog(@"test ok %d", result);
                 for (int i=0;i<result; i++)
-                    NSLog(@"test: %c", buffer[i]);
+                    NSLog(@"test: %X %c", buffer[i], buffer[i]);
                // exit(1);
             } else {
                 // The stream had an error. You can get an NSError object using [iStream streamError]
