@@ -43,7 +43,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-
+    NSString *dirPath = NSTemporaryDirectory();
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dirPath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    
+//    file:///Users/fmoisa/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/12F67313-D441-41FD-A502-6133C5802ED4/tmp/archangel.mp3
+    
+    NSString *file_path = @"file:///Users/fmoisa/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/12F67313-D441-41FD-A502-6133C5802ED4/tmp/archangel.mp3";//[NSString stringWithFormat:@"file://%@archangel.mp3", dirPath];
     
     NSString *url1String =
 
@@ -66,8 +73,9 @@
     //http://radioserver1.delfa.net:80/256.opus";
     //http://ogg.ai-radio.org:8000/radio.ogg";
     
-//    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
-    @"http://www.markosoft.ro:80/opus/02_Archangel.opus";
+    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+//    @"http://www.markosoft.ro/opus/02_Archangel.opus";
+//    file_path;
    
     NSString *url2String =
     @"http://markosoft.ro/test.ogg";
@@ -75,6 +83,9 @@
     self.urlLabel1.text = url1String;
     self.urlLabel2.text = url2String;
     self.infoLabel.text = @"Waiting for info";
+    
+    
+    
     
 //    [self initNetworkCommunication:url1String];
 }
