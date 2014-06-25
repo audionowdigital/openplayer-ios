@@ -108,8 +108,7 @@
             // if we have the header ending characters, stop
             if (eoh == 4) {
                 NSLog(@"HTTP Header received:%@", strHeader);
-                return YES;
-
+                break;
             }
             // if there is no header, quit
             if (eoh > 1000) {
@@ -122,6 +121,28 @@
         }
     }
     // Check header data
+    
+    returnHeaders = [NSMutableDictionary new];
+    
+    NSArray *lines = [strHeader componentsSeparatedByString:@"\r\n"];
+    NSArray *keyvalue;
+    
+    for (NSString *line in lines) {
+        keyvalue = [line componentsSeparatedByString:@": "];
+        if (keyvalue.count == 2) {
+            [returnHeaders setObject:[keyvalue objectAtIndex:1] forKey:[keyvalue objectAtIndex:0]];
+        } else {
+            keyvalue = [line componentsSeparatedByString:@" "];
+            if ([[keyvalue objectAtIndex:0] rangeOfString:@"HTTP"].length > 0) {
+                [returnHeaders setObject:[keyvalue objectAtIndex:1] forKey:@"status"];
+            }
+        }
+    }
+    
+    if (![returnHeaders[@"status"] isEqualToString:@"200"]) {
+        NSLog(@"HTTP status not OK");
+        return NO;
+    }
     
     return YES;
 }
