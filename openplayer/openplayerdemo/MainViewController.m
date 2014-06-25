@@ -47,7 +47,7 @@
     
     NSString *url1String =
 
-    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
+//    @"http://ai-radio.org:8000/radio.opus"; //stereo ok
 //    @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
 //    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
 //    @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
@@ -66,7 +66,8 @@
     //http://radioserver1.delfa.net:80/256.opus";
     //http://ogg.ai-radio.org:8000/radio.ogg";
     
-    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+//    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+    @"http://www.markosoft.ro:80/opus/02_Archangel.opus";
    
     NSString *url2String =
     @"http://markosoft.ro/test.ogg";
@@ -75,7 +76,7 @@
     self.urlLabel2.text = url2String;
     self.infoLabel.text = @"Waiting for info";
     
-    [self initNetworkCommunication:url1String];
+//    [self initNetworkCommunication:url1String];
 }
 
 -  (void)initNetworkCommunication:(NSString*)urlStr1 {
