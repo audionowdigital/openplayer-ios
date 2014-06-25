@@ -145,8 +145,17 @@
     
     if (httpStatus < 200 && httpStatus >= 300) {
         NSLog(@"HTTP status not OK");
-        return NO;
+      //  return NO;
     }
+    
+    // params: Get the range for skip
+    rangeUnit = returnHeaders[@"Accept-Ranges"];
+    // params: Get the resource size
+    NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
+    srcSize = [srcIntSize longValue];
+
+    
+    NSLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
     
     return YES;
 }
@@ -163,7 +172,7 @@
         if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
         
         // do a HTTP Get on the resource we want
-        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-%ld\r\n\r\n", [sourceUrl path], offset,offset*2];
+        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-\r\n\r\n", [sourceUrl path], offset];
         NSLog(@"SKIP Get: %@", str);
 
         const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
