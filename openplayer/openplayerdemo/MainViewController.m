@@ -43,7 +43,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-
+    NSString *dirPath = NSTemporaryDirectory();
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dirPath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    
+//    file:///Users/fmoisa/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/12F67313-D441-41FD-A502-6133C5802ED4/tmp/archangel.mp3
+    
+    NSString *file_path = @"file:///Users/fmoisa/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/12F67313-D441-41FD-A502-6133C5802ED4/tmp/archangel.mp3";//[NSString stringWithFormat:@"file://%@archangel.mp3", dirPath];
     
     NSString *url1String =
 
@@ -67,7 +74,8 @@
     //http://ogg.ai-radio.org:8000/radio.ogg";
     
 //    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
-    @"http://www.markosoft.ro:80/opus/02_Archangel.opus";
+    @"http://www.markosoft.ro/opus/02_Archangel.opus";
+//    file_path;
    
     NSString *url2String =
     @"http://markosoft.ro/test.ogg";

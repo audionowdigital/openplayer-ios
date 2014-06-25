@@ -64,7 +64,10 @@
 {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)[sourceUrl host], [[sourceUrl port] longValue], &readStream, &writeStream);
+    
+    int port = [sourceUrl port] > 0 ? [[sourceUrl port] intValue] : 80;
+    
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)[sourceUrl host], port, &readStream, &writeStream);
     
     inputStream = (__bridge_transfer NSInputStream *)readStream;
     outputStream = (__bridge_transfer NSOutputStream *)writeStream;
@@ -105,7 +108,8 @@
             // if we have the header ending characters, stop
             if (eoh == 4) {
                 NSLog(@"HTTP Header received:%@", strHeader);
-                break;
+                return YES;
+
             }
             // if there is no header, quit
             if (eoh > 1000) {
@@ -132,6 +136,11 @@
 - (BOOL)initFileConnection
 {
     inputStream = [[NSInputStream alloc] initWithURL:sourceUrl];
+    
+    if (![self openStream:inputStream]) {
+        NSLog(@"Error opening input stream !");
+        return NO;
+    }
     
     return inputStream != nil;
 }

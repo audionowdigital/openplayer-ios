@@ -79,6 +79,8 @@
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
             }
+            
+            [self stop];
         });
         
     });
