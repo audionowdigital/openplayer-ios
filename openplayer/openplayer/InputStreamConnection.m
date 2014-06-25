@@ -15,7 +15,7 @@
     if (self = [super init]) {
         
         srcSize = -1;
-        
+        haveHTTPHeader = NO;
         sourceUrl = url;
         
         BOOL ret = YES;
@@ -108,6 +108,7 @@
             // if we have the header ending characters, stop
             if (eoh == 4) {
                 NSLog(@"HTTP Header received:%@", strHeader);
+                haveHTTPHeader = YES;
                 break;
             }
             // if there is no header, quit
