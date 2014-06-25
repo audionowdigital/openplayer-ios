@@ -37,7 +37,7 @@
 -(BOOL)openStream:(NSStream *)stream {
     [stream open];
     
-    double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0;
+    double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0; // we want it in ms
     
     while ((long)([NSDate timeIntervalSinceReferenceDate] * 1000.0 - startTime) < kTimeout) {
         
@@ -54,7 +54,7 @@
             default: break;
         }
         
-        [NSThread sleepForTimeInterval:0.1];  // maybe we can reduce this value
+        [NSThread sleepForTimeInterval:0.1];
     }
     
     return NO;
@@ -89,6 +89,36 @@
     }
     
     NSLog(@"input socket stream opened");
+    
+    // Check HTTP response code (must be 200!) and then read HTTP Header and store useful details
+    NSMutableString *strHeader = [NSMutableString string];
+    NSInteger result;
+    int eoh = 0;
+    uint8_t ch;
+    while((result = [inputStream read:&ch maxLength:1]) != 0) {
+        if(result > 0) {
+            // add data to our string
+            [strHeader appendFormat:@"%c", ch];
+            // check ending condition
+            if (ch == '\r' || ch == '\n') eoh ++;
+            else if (eoh > 0) eoh --;
+            // if we have the header ending characters, stop
+            if (eoh == 4) {
+                NSLog(@"HTTP Header received:%@", strHeader);
+                exit(1);
+            }
+            // if there is no header, quit
+            if (eoh > 1000) {
+                NSLog(@"No HTTP Header found");
+                return NO;
+            }
+        } else {
+            NSLog(@"Error %@", [inputStream streamError]);
+            return NO;
+        }
+    }
+    // Check header data
+    
     
     return YES;
     
