@@ -131,14 +131,16 @@
     
     if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
     
-    // do a HTTP Get on the resource we want
-    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld\r\n\r\n", [sourceUrl path], offset];
-    NSLog(@"SKIP Get: %@", str);
+    if ([sourceUrl isFileURL]) {
+        // do a skip on file handler
+    } else {
+        // do a HTTP Get on the resource we want
+        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld\r\n\r\n", [sourceUrl path], offset];
+        NSLog(@"SKIP Get: %@", str);
 
-    const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
-    [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
-    
-
+        const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
+        [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
+    }
     return YES;
 }
 
