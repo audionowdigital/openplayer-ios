@@ -138,11 +138,22 @@
             }
         }
     }
-    
+    // Check HTTP return code
     if (![returnHeaders[@"status"] isEqualToString:@"200"]) {
         NSLog(@"HTTP status not OK");
         return NO;
     }
+    
+    // params: Get the range for skip
+    rangeUnit = returnHeaders[@"Accept-Ranges"];
+    // params: Get the resource size
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
+    srcSize = [srcIntSize longValue];
+
+    
+    NSLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
     
     return YES;
 }
