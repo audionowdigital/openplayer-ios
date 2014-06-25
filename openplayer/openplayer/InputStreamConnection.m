@@ -107,7 +107,9 @@
 
 - (BOOL)initFileConnection
 {
-    return YES;
+    inputStream = [[NSInputStream alloc] initWithURL:sourceUrl];
+    
+    return inputStream != nil;
 }
 
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length

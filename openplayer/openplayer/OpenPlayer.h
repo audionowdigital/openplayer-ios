@@ -45,9 +45,6 @@ typedef enum decode_status{
     AudioController *_audio;
     
     NSCondition *waitPlayCondition;
-    
-   // long _streamSize;
-   // NSTimeInterval _streamLength;       // seconds
 }
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type ;

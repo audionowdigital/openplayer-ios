@@ -13,24 +13,10 @@
 #import "AudioController.h"
 #import "InputStreamConnection.h"
 
-@interface OpenPlayer()
-
--(void)sendEvent:(PlayerEvent)event;
--(void)sendEvent:(PlayerEvent)event
-       withParam:(int)param;
--(void)sendEvent:(PlayerEvent)event
-          vendor:(NSString *)vendor
-           title:(NSString *)title
-          artist:(NSString *)artist
-           album:(NSString *)album
-            date:(NSString *)date
-           track:(NSString *)track;
-
-@end
 
 @implementation OpenPlayer
 
-// --------------- Section 1: Client interface - initialization and methods to control the Player --------------- //
+#pragma mark - Section 1: Client interface - initialization and methods to control the Player -
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
 {
@@ -42,8 +28,6 @@
     }
     return self;
 }
-
-
 
 -(void)setDataSource:(NSURL *)sourceUrl {
     NSLog(@"CMD: setDataSource call. state:%d", _state);
@@ -149,7 +133,7 @@
 
 }
 
-// --------------- Section 2: Client interface - methods to read Player state --------------- //
+#pragma mark - Section 2: Client interface - methods to read Player state -
 
 
 -(BOOL)isReadyToPlay
@@ -173,7 +157,7 @@
 }
 
 
-// --------------- Section 3: Decoder callback interface  --------------- //
+#pragma mark - Section 3: Decoder callback interface -
 
 // Called when the decoder asks for encoded data to decode . A few blocking conditions apply here
 -(int)onReadEncodedData:(char *)buffer ofSize:(long)amount {
@@ -268,7 +252,7 @@
 }
 
 
-// --------------- Section 4: helper functions  --------------- //
+#pragma mark - Section 4: helper functions  -
 
 // Blocks the current thread
 -(void)waitPlay {
