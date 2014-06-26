@@ -192,11 +192,6 @@
     [player stop];
 }
 
-- (IBAction)touchUp:(id)sender {
-    NSLog(@" value changed to: %f", [(UISlider *)sender value]);
-    [player seekToPercent:[(UISlider *)sender value]];
-}
-
 -(void)onPlayerEvent:(PlayerEvent)event {
 
 }
@@ -230,8 +225,13 @@
          [self.seekBar setValue:myValue];
          */
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             self.timeLabel.text =
             [NSString stringWithFormat:@"%d sec", progress];
+            
+//            self.seekBar.maximumValue = 154;
+            
+//            self.seekBar.value = progress;
         });
     }
     if (event == TRACK_INFO) {
@@ -257,6 +257,10 @@
         NSLog(@"Playing stopped with success.");
     }
 
+}
+
+- (IBAction)endScrubbing:(id)sender {
+    [player seekToPercent:[(UISlider *)sender value]];
 }
 
 

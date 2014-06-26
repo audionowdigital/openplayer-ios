@@ -136,7 +136,7 @@
 }
 
 -(void)seekToPercent:(float)percent{
-    NSLog(@"skip request: %f" , percent);
+    NSLog(@"seek request: %f" , percent);
     [inputStreamConnection skip:percent]; // just a quit test
 }
 
@@ -253,9 +253,12 @@
 
 // Called by the native decoder when decoding is finished (end of source or error)
 -(void)onStop {
+    
     NSLog(@"onStop called");
     
-    [self stop];
+    if (_state != STATE_STOPPED) {
+        [self stop];
+    }
 }
 
 

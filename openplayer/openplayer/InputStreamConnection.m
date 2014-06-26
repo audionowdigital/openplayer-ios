@@ -160,13 +160,17 @@
     return YES;
 }
 
--(BOOL)skip:(long)offset {
+-(BOOL)skip:(float)offset {
    // if (offset > srcSize) return NO;
     
     
+    // !!! offset is in seconds, need to be converted to bytes
     
     if ([sourceUrl isFileURL]) {
-        [inputStream setProperty:@(offset) forKey:NSStreamFileCurrentOffsetKey];
+        
+        
+        
+        [inputStream setProperty:@(offset * srcSize) forKey:NSStreamFileCurrentOffsetKey];
     } else {
         
         if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
@@ -183,6 +187,14 @@
 
 - (BOOL)initFileConnection
 {
+    
+    NSDictionary *fileAttrs = [[NSFileManager defaultManager] attributesOfItemAtPath:[sourceUrl path] error:nil];
+    if (fileAttrs != nil) {
+        srcSize = fileAttrs.fileSize;
+    } else {
+        NSLog(@"Could not determine file size");
+    }
+    
     inputStream = [[NSInputStream alloc] initWithURL:sourceUrl];
     
     if (![self openStream:inputStream]) {
