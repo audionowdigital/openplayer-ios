@@ -15,7 +15,7 @@
     if (self = [super init]) {
         
         srcSize = -1;
-        
+        haveHTTPHeader = NO;
         sourceUrl = url;
         
         BOOL ret = YES;
@@ -108,6 +108,7 @@
             // if we have the header ending characters, stop
             if (eoh == 4) {
                 NSLog(@"HTTP Header received:%@", strHeader);
+                haveHTTPHeader = YES;
                 break;
             }
             // if there is no header, quit
@@ -163,6 +164,7 @@
 -(BOOL)seekTo:(float)percent {
    // if (offset > srcSize) return NO;
     
+    NSLog(@"Seek offset:%ld", offset);
     
     // !!! offset is in seconds, need to be converted to bytes
     
@@ -179,6 +181,7 @@
 
         const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
         [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
+
     }
     return YES;
 }

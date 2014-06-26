@@ -19,8 +19,10 @@
     
     NSMutableDictionary *returnHeaders;
     
-    long srcSize;                   // source length in bytes if none . If invalid or unavailable, this is -1
+    long srcSize;                       // source length in bytes if none . If invalid or unavailable, this is -1
     NSString *rangeUnit;
+    
+    BOOL haveHTTPHeader;                // set to true when the HTTP header has been downloaded successfully
 }
 
 -(id)initWithUrl:(NSURL *)url;
