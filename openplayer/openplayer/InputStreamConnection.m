@@ -139,8 +139,12 @@
             }
         }
     }
-    // Check HTTP return code
-    if (![returnHeaders[@"status"] isEqualToString:@"200"]) {
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    int httpStatus = [[formatter numberFromString:returnHeaders[@"status"]] intValue];
+    
+    if (httpStatus < 200 && httpStatus >= 300) {
         NSLog(@"HTTP status not OK");
       //  return NO;
     }
@@ -148,8 +152,6 @@
     // params: Get the range for skip
     rangeUnit = returnHeaders[@"Accept-Ranges"];
     // params: Get the resource size
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
     srcSize = [srcIntSize longValue];
 
@@ -159,26 +161,42 @@
     return YES;
 }
 
--(BOOL)skip:(long)offset {
-   // if (offset > srcSize) return NO;
+-(BOOL)skip:(float)pos {
+    long offset = pos * srcSize;
     
-    if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
+    if (offset > srcSize) return NO;
+    
+    NSLog(@"Seek offset:%ld", offset);
+    
+    // !!! offset is in seconds, need to be converted to bytes
     
     if ([sourceUrl isFileURL]) {
-        // do a skip on file handler
+        [inputStream setProperty:@(offset) forKey:NSStreamFileCurrentOffsetKey];
     } else {
+        
+        if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
+        
         // do a HTTP Get on the resource we want
         NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-\r\n\r\n", [sourceUrl path], offset];
         NSLog(@"SKIP Get: %@", str);
 
         const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
         [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
+
     }
     return YES;
 }
 
 - (BOOL)initFileConnection
 {
+    
+    NSDictionary *fileAttrs = [[NSFileManager defaultManager] attributesOfItemAtPath:[sourceUrl path] error:nil];
+    if (fileAttrs != nil) {
+        srcSize = fileAttrs.fileSize;
+    } else {
+        NSLog(@"Could not determine file size");
+    }
+    
     inputStream = [[NSInputStream alloc] initWithURL:sourceUrl];
     
     if (![self openStream:inputStream]) {

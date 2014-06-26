@@ -136,8 +136,8 @@
 }
 
 -(void)seekToPercent:(float)percent{
-    NSLog(@"skip request: %f" , percent);
-    [inputStreamConnection skip:100000]; // just a quit test
+    NSLog(@"seek request: %f" , percent);
+    [inputStreamConnection skip:percent]; // just a quit test
 }
 
 #pragma mark - Section 2: Client interface - methods to read Player state -
@@ -253,9 +253,12 @@
 
 // Called by the native decoder when decoding is finished (end of source or error)
 -(void)onStop {
+    
     NSLog(@"onStop called");
     
-    [self stop];
+    if (_state != STATE_STOPPED) {
+        [self stop];
+    }
 }
 
 
