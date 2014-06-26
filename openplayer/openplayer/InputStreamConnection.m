@@ -15,8 +15,9 @@
     if (self = [super init]) {
         
         srcSize = -1;
-        haveHTTPHeader = NO;
+        isHTTPHeaderAvailable = NO;
         isSourceInited = NO;
+        isSkipAvailable = NO;
         sourceUrl = url;
         
         BOOL ret = YES;
@@ -109,7 +110,7 @@
             // if we have the header ending characters, stop
             if (eoh == 4) {
                 NSLog(@"HTTP Header received:%@", strHeader);
-                haveHTTPHeader = YES;
+                isHTTPHeaderAvailable = YES;
                 break;
             }
             // if there is no header, quit
@@ -157,8 +158,11 @@
     srcSize = [srcIntSize longValue];
 
     isSourceInited = YES;
-    
+    if (rangeUnit != NULL) isSkipAvailable = YES;
     NSLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
+    
+    NSLog(@"Init flags: isHTTPHeaderAvailable:%d isSkipAvailable:%d isSourceInited:%d",
+          isHTTPHeaderAvailable, isSkipAvailable, isSourceInited);
     
     return YES;
 }
@@ -177,7 +181,7 @@
     if ([sourceUrl isFileURL]) {
         
         [inputStream setProperty:@(offset) forKey:NSStreamFileCurrentOffsetKey];
-    } else {
+    } else if (isSkipAvailable) {
         // a strange limit we need to impose on seeking to the begining .
         if (offset < 512) offset = 512;
         // we should already have the header read, so we drop the current connection and simply jump away
