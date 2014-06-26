@@ -30,6 +30,6 @@
 -(id)initWithUrl:(NSURL *)url;
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length;
 -(void)closeStream;
--(BOOL)skip:(float)pos;
+-(BOOL)seekTo:(float)percent;
 
 @end

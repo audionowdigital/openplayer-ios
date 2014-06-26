@@ -163,17 +163,19 @@
     return YES;
 }
 
--(BOOL)skip:(float)pos {
+
+    
+-(BOOL)seekTo:(float)percent {
+    long offset = percent * srcSize;
+
     // allow skip only if isSourceInited is true
-    
-    
-    long offset = pos * srcSize;
     
     if (offset > srcSize) return NO;
     
     NSLog(@"Seek offset:%ld", offset);
     
     if ([sourceUrl isFileURL]) {
+        
         [inputStream setProperty:@(offset) forKey:NSStreamFileCurrentOffsetKey];
     } else {
         // we should already have the header read, so we drop the current connection and simply jump away
@@ -205,6 +207,16 @@
 }
 
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length {
+    // if we skip data, we might delay the read, wait if socket disconnected, but with a timeout
+    double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0; // we want it in ms
+    
+    while ([inputStream streamStatus] != NSStreamStatusOpen &&
+           (long)([NSDate timeIntervalSinceReferenceDate] * 1000.0 - startTime) < kTimeout) {
+        NSLog(@"readData wait with timeout");
+        [NSThread sleepForTimeInterval:0.1];
+    }
+    
+    // finally read the data
     return [inputStream read:buffer maxLength:length];
 }
 

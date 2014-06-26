@@ -45,12 +45,15 @@ typedef enum decode_status{
     InputStreamConnection *inputStreamConnection;
     AudioController *_audio;
     
+    long srcSizeInSeconds;
+    
     NSCondition *waitPlayCondition;
 }
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type ;
 
--(void)setDataSource:(NSURL *)sourceUrl;
+-(void)setDataSource:(NSURL *)sourceUrl; // for live streams
+-(void)setDataSource:(NSURL *)sourceUrl withSize:(long)sizeInSeconds; // for recorded streams
 -(void)play;
 -(void)pause;
 -(void)stop;

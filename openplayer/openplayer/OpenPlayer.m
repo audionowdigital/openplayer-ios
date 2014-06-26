@@ -29,13 +29,23 @@
     return self;
 }
 
--(void)setDataSource:(NSURL *)sourceUrl {
+-(void)setDataSource:(NSURL *)sourceUrl
+{
+    // for live source
+    [self setDataSource:sourceUrl withSize:-1];
+}
+
+
+-(void)setDataSource:(NSURL *)sourceUrl withSize:(long)sizeInSeconds
+{
     NSLog(@"CMD: setDataSource call. state:%d", _state);
     
     if (![self isStopped]) {
         NSLog(@"Player Error: stream must be stopped before setting a data source");
         return;
     }
+    
+    srcSizeInSeconds = sizeInSeconds;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
@@ -136,8 +146,30 @@
 }
 
 -(void)seekToPercent:(float)percent{
-    NSLog(@"seek request: %f" , percent);
-    [inputStreamConnection skip:percent]; // just a quit test
+    NSLog(@"Seek request: %f" , percent);
+    
+    if (srcSizeInSeconds == -1) {
+        NSLog(@"Player error: Stream is live, cannot seek");
+        return;
+    }
+    
+    if (!([self isPlaying] || [self isReadyToPlay])) {
+        NSLog(@"Player error: stream must be playing or paused.");
+        return;
+    }
+    
+    if ([self isPlaying]) {
+        [_audio pause];
+    }
+    
+    [_audio emptyBuffer];
+    
+    [inputStreamConnection seekTo:percent];
+    _writtenMiliSeconds = percent * srcSizeInSeconds * 1000;
+    
+    if ([self isPlaying]) {
+        [_audio start];
+    }
 }
 
 #pragma mark - Section 2: Client interface - methods to read Player state -
@@ -255,10 +287,7 @@
 -(void)onStop {
     
     NSLog(@"onStop called");
-    
-    if (_state != STATE_STOPPED) {
-        [self stop];
-    }
+    [self stop];
 }
 
 
