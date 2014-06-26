@@ -53,7 +53,11 @@
         
         if (!inputStreamConnection) {
             NSLog(@"Input stream could not be opened");
-            [_playerEvents sendEvent:PLAYING_FAILED];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_playerEvents sendEvent:PLAYING_FAILED];
+            });
+                           
             return;
         }
         
@@ -234,7 +238,7 @@
         _seconds = _writtenMiliSeconds / 1000;
         // NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
         // send a notification of progress
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async( dispatch_get_main_queue(), ^{
             [_playerEvents sendEvent:PLAY_UPDATE withParam:_seconds];
         });
     }
@@ -245,7 +249,7 @@
     NSLog(@"onStartReadingHeader");
     if ([self isStopped]) {
         _state = STATE_READING_HEADER;
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             [_playerEvents sendEvent:READING_HEADER];
         });
     }
@@ -261,7 +265,7 @@
 
     if ([self isReadingHeader]) {
         _state = STATE_READY_TO_PLAY;
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async( dispatch_get_main_queue(), ^{
             [_playerEvents sendEvent:READY_TO_PLAY];
         });
 
@@ -272,7 +276,7 @@
         _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
     }
     
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async( dispatch_get_main_queue(), ^{
         NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
         NSString *ns_title = [NSString stringWithUTF8String:ptitle];
         NSString *ns_artist = [NSString stringWithUTF8String:partist];
