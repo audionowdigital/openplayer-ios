@@ -170,7 +170,7 @@
 }
 
 - (IBAction)initBtn1Pressed:(id)sender {
-    [player setDataSource:[NSURL URLWithString:self.urlLabel1.text]];
+    [player setDataSource:[NSURL URLWithString:self.urlLabel1.text] withSize:154];
 }
 
 - (IBAction)initBtn2Pressed:(id)sender {
@@ -229,9 +229,10 @@
             self.timeLabel.text =
             [NSString stringWithFormat:@"%d sec", progress];
             
-//            self.seekBar.maximumValue = 154;
+            self.seekBar.maximumValue = 1;
+            self.seekBar.minimumValue = 0;
             
-//            self.seekBar.value = progress;
+            self.seekBar.value = (float) progress / 154;
         });
     }
     if (event == TRACK_INFO) {

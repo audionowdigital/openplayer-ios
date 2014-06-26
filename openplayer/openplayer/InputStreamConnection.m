@@ -160,7 +160,7 @@
     return YES;
 }
 
--(BOOL)skip:(float)offset {
+-(BOOL)seekTo:(float)percent {
    // if (offset > srcSize) return NO;
     
     
@@ -168,15 +168,13 @@
     
     if ([sourceUrl isFileURL]) {
         
-        
-        
-        [inputStream setProperty:@(offset * srcSize) forKey:NSStreamFileCurrentOffsetKey];
+        [inputStream setProperty:@(percent * srcSize) forKey:NSStreamFileCurrentOffsetKey];
     } else {
         
         if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
         
         // do a HTTP Get on the resource we want
-        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-\r\n\r\n", [sourceUrl path], offset];
+        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-\r\n\r\n", [sourceUrl path], percent];
         NSLog(@"SKIP Get: %@", str);
 
         const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
