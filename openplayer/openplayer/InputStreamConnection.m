@@ -178,6 +178,8 @@
         
         [inputStream setProperty:@(offset) forKey:NSStreamFileCurrentOffsetKey];
     } else {
+        // a strange limit we need to impose on seeking to the begining .
+        if (offset < 512) offset = 512;
         // we should already have the header read, so we drop the current connection and simply jump away
         [self closeStream];
         // restart connection at the new offset - not all servers support this. If fails, we'll simply play the content from the start
