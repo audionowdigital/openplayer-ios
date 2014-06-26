@@ -23,6 +23,8 @@
     NSString *rangeUnit;
     
     BOOL haveHTTPHeader;                // set to true when the HTTP header has been downloaded successfully
+    
+    BOOL isSourceInited;                // set to true on init, and to false on close
 }
 
 -(id)initWithUrl:(NSURL *)url;

@@ -16,6 +16,7 @@
         
         srcSize = -1;
         haveHTTPHeader = NO;
+        isSourceInited = NO;
         sourceUrl = url;
         
         BOOL ret = YES;
@@ -24,7 +25,7 @@
             ret = [self initFileConnection];
         } else {
             NSLog(@"Initialize stream from network url: %@", url);
-            ret = [self initSocketConnection];
+            ret = [self initSocketConnection:0];
         }
         
         if (!ret) {
@@ -60,7 +61,7 @@
     return NO;
 }
 
-- (BOOL)initSocketConnection
+- (BOOL)initSocketConnection:(long)offset
 {
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
@@ -80,7 +81,7 @@
     NSLog(@"output socket stream opened");
        
     // do a HTTP Get on the resource we want
-    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\n\r\n", [sourceUrl path]];
+    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-\r\n\r\n", [sourceUrl path], offset];
     NSLog(@"Do get for: %@", str);
     const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
     [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
@@ -146,7 +147,7 @@
     
     if (httpStatus < 200 && httpStatus >= 300) {
         NSLog(@"HTTP status not OK");
-      //  return NO;
+        return NO;
     }
     
     // params: Get the range for skip
@@ -155,6 +156,7 @@
     NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
     srcSize = [srcIntSize longValue];
 
+    isSourceInited = YES;
     
     NSLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
     
@@ -162,27 +164,22 @@
 }
 
 -(BOOL)skip:(float)pos {
+    // allow skip only if isSourceInited is true
+    
+    
     long offset = pos * srcSize;
     
     if (offset > srcSize) return NO;
     
     NSLog(@"Seek offset:%ld", offset);
     
-    // !!! offset is in seconds, need to be converted to bytes
-    
     if ([sourceUrl isFileURL]) {
         [inputStream setProperty:@(offset) forKey:NSStreamFileCurrentOffsetKey];
     } else {
-        
-        if ([outputStream streamStatus] != NSStreamStatusOpen ) return NO;
-        
-        // do a HTTP Get on the resource we want
-        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nRange: bytes=%ld-\r\n\r\n", [sourceUrl path], offset];
-        NSLog(@"SKIP Get: %@", str);
-
-        const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
-        [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
-
+        // we should already have the header read, so we drop the current connection and simply jump away
+        [self closeStream];
+        // restart connection at the new offset - not all servers support this. If fails, we'll simply play the content from the start
+        [self initSocketConnection:offset];
     }
     return YES;
 }
@@ -207,11 +204,8 @@
     return inputStream != nil;
 }
 
--(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length
-{
-    
+-(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length {
     return [inputStream read:buffer maxLength:length];
-    
 }
 
 -(void)closeStream
@@ -221,6 +215,8 @@
     
     outputStream = nil;
     inputStream = nil;
+    
+    isSourceInited = NO;
 }
 
 

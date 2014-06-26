@@ -61,8 +61,8 @@
 //     @"http://www.pocketmagic.net:80/tmp3/countdown.opus";
    //  @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
 
-   @"http://www.markosoft.ro/opus/countdown.opus";
-//        @"http://www.markosoft.ro/opus/02_Archangel.opus";
+  // @"http://www.markosoft.ro/opus/countdown.opus";
+        @"http://www.markosoft.ro/opus/02_Archangel.opus";
    // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
   //  @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
 //    @"http://revolutionradio.ru:8000/live.ogg"; //vorbis
