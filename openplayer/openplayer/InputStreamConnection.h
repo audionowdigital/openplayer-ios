@@ -22,9 +22,10 @@
     long srcSize;                       // source length in bytes if none . If invalid or unavailable, this is -1
     NSString *rangeUnit;
     
-    BOOL haveHTTPHeader;                // set to true when the HTTP header has been downloaded successfully
+    BOOL isHTTPHeaderAvailable;         // set to true when the HTTP header has been downloaded successfully
     
     BOOL isSourceInited;                // set to true on init, and to false on close
+    BOOL isSkipAvailable;
 }
 
 -(id)initWithUrl:(NSURL *)url;
