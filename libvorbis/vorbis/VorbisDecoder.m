@@ -45,6 +45,8 @@ vm_size_t usedMemory(void) {
     return (kerr == KERN_SUCCESS) ? info.resident_size : 0; // size in bytes
 }
 
+bool isCommentAlloc = false;
+
 // This is the only function we need ot call, assuming we have the interface already configured
 int vorbisDecodeLoop(id<INativeInterface> callback) {
     fprintf(stderr, "vorbis decoding  called, initing buffers");
@@ -57,10 +59,10 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
     ogg_page         og; /* one Ogg bitstream page. Vorbis packets are inside */
     ogg_packet       op; /* one raw packet of data for decode */
     
-    vorbis_info      vi; /* struct that stores all the static vorbis bitstream settings */
-    vorbis_comment   vc; /* struct that stores all the bitstream user comments */
-    vorbis_dsp_state vd; /* central working state for the packet->PCM decoder */
-    vorbis_block     vb; /* local working space for packet->PCM decode */
+    vorbis_info      *pvi = NULL; /* struct that stores all the static vorbis bitstream settings */
+    vorbis_comment   *pvc = NULL; /* struct that stores all the bitstream user comments */
+    vorbis_dsp_state *pvd = NULL; /* central working state for the packet->PCM decoder */
+    vorbis_block     *pvb = NULL; /* local working space for packet->PCM decode */
     
     char *buffer;
     int  bytes;
@@ -148,20 +150,25 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
 				if(result == 0) break; // need more data so exit and go read data in PREVIOUS loop
 				if(result < 0) continue; // missing or corrupt data at this page position , drop here or tolerate error?
                 
+                if (!pvd) pvd = (vorbis_dsp_state *)malloc(sizeof(vorbis_dsp_state));
+                if (!pvb) pvb = (vorbis_block *)malloc(sizeof(vorbis_block));
+                
                 
 				// decode available data
 				if (header == 0) {
 					float **pcm;
 					int samples;
 					// test for success!
-					if(vorbis_synthesis(&vb,&op)==0) vorbis_synthesis_blockin(&vd,&vb);
-					while((samples = vorbis_synthesis_pcmout(&vd,&pcm)) > 0) {
+                    
+					if(vorbis_synthesis(pvb,&op)==0) vorbis_synthesis_blockin(pvd, pvb);
+                    
+					while((samples = vorbis_synthesis_pcmout(pvd,&pcm)) > 0) {
 						//LOGE(LOG_TAG, "start while 8, decoding %d samples: %d convsize:%d", op.bytes,  samples, convsize);
 						int j;
 						int frame_size = (samples < convsize?samples : convsize);
                         
 						// convert floats to 16 bit signed ints (host order) and interleave
-						for(i = 0; i < vi.channels; i++){
+						for(i = 0; i < pvi->channels; i++){
 							ogg_int16_t *ptr = convbuffer + i;
 							float  *mono = pcm[i];
 							for(j=0;j<frame_size;j++){
@@ -170,13 +177,13 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
 								if(val>32767) { val=32767; }
 								if(val<-32768) { val=-32768; }
 								*ptr=val;
-								ptr += vi.channels;
+								ptr += pvi->channels;
 							}
 						}
                         
 						// Call decodefeed to push data to AudioTrack
-                        [callback onWritePCMData:convbuffer ofSize:frame_size*vi.channels];
-						vorbis_synthesis_read(&vd,frame_size); // tell libvorbis how many samples we actually consumed
+                        [callback onWritePCMData:convbuffer ofSize:frame_size*pvi->channels];
+						vorbis_synthesis_read(pvd,frame_size); // tell libvorbis how many samples we actually consumed
 					}
                     //free(&pcm);
 				} // decoding done
@@ -185,12 +192,17 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
 				if (header > 0) {
 					if (header == VORBIS_HEADERS) {
 						// prepare vorbis structures
-						vorbis_info_init(&vi);
-						vorbis_comment_init(&vc);
+                        pvi = (vorbis_info *) malloc (sizeof(vorbis_info));
+						vorbis_info_init(pvi);
+                        
+                        pvc = (vorbis_comment *) malloc(sizeof(vorbis_comment));
+						vorbis_comment_init(pvc);
+                        isCommentAlloc = true;
+                        
 					}
 					// we need to do this 3 times, for all 3 vorbis headers!
 					// add data to header structure
-					if(vorbis_synthesis_headerin(&vi,&vc,&op) < 0) {
+					if(vorbis_synthesis_headerin(pvi,pvc,&op) < 0) {
 						// error case; not a vorbis header
                         fprintf(stderr, "Err: not a vorbis header.");
 						err = INVALID_HEADER;
@@ -201,12 +213,13 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
                     
 					// we got all 3 vorbis headers
 					if (header == 0) {
-                        fprintf(stderr, "Vorbis header data: ver:%d ch:%d samp:%ld [%s]" ,  vi.version, vi.channels, vi.rate, vc.vendor);
+                        fprintf(stderr, "Vorbis header data: ver:%d ch:%d samp:%ld [%s]" ,
+                                pvi->version, pvi->channels, pvi->rate, pvc->vendor);
 						int i=0;
-						for (i=0; i<vc.comments; i++) {
-                            fprintf(stderr, "Header comment:%d len:%d [%s]", i, vc.comment_lengths[i], vc.user_comments[i]);
-							char *c = vc.user_comments[i];
-							int len = vc.comment_lengths[i];
+						for (i=0; i<pvc->comments; i++) {
+                            fprintf(stderr, "Header comment:%d len:%d [%s]", i, pvc->comment_lengths[i], pvc->user_comments[i]);
+							char *c = pvc->user_comments[i];
+							int len = pvc->comment_lengths[i];
                             // keys we are looking for in the comments, careful if size if bigger than 10
 							char keys[5][10] = { "title=", "artist=", "album=", "date=", "track=" };
 							char *values[5] = { title, artist, album, date, track }; // put the values in these pointers
@@ -217,17 +230,17 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
 							}
 						}
 						// init vorbis decoder
-						if(vorbis_synthesis_init(&vd,&vi) != 0) {
+						if(vorbis_synthesis_init(pvd,pvi) != 0) {
 							// corrupt header
                             fprintf(stderr, "Err: corrupt header.");
 							err = INVALID_HEADER;
 							break;
 						}
 						// central decode state
-						vorbis_block_init(&vd,&vb);
+						vorbis_block_init(pvd,pvb);
                         
 						// header ready , call player to pass stream details and init AudioTrack
-                        [callback onStart:vi.rate trackChannels:vi.channels trackVendor:vc.vendor trackTitle:title trackArtist:artist trackAlbum:album trackDate:date trackName:track];
+                        [callback onStart:pvi->rate trackChannels:pvi->channels trackVendor:pvc->vendor trackTitle:title trackArtist:artist trackAlbum:album trackDate:date trackName:track];
 					}
 				} // header decoding
                 
@@ -238,12 +251,21 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
                     fprintf(stderr,  "Stream finished.");
 					// clean up this logical bitstream;
 					ogg_stream_clear(&os);
-					vorbis_comment_clear(&vc);
-					vorbis_info_clear(&vi);  // must be called last
+                    
+                    if (pvc && pvi) {
+                        vorbis_comment_clear(pvc);
+                        vorbis_info_clear(pvi);  // must be called last
+                        free(pvc);
+                        free(pvi);
+                    }
                     
 					// clear decoding structures
-					vorbis_block_clear(&vb);
-					vorbis_dsp_clear(&vd);
+                    if (pvb && pvd) {
+                        vorbis_block_clear(pvb);
+                        vorbis_dsp_clear(pvd);
+                        free(pvd);
+                        free(pvb);
+                    }
                     
 					// attempt to go for re-initialization until EOF in data source
 					err = SUCCESS;
@@ -262,11 +284,20 @@ int vorbisDecodeLoop(id<INativeInterface> callback) {
     
     
     // ogg_page and ogg_packet structs always point to storage in libvorbis.  They're never freed or manipulated directly
-	vorbis_comment_clear(&vc);
-	vorbis_info_clear(&vi);  // must be called last
+    if (pvc && pvi) {
+        vorbis_comment_clear(pvc);
+        vorbis_info_clear(pvi);  // must be called last
+        free(pvc);
+        free(pvi);
+    }
     
-	vorbis_block_clear(&vb);
-	vorbis_dsp_clear(&vd);
+    // clear decoding structures
+    if (pvb && pvd) {
+        vorbis_block_clear(pvb);
+        vorbis_dsp_clear(pvd);
+        free(pvd);
+        free(pvb);
+    }
     
     
     // OK, clean up the framer

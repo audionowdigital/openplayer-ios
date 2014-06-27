@@ -136,9 +136,7 @@
 {
     NSLog(@"CMD: stop call. state:%d", self.state);
     
-    if (![self isStopped]) {
-        _state = STATE_STOPPED;
-        
+    if (![self isStopped]) {        
         _writtenPCMData = 0;
         _writtenMiliSeconds = 0;
         
