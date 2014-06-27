@@ -7,7 +7,7 @@
 //
 
 #import "InputStreamConnection.h"
-#import "Tools.h"
+#import "PlayerTools.h"
 
 @implementation InputStreamConnection
 

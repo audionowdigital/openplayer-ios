@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 AudioNowDigital. All rights reserved.
 //
 
-#import "Tools.h"
+#import "PlayerTools.h"
 
-@implementation Tools
+@implementation PlayerTools
 
 @end

@@ -45,8 +45,8 @@
 		992279011938C2060005DB1F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 992279001938C2060005DB1F /* Images.xcassets */; };
 		99734A9A1959A59900685B57 /* InputStreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 99734A991959A59900685B57 /* InputStreamConnection.m */; };
 		99734A9B1959B44700685B57 /* InputStreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 99734A991959A59900685B57 /* InputStreamConnection.m */; };
-		99734A9E195D854300685B57 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 99734A9D195D854300685B57 /* Tools.m */; };
-		99734A9F195D854300685B57 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 99734A9D195D854300685B57 /* Tools.m */; };
+		99734A9E195D854300685B57 /* PlayerTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 99734A9D195D854300685B57 /* PlayerTools.m */; };
+		99734A9F195D854300685B57 /* PlayerTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 99734A9D195D854300685B57 /* PlayerTools.m */; };
 		99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A894EB193DB06A007D3EDF /* MainViewController.m */; };
 		99A894EE193DB094007D3EDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99A894ED193DB094007D3EDF /* Main.storyboard */; };
 		99FB06FE19518611001217F1 /* OpenPlayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 992278981938751C0005DB1F /* OpenPlayer.h */; };
@@ -101,8 +101,8 @@
 		992279001938C2060005DB1F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99734A981959A59900685B57 /* InputStreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputStreamConnection.h; sourceTree = "<group>"; };
 		99734A991959A59900685B57 /* InputStreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputStreamConnection.m; sourceTree = "<group>"; };
-		99734A9C195D854300685B57 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
-		99734A9D195D854300685B57 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		99734A9C195D854300685B57 /* PlayerTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerTools.h; sourceTree = "<group>"; };
+		99734A9D195D854300685B57 /* PlayerTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTools.m; sourceTree = "<group>"; };
 		99A894EA193DB06A007D3EDF /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		99A894EB193DB06A007D3EDF /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		99A894ED193DB094007D3EDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -217,8 +217,8 @@
 				628CE76D193DADC3009FB38C /* PlayerEvents.m */,
 				99734A981959A59900685B57 /* InputStreamConnection.h */,
 				99734A991959A59900685B57 /* InputStreamConnection.m */,
-				99734A9C195D854300685B57 /* Tools.h */,
-				99734A9D195D854300685B57 /* Tools.m */,
+				99734A9C195D854300685B57 /* PlayerTools.h */,
+				99734A9D195D854300685B57 /* PlayerTools.m */,
 			);
 			path = openplayer;
 			sourceTree = "<group>";
@@ -346,7 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99734A9E195D854300685B57 /* Tools.m in Sources */,
+				99734A9E195D854300685B57 /* PlayerTools.m in Sources */,
 				62128DE419504CCC00D7884D /* TPCircularBuffer.c in Sources */,
 				628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */,
 				62656C0C1940D62F00F66F61 /* AudioController.m in Sources */,
@@ -367,7 +367,7 @@
 				62128DDD195038EC00D7884D /* OpenPlayer.m in Sources */,
 				62128DE11950390E00D7884D /* PlayerEvents.m in Sources */,
 				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,
-				99734A9F195D854300685B57 /* Tools.m in Sources */,
+				99734A9F195D854300685B57 /* PlayerTools.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,
 				62128DE01950390B00D7884D /* StreamConnection.m in Sources */,
 				992278FB1938C2060005DB1F /* main.m in Sources */,

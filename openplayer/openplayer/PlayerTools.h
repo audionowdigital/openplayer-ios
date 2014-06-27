@@ -12,6 +12,6 @@
 
 BOOL LOGS_ENABLED;
 
-@interface Tools : NSObject
+@interface PlayerTools : NSObject
 
 @end

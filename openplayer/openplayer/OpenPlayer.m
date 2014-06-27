@@ -12,7 +12,7 @@
 #import "StreamConnection.h"
 #import "AudioController.h"
 #import "InputStreamConnection.h"
-#import "Tools.h"
+#import "PlayerTools.h"
 
 
 @implementation OpenPlayer
