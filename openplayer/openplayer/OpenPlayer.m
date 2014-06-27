@@ -12,19 +12,30 @@
 #import "StreamConnection.h"
 #import "AudioController.h"
 #import "InputStreamConnection.h"
+#import "Tools.h"
 
 
 @implementation OpenPlayer
 
 #pragma mark - Section 1: Client interface - initialization and methods to control the Player -
 
--(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
+-(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type enableLogs:(BOOL)useLogs
 {
     if (self = [super init]) {
         _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
         _type = type;
         self.state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];
+        LOGS_ENABLED = useLogs;
+    }
+    return self;
+}
+
+
+-(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type
+{
+    if (self = [self initWithPlayerHandler:handler typeOfPlayer:type enableLogs:NO]) {
+        // nothing
     }
     return self;
 }
@@ -38,10 +49,10 @@
 
 -(void)setDataSource:(NSURL *)sourceUrl withSize:(long)sizeInSeconds
 {
-    NSLog(@"CMD: setDataSource call. state:%d", self.state);
+    DLog(@"CMD: setDataSource call. state:%d", self.state);
     
     if (![self isStopped]) {
-        NSLog(@"Player Error: stream must be stopped before setting a data source");
+        DLog(@"Player Error: stream must be stopped before setting a data source");
         return;
     }
     
@@ -52,7 +63,7 @@
         inputStreamConnection = [[InputStreamConnection alloc] initWithUrl:sourceUrl];
         
         if (!inputStreamConnection) {
-            NSLog(@"Input stream could not be opened");
+            DLog(@"Input stream could not be opened");
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [_playerEvents sendEvent:PLAYING_FAILED];
@@ -74,22 +85,22 @@
             switch (result) {
                 
                 case SUCCESS:
-                    NSLog(@"Successfully finished decoding");
+                    DLog(@"Successfully finished decoding");
                     [_playerEvents sendEvent:PLAYING_FINISHED];
                     break;
                 
                 case INVALID_HEADER:
-                    NSLog(@"Invalid header error received");
+                    DLog(@"Invalid header error received");
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
                     
                 case DECODE_ERROR:
-                    NSLog(@"Decoding error received");
+                    DLog(@"Decoding error received");
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
                 
                 case DATA_ERROR:
-                    NSLog(@"Decoding data error received");
+                    DLog(@"Decoding data error received");
                     [_playerEvents sendEvent:PLAYING_FAILED];
                     break;
             }
@@ -102,27 +113,27 @@
 
 -(void)play
 {
-    NSLog(@"CMD: play call. state:%d", self.state);
+    DLog(@"CMD: play call. state:%d", self.state);
     
     if (![self isReadyToPlay]) {
-        NSLog(@"Player Error: stream must be ready to play before starting to play");
+        DLog(@"Player Error: stream must be ready to play before starting to play");
         return;
     }
     
     self.state = STATE_PLAYING;
     [waitPlayCondition signal];
     
-    NSLog(@"Ready to play, go for stream and audio");
+    DLog(@"Ready to play, go for stream and audio");
     
     [_audio start];
 }
 
 -(void)pause
 {
-    NSLog(@"CMD: pause call. state:%d", self.state);
+    DLog(@"CMD: pause call. state:%d", self.state);
     
     if (![self isPlaying]) {
-        NSLog(@"Player Error: stream must be playing before trying to pause it");
+        DLog(@"Player Error: stream must be playing before trying to pause it");
         return;
     }
     
@@ -133,7 +144,7 @@
 
 -(void)stop
 {
-    NSLog(@"CMD: stop call. state:%d", self.state);
+    DLog(@"CMD: stop call. state:%d", self.state);
     
     if (![self isStopped]) {        
         _writtenPCMData = 0;
@@ -152,15 +163,15 @@
 }
 
 -(void)seekToPercent:(float)percent{
-    NSLog(@"Seek request: %f" , percent);
+    DLog(@"Seek request: %f" , percent);
     
     if (srcSizeInSeconds == -1) {
-        NSLog(@"Player error: Stream is live, cannot seek");
+        DLog(@"Player error: Stream is live, cannot seek");
         return;
     }
     
     if (!([self isPlaying] || [self isReadyToPlay])) {
-        NSLog(@"Player error: stream must be playing or paused.");
+        DLog(@"Player error: stream must be playing or paused.");
         return;
     }
     
@@ -212,7 +223,7 @@
     // block if paused
     [self waitPlay];
     
-    NSLog(@"Read %d from input stream", amount);
+    DLog(@"Read %d from input stream", amount);
     
     // block until we need data
     while ([_audio getBufferFill] > 30) {
@@ -221,7 +232,7 @@
         [self waitPlay];
         
         [NSThread sleepForTimeInterval:0.1];
-        NSLog(@"Circular audio buffer overfill, waiting..");
+        DLog(@"Circular audio buffer overfill, waiting..");
     }
     
     return [inputStreamConnection readData:buffer maxLength:amount];
@@ -233,7 +244,7 @@
     // block if paused
     [self waitPlay];
     
-    NSLog(@"Write %d from opusPlayer", amount);
+    DLog(@"Write %d from opusPlayer", amount);
     
     // before writting any bytes, see if the buffer is not full. using the waitBuffer for that
     TPCircularBufferProduceBytes(&_audio->circbuffer, pcmData, amount * sizeof(short));
@@ -245,7 +256,7 @@
     // limit the sending frequency to one second, or we get playback problems
     if (_seconds != (_writtenMiliSeconds/1000)) {
         _seconds = _writtenMiliSeconds / 1000;
-        // NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
+        // DLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
         // send a notification of progress
         dispatch_async( dispatch_get_main_queue(), ^{
             [_playerEvents sendEvent:PLAY_UPDATE withParam:_seconds];
@@ -255,7 +266,7 @@
 
 // Called at the very beginning , just before we start reading the header
 -(void)onStartReadingHeader {
-    NSLog(@"onStartReadingHeader");
+    DLog(@"onStartReadingHeader");
     if ([self isStopped]) {
         self.state = STATE_READING_HEADER;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -267,7 +278,7 @@
 // Called by the native decoder when we got the header data
 -(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack {
    
-    NSLog(@"onStart called %d %d %s %s %s %s %s %s, state:%d",
+    DLog(@"onStart called %d %d %s %s %s %s %s %s, state:%d",
           sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack, self.state);
 
     if ([self isReadingHeader]) {
@@ -294,15 +305,15 @@
 
 // Called by the native decoder when decoding is finished (end of source or error)
 -(void)onStop {
-    NSLog(@"onStop called");
+    DLog(@"onStop called");
     [self stop];
 }
 
 
 -(void)setState:(PlayerState)state
 {
-    NSLog(@"setState: %d", state);
-//    NSLog(@"%@",[NSThread callStackSymbols]);
+    DLog(@"setState: %d", state);
+//    DLog(@"%@",[NSThread callStackSymbols]);
     _state = state;
 }
 

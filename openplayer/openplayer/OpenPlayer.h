@@ -52,6 +52,7 @@ typedef enum decode_status{
     PlayerState _state;
 }
 
+-(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type enableLogs:(BOOL)useLogs;
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type ;
 
 -(void)setDataSource:(NSURL *)sourceUrl; // for live streams

@@ -7,6 +7,7 @@
 //
 
 #import "InputStreamConnection.h"
+#import "Tools.h"
 
 @implementation InputStreamConnection
 
@@ -22,10 +23,10 @@
         
         BOOL ret = YES;
         if ([sourceUrl isFileURL]) {
-            NSLog(@"Initialize stream from file url: %@", url);
+            DLog(@"Initialize stream from file url: %@", url);
             ret = [self initFileConnection];
         } else {
-            NSLog(@"Initialize stream from network url: %@", url);
+            DLog(@"Initialize stream from network url: %@", url);
             ret = [self initSocketConnection:0];
         }
         
@@ -43,7 +44,7 @@
     
     while ((long)([NSDate timeIntervalSinceReferenceDate] * 1000.0 - startTime) < kTimeout) {
         
-        NSLog(@"Stream state: %d", [stream streamStatus]);
+        DLog(@"Stream state: %d", [stream streamStatus]);
         
         switch ([stream streamStatus]) {
             case NSStreamStatusOpen:
@@ -75,27 +76,27 @@
     outputStream = (__bridge_transfer NSOutputStream *)writeStream;
     
     if (![self openStream:outputStream]) {
-        NSLog(@"Error opening output stream ! %@", [outputStream streamError]);
+        DLog(@"Error opening output stream ! %@", [outputStream streamError]);
         return NO;
     }
     
-    NSLog(@"output socket stream opened");
+    DLog(@"output socket stream opened");
        
     // do a HTTP Get on the resource we want
     NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nHost: %@\r\nRange: bytes=%ld-\r\n\r\n",
             [sourceUrl path], [sourceUrl host], offset];
     
-    NSLog(@"Do get for: %@", str);
+    DLog(@"Do get for: %@", str);
     const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
     [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
     // leave the outputstream open
     
     if (![self openStream:inputStream]) {
-        NSLog(@"Error opening input stream !");
+        DLog(@"Error opening input stream !");
         return NO;
     }
     
-    NSLog(@"input socket stream opened");
+    DLog(@"input socket stream opened");
     
     // Check HTTP response code (must be 200!) and then read HTTP Header and store useful details
     NSMutableString *strHeader = [NSMutableString string];
@@ -111,17 +112,17 @@
             else if (eoh > 0) eoh --;
             // if we have the header ending characters, stop
             if (eoh == 4) {
-                NSLog(@"HTTP Header received:%@", strHeader);
+                DLog(@"HTTP Header received:%@", strHeader);
                 isHTTPHeaderAvailable = YES;
                 break;
             }
             // if there is no header, quit
             if (eoh > 1000) {
-                NSLog(@"No HTTP Header found");
+                DLog(@"No HTTP Header found");
                 return NO;
             }
         } else {
-            NSLog(@"Error %@", [inputStream streamError]);
+            DLog(@"Error %@", [inputStream streamError]);
             return NO;
         }
     }
@@ -149,7 +150,7 @@
     int httpStatus = [[formatter numberFromString:returnHeaders[@"status"]] intValue];
     
     if (httpStatus < 200 || httpStatus >= 300) {
-        NSLog(@"HTTP status not OK");
+        DLog(@"HTTP status not OK");
         return NO;
     }
     
@@ -161,9 +162,9 @@
 
     isSourceInited = YES;
     if (rangeUnit != NULL) isSkipAvailable = YES;
-    NSLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
+    DLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
     
-    NSLog(@"Init flags: isHTTPHeaderAvailable:%d isSkipAvailable:%d isSourceInited:%d",
+    DLog(@"Init flags: isHTTPHeaderAvailable:%d isSkipAvailable:%d isSourceInited:%d",
           isHTTPHeaderAvailable, isSkipAvailable, isSourceInited);
     
     return YES;
@@ -178,7 +179,7 @@
     
     if (offset > srcSize) return NO;
     
-    NSLog(@"Seek offset:%ld", offset);
+    DLog(@"Seek offset:%ld", offset);
     
     if ([sourceUrl isFileURL]) {
         
@@ -201,13 +202,13 @@
     if (fileAttrs != nil) {
         srcSize = fileAttrs.fileSize;
     } else {
-        NSLog(@"Could not determine file size");
+        DLog(@"Could not determine file size");
     }
     
     inputStream = [[NSInputStream alloc] initWithURL:sourceUrl];
     
     if (![self openStream:inputStream]) {
-        NSLog(@"Error opening input stream !");
+        DLog(@"Error opening input stream !");
         return NO;
     }
     
@@ -220,7 +221,7 @@
     
     while ([inputStream streamStatus] != NSStreamStatusOpen &&
            (long)([NSDate timeIntervalSinceReferenceDate] * 1000.0 - startTime) < kTimeout) {
-        NSLog(@"readData wait with timeout");
+        DLog(@"readData wait with timeout");
         [NSThread sleepForTimeInterval:0.1];
     }
     

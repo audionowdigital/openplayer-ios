@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_VORBIS];
+    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_VORBIS enableLogs:YES];
 }
 
 - (void)viewDidLoad
