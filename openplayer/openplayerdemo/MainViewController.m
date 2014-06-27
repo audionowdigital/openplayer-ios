@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS];
+    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS enableLogs:YES];
 }
 
 - (void)viewDidLoad
@@ -53,32 +53,37 @@
     NSString *file_path = @"file:///Users/fmoisa/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/12F67313-D441-41FD-A502-6133C5802ED4/tmp/archangel.mp3";//[NSString stringWithFormat:@"file://%@archangel.mp3", dirPath];
     
     NSString *url1String =
-    //@"http://revolutionradio.ru/live.ogg";// crash?
-    //@"http://arvorig-fm.online.stalig.net/live-ori.ogg";//crash link?
     
- //   @"http://ai-radio.org:8000/radio.opus"; //stereo ok
-//    @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
-//    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
-//    @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
-//     @"http://www.pocketmagic.net:80/tmp3/countdown.opus";
-   //  @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
+    // vorbis live : don't forget to change player type to vorbis
+    // @"http://revolutionradio.ru/live.ogg";                           // crash?
+    // @"http://arvorig-fm.online.stalig.net/live-ori.ogg";             // crash link?
+    // @"http://revolutionradio.ru:8000/live.ogg";                      // vorbis
+    // @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+    // @http://ogg.ai-radio.org:8000/radio.ogg";
 
-  // @"http://www.markosoft.ro/opus/countdown.opus";
-        @"http://www.markosoft.ro/opus/02_Archangel.opus";
-   // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
-  //  @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
-//    @"http://revolutionradio.ru:8000/live.ogg"; //vorbis
-//    @"http://ice01.va.audionow.com:8000/radioamericaopus.ogg"; //stereo opus ok.
-//    @"http://icecast.timlradio.co.uk/ar64.opus"; // not ok
-//    @"http://icecast.timlradio.co.uk/ac96.opus"; //not ok
-    //@"http://opus.ai-radio.org:8000/radio.opus";
-    //http://radioserver1.delfa.net:80/256.opus";
-    //http://ogg.ai-radio.org:8000/radio.ogg";
+    // vorbis recording
+    // @"http://www.markosoft.ro/test.ogg";
     
-    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
- //   @"http://www.markosoft.ro/opus/02_Archangel.opus";
-//    file_path;
-//     @"http://revolutionradio.ru/live.ogg";
+    
+    // opus live : don't forget to change player type to opus
+    // @"http://ai-radio.org:8000/radio.opus";                          // stereo ok
+    // @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
+    // @"http://repeater.xiph.org:8000/temporalfugue.opus";             // mono stream!!
+    // @"http://repeater.xiph.org:8000/clock.opus";                     // stereo ok
+    // @"http://ice01.va.audionow.com:8000/radioamericaopus.ogg";       // stereo opus ok.
+    // @"http://icecast.timlradio.co.uk/ar64.opus";                     // not ok
+    // @"http://icecast.timlradio.co.uk/ac96.opus";                     // not ok
+    // @http://radioserver1.delfa.net:80/256.opus";
+
+    // opus recording
+    // @"http://www.markosoft.ro/opus/countdown.opus";
+    // @"http://www.markosoft.ro/opus/02_Archangel.opus";
+    // @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
+    // @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
+    @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
+    // @"http://www.pocketmagic.net:80/tmp3/countdown.opus";
+   
+    
    
     NSString *url2String =
     @"http://markosoft.ro/test.ogg";
