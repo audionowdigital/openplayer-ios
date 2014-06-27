@@ -209,29 +209,15 @@
 
     NSLog(@"CLIENT: Player event received: %d", event);
     if (event == READING_HEADER) {
-        NSLog(@"Reading header - player starting point");
+        NSLog(@"+++ READING_HEADER - player starting point");
     }
     if (event == READY_TO_PLAY) {
-        NSLog(@"Ready to play, just press PLAY");
+        NSLog(@"+++ READY_TO_PLAY - just press PLAY");
     }
     if (event == PLAY_UPDATE) {
         int progress =  [[params objectForKey:@"param"] intValue];
-        NSLog(@"Track progress received, send percent / time to UI:%d", progress);
-
-        // FOR RADU
-        // ca sa schimbi valori la slidere ...
-        /*
-
-         self.seekBar.minimumValue = 0;
-         self.seekBar.maximumValue = 1234567;    <- marimea podcastului
-
-         float myValue = ??? <-- byte index unde ai ajuns
-
-         nu trebuie sa convertesti in % .. ii setezi min si max si face singur asta
-         work smart not hard :)
-
-         [self.seekBar setValue:myValue];
-         */
+        NSLog(@"+++ PLAY_UPDATE track progress: %d", progress);
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             self.timeLabel.text =
@@ -251,7 +237,7 @@
         NSString *date = (NSString *)[params objectForKey:@"date"];
         NSString *track = (NSString *)[params objectForKey:@"track"];
 
-        NSLog(@"Track info: vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@",
+        NSLog(@"+++ TRACK_INFO vendor:%@ title:%@ artist:%@ album:%@ date:%@ track:%@",
                                 vendor, title, artist, album, date, track);
         // only the main thread can make changes to the User Interface
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -260,10 +246,10 @@
         });
     }
     if (event == PLAYING_FAILED) {
-        NSLog(@"Playing stopped with error.");
+        NSLog(@"+++ PLAYING_FAILED Playing stopped with error.");
     }
     if (event == PLAYING_FINISHED) {
-        NSLog(@"Playing stopped with success.");
+        NSLog(@"+++ PLAYING_FINISHED Playing stopped with success.");
     }
 
 }

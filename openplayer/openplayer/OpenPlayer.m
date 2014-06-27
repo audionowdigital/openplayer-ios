@@ -281,26 +281,30 @@
     DLog(@"onStart called %d %d %s %s %s %s %s %s, state:%d",
           sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack, self.state);
 
+    // we get this message ONLY for READINGHEADER player state at the very begining of reading the track
     if ([self isReadingHeader]) {
         self.state = STATE_READY_TO_PLAY;
-
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [_playerEvents sendEvent:READY_TO_PLAY];
+        });
+        
         _sampleRate = sampleRate;
         _channels = channels;
         
         // init audiocontroller and pass freq and channels as parameters
         _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
-        
-        dispatch_async( dispatch_get_main_queue(), ^{
-            NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
-            NSString *ns_title = [NSString stringWithUTF8String:ptitle];
-            NSString *ns_artist = [NSString stringWithUTF8String:partist];
-            NSString *ns_album = [NSString stringWithUTF8String:palbum];
-            NSString *ns_date = [NSString stringWithUTF8String:pdate];
-            NSString *ns_track = [NSString stringWithUTF8String:ptrack];
-            [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
-            [_playerEvents sendEvent:READY_TO_PLAY];
-        });
     }
+    
+    // we get this message for both READINGHEADER and PLAYING player states
+    dispatch_async( dispatch_get_main_queue(), ^{
+        NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
+        NSString *ns_title = [NSString stringWithUTF8String:ptitle];
+        NSString *ns_artist = [NSString stringWithUTF8String:partist];
+        NSString *ns_album = [NSString stringWithUTF8String:palbum];
+        NSString *ns_date = [NSString stringWithUTF8String:pdate];
+        NSString *ns_track = [NSString stringWithUTF8String:ptrack];
+        [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
+    });
 }
 
 // Called by the native decoder when decoding is finished (end of source or error)
