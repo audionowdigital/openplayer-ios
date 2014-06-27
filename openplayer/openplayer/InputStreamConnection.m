@@ -148,7 +148,7 @@
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     int httpStatus = [[formatter numberFromString:returnHeaders[@"status"]] intValue];
     
-    if (httpStatus < 200 && httpStatus >= 300) {
+    if (httpStatus < 200 || httpStatus >= 300) {
         NSLog(@"HTTP status not OK");
         return NO;
     }

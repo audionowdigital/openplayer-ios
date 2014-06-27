@@ -48,7 +48,6 @@ typedef enum decode_status{
     long srcSizeInSeconds;
     
     NSCondition *waitPlayCondition;
-    NSCondition *waitBufferCondition;
     
     PlayerState _state;
 }

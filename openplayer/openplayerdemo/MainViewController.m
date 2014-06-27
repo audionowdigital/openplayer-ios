@@ -78,6 +78,7 @@
     @"http://icecast1.pulsradio.com:80/mxHD.ogg";
  //   @"http://www.markosoft.ro/opus/02_Archangel.opus";
 //    file_path;
+//     @"http://revolutionradio.ru/live.ogg";
    
     NSString *url2String =
     @"http://markosoft.ro/test.ogg";
