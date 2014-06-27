@@ -48,6 +48,9 @@ typedef enum decode_status{
     long srcSizeInSeconds;
     
     NSCondition *waitPlayCondition;
+    NSCondition *waitBufferCondition;
+    
+    PlayerState _state;
 }
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type ;
