@@ -23,8 +23,9 @@
     if (self = [super init]) {
         _playerEvents = [[PlayerEvents alloc] initWithPlayerHandler:handler];
         _type = type;
-        _state = STATE_STOPPED;
+        self.state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];
+        waitBufferCondition = [NSCondition new];
     }
     return self;
 }
@@ -38,7 +39,7 @@
 
 -(void)setDataSource:(NSURL *)sourceUrl withSize:(long)sizeInSeconds
 {
-    NSLog(@"CMD: setDataSource call. state:%d", _state);
+    NSLog(@"CMD: setDataSource call. state:%d", self.state);
     
     if (![self isStopped]) {
         NSLog(@"Player Error: stream must be stopped before setting a data source");
@@ -53,7 +54,11 @@
         
         if (!inputStreamConnection) {
             NSLog(@"Input stream could not be opened");
-            [_playerEvents sendEvent:PLAYING_FAILED];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_playerEvents sendEvent:PLAYING_FAILED];
+            });
+                           
             return;
         }
         
@@ -98,14 +103,14 @@
 
 -(void)play
 {
-    NSLog(@"CMD: play call. state:%d", _state);
+    NSLog(@"CMD: play call. state:%d", self.state);
     
     if (![self isReadyToPlay]) {
         NSLog(@"Player Error: stream must be ready to play before starting to play");
         return;
     }
     
-    _state = STATE_PLAYING;
+    self.state = STATE_PLAYING;
     [waitPlayCondition signal];
     
     NSLog(@"Ready to play, go for stream and audio");
@@ -115,27 +120,30 @@
 
 -(void)pause
 {
-    NSLog(@"CMD: pause call. state:%d", _state);
+    NSLog(@"CMD: pause call. state:%d", self.state);
     
     if (![self isPlaying]) {
         NSLog(@"Player Error: stream must be playing before trying to pause it");
         return;
     }
     
-    _state = STATE_READY_TO_PLAY;
+    self.state = STATE_READY_TO_PLAY;
     
     [_audio pause];
 }
 
 -(void)stop
 {
-    NSLog(@"CMD: stop call. state:%d", _state);
+    NSLog(@"CMD: stop call. state:%d", self.state);
     
     if (![self isStopped]) {
         _state = STATE_STOPPED;
         
         _writtenPCMData = 0;
         _writtenMiliSeconds = 0;
+        
+        // keep the state change before close stream to avoid race condition which may call stop one more time from onStop() callback, which causes a crash in Audio Controller
+        self.state = STATE_STOPPED;
     
         [inputStreamConnection closeStream];
         inputStreamConnection = nil;
@@ -178,22 +186,22 @@
 
 -(BOOL)isReadyToPlay
 {
-    return _state == STATE_READY_TO_PLAY;
+    return self.state == STATE_READY_TO_PLAY;
 }
 
 -(BOOL)isPlaying
 {
-    return _state == STATE_PLAYING;
+    return self.state == STATE_PLAYING;
 }
 
 -(BOOL)isStopped
 {
-    return _state == STATE_STOPPED;
+    return self.state == STATE_STOPPED;
 }
 
 -(BOOL)isReadingHeader
 {
-    return _state == STATE_READING_HEADER;
+    return self.state == STATE_READING_HEADER;
 }
 
 
@@ -206,6 +214,8 @@
         
     // block if paused
     [self waitPlay];
+    
+    NSLog(@"Read %d from input stream", amount);
     
     // block until we need data
     while ([_audio getBufferFill] > 30) {
@@ -221,7 +231,8 @@
 -(void)onWritePCMData:(short *)pcmData ofSize:(int)amount {
     // block if paused
     [self waitPlay];
-    //NSLog(@"Write %d from opusPlayer", amount);
+    
+    NSLog(@"Write %d from opusPlayer", amount);
     
     // before writting any bytes, see if the buffer is not full. using the waitBuffer for that
     TPCircularBufferProduceBytes(&_audio->circbuffer, pcmData, amount * sizeof(short));
@@ -235,7 +246,7 @@
         _seconds = _writtenMiliSeconds / 1000;
         // NSLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
         // send a notification of progress
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async( dispatch_get_main_queue(), ^{
             [_playerEvents sendEvent:PLAY_UPDATE withParam:_seconds];
         });
     }
@@ -245,8 +256,8 @@
 -(void)onStartReadingHeader {
     NSLog(@"onStartReadingHeader");
     if ([self isStopped]) {
-        _state = STATE_READING_HEADER;
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.state = STATE_READING_HEADER;
+        dispatch_async(dispatch_get_main_queue(), ^{
             [_playerEvents sendEvent:READING_HEADER];
         });
     }
@@ -256,32 +267,28 @@
 -(void)onStart:(int)sampleRate trackChannels:(int)channels trackVendor:(char *)pvendor trackTitle:(char *)ptitle trackArtist:(char *)partist trackAlbum:(char *)palbum trackDate:(char *)pdate trackName:(char *)ptrack {
    
     NSLog(@"onStart called %d %d %s %s %s %s %s %s, state:%d",
-          sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack, _state);
-    
-
+          sampleRate, channels, pvendor, ptitle, partist, palbum, pdate, ptrack, self.state);
 
     if ([self isReadingHeader]) {
-        _state = STATE_READY_TO_PLAY;
-        dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [_playerEvents sendEvent:READY_TO_PLAY];
-        });
+        self.state = STATE_READY_TO_PLAY;
 
         _sampleRate = sampleRate;
         _channels = channels;
         
         // init audiocontroller and pass freq and channels as parameters
         _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
+            NSString *ns_title = [NSString stringWithUTF8String:ptitle];
+            NSString *ns_artist = [NSString stringWithUTF8String:partist];
+            NSString *ns_album = [NSString stringWithUTF8String:palbum];
+            NSString *ns_date = [NSString stringWithUTF8String:pdate];
+            NSString *ns_track = [NSString stringWithUTF8String:ptrack];
+            [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
+            [_playerEvents sendEvent:READY_TO_PLAY];
+        });
     }
-    
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *ns_vendor = [NSString stringWithUTF8String:pvendor];
-        NSString *ns_title = [NSString stringWithUTF8String:ptitle];
-        NSString *ns_artist = [NSString stringWithUTF8String:partist];
-        NSString *ns_album = [NSString stringWithUTF8String:palbum];
-        NSString *ns_date = [NSString stringWithUTF8String:pdate];
-        NSString *ns_track = [NSString stringWithUTF8String:ptrack];
-        [_playerEvents sendEvent:TRACK_INFO vendor:ns_vendor title:ns_title artist:ns_artist album:ns_album date:ns_date track:ns_track];
-    });
 }
 
 // Called by the native decoder when decoding is finished (end of source or error)
@@ -291,16 +298,42 @@
 }
 
 
+-(void)setState:(PlayerState)state
+{
+    NSLog(@"setState: %d", state);
+//    NSLog(@"%@",[NSThread callStackSymbols]);
+    _state = state;
+}
+
+-(PlayerState)state{
+    return _state;
+}
+
+
 #pragma mark - Section 4: helper functions  -
 
 // Blocks the current thread
 -(void)waitPlay {
     [waitPlayCondition lock];
     
-    while (_state == STATE_READY_TO_PLAY) {
+    while (self.state == STATE_READY_TO_PLAY) {
         [waitPlayCondition wait];
     }
     [waitPlayCondition unlock];
+}
+
+
+-(void)waitBuffer
+{
+    [waitBufferCondition lock];
+    
+    // block until we need data
+    while ([_audio getBufferFill] > 30) {
+        [waitBufferCondition wait];
+        NSLog(@"Circular audio buffer overfill, waiting..");
+    }
+    
+    [waitBufferCondition unlock];
 }
 
 -(int)convertSamplesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels {
