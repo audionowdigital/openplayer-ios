@@ -38,7 +38,7 @@ to end. */
 
 // This is the only function we need ot call, assuming we have the interface already configured
 int opusDecodeLoop(id<INativeInterface> callback) {
-    fprintf(stderr, "startDecoding called, initing buffers");
+    fprintf(stderr,  "*** [opus] startDecoding called, initing buffers\n");
 
     // prepare the buffers
     ogg_int16_t convbuffer[BUFFER_LENGTH]; //take 8k out of the data segment, not the stack
@@ -77,7 +77,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
     // start source reading / decoding loop
     while (1) {
     	if (err != SUCCESS) {
-            fprintf(stderr, "Global loop closing for error: %d", err);
+                fprintf(stderr,  "*** [opus] Global loop closing for error: %d\n", err);
     		break;
     	}
 
@@ -86,7 +86,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
         
         bytes = [callback onReadEncodedData:buffer ofSize:BUFFER_LENGTH];
         if (bytes < 0) {
-            fprintf(stderr, "Data source error.");
+            fprintf(stderr,  "*** [opus] Data source error.\n");
         	err = DATA_ERROR;
         	break;
         }
@@ -95,7 +95,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 
         // Check available data
         if (bytes == 0) {
-            fprintf(stderr,     "Data source finished.");
+            fprintf(stderr,  "*** [opus] Data source finished.\n");
         	err = SUCCESS;
         	break;
         }
@@ -110,13 +110,13 @@ int opusDecodeLoop(id<INativeInterface> callback) {
         	if (result == 0) break;
            	// missing or corrupt data at this page position
            	if (result < 0) {
-                fprintf(stderr, "Corrupt or missing data in bitstream; continuing..");
+                fprintf(stderr,  "*** [opus] Corrupt or missing data in bitstream; continuing.\n");
         		continue;
            	}
            	// we finally have a valid page
 			if (!inited) {
 				ogg_stream_init(&os, ogg_page_serialno(&og));
-                fprintf(stderr, "inited stream, serial no: %ld", os.serialno);
+                fprintf(stderr,  "*** [opus] inited stream, serial no: %ld\n", os.serialno);
 				inited = 1;
 				// reinit header flag here
 				header = OPUS_HEADERS;
@@ -124,7 +124,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 			}
 			//  add page to bitstream: can safely ignore errors at this point
 			if (ogg_stream_pagein(&os, &og) < 0)
-                fprintf(stderr, "error 5 pagein");
+                fprintf(stderr,  "*** [opus] error pagein\n");
 
 			// consume all , break for error
 			while (1) {
@@ -140,7 +140,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 
 					/*If the decoder returned less than zero, we have an error.*/
 					if (ret < 0) {
-                        fprintf(stderr, "Decoding error: %s", opus_strerror(ret));
+                        fprintf(stderr,  "*** [opus] Decoding error: %s\n", opus_strerror(ret));
 						err = DECODE_ERROR;
 						break;
 					}
@@ -185,7 +185,7 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 
 				// check stream end
 				if (ogg_page_eos(&og)) {
-                    fprintf(stderr, "Stream finished.");
+                    fprintf(stderr,  "*** [opus] Stream finished.\n");
 					// clean up this logical bitstream;
 					ogg_stream_clear(&os);
 

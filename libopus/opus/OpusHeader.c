@@ -28,28 +28,28 @@ OpusDecoder *process_header(ogg_packet *op, int *rate, int *channels, int *presk
 	OpusHeader header;
     
 	if (opus_header_parse(op->packet, op->bytes, &header) == 0) {
-        fprintf(stderr, "Cannot parse header");
+        fprintf(stderr, "*** [opus] Cannot parse header\n");
 		return NULL;
 	} else
-        fprintf(stderr, "Header parsed: ch:%d samplerate:%d", header.channels, header.input_sample_rate);
+        fprintf(stderr, "*** [opus] Header parsed: ch:%d samplerate:%d\n", header.channels, header.input_sample_rate);
 	*channels = header.channels;
     
 	// validate sample rate: If the rate is unspecified we decode to 48000
 	if (!*rate) *rate = header.input_sample_rate;
 	if (*rate == 0) *rate = 48000;
 	if (*rate < 8000 || *rate > 192000) {
-        fprintf(stderr, "Invalid input_rate %d, defaulting to 48000 instead.",*rate);
+        fprintf(stderr, "*** [opus] Invalid input_rate %d, defaulting to 48000 instead.\n",*rate);
 		*rate = 48000;
 	}
     
 	*preskip = header.preskip;
 	st = opus_decoder_create(*rate, header.channels, &err); // was 48000
 	if (err != OPUS_OK)	{
-        fprintf(stderr, "Cannot create decoder: %s", opus_strerror(err));
+        fprintf(stderr, "*** [opus] Cannot create decoder: %s\n", opus_strerror(err));
 		return NULL;
 	}
 	if (!st) {
-        fprintf(stderr, "Decoder initialization failed: %s", opus_strerror(err));
+        fprintf(stderr, "*** [opus] Decoder initialization failed: %s\n", opus_strerror(err));
 		return NULL;
 	}
     
@@ -58,18 +58,18 @@ OpusDecoder *process_header(ogg_packet *op, int *rate, int *channels, int *presk
 		int gainadj = (int) header.gain;
 		err = opus_decoder_ctl(st, OPUS_SET_GAIN(gainadj));
 		if (err != OPUS_OK) {
-            fprintf(stderr, "Error setting gain: %s", opus_strerror(err));
+            fprintf(stderr, "*** [opus] Error setting gain: %s\n", opus_strerror(err));
             return NULL;
 		}
 	}
     
 	if (!quiet) {
-        fprintf(stderr, "Decoding to %d Hz (%d channels)", *rate, *channels);
+        fprintf(stderr, "*** [opus] Decoding to %d Hz (%d channels)\n", *rate, *channels);
 		if (header.version != 1)
-            fprintf(stderr, "Header v%d",header.version);
+            fprintf(stderr, "*** [opus] Header v%d\n",header.version);
         
 		if (header.gain != 0) {
-            fprintf(stderr, "Playback gain: %f dB\n", header.gain / 256.);
+            fprintf(stderr, "*** [opus] Playback gain: %f dB\n", header.gain / 256.);
 		}
 	}
     
@@ -81,7 +81,7 @@ OpusDecoder *process_header(ogg_packet *op, int *rate, int *channels, int *presk
 // OpusTags | Len 4B | Vendor String (len) | Len 4B Tags | Len Tag 1 4B | Tag 1 String (Len) | Len Tag 2 4B ..
 int process_comments(char *c, int length, char *vendor, char *title,  char *artist, char *album, char *date, char *track, int maxlen) {
 	int err = SUCCESS;
-    fprintf(stderr, "process_comments called for %d bytes.", length);
+    fprintf(stderr, "*** [opus] process_comments called for %d bytes.\n", length);
     
 	if (length < (8 + 4 + 4)) {
 		err = INVALID_HEADER;
@@ -95,7 +95,7 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	int len = readint(c, 0);
 	c += 4;
 	if (len < 0 || len > (length - 16)) {
-        fprintf(stderr, "invalid/corrupt comments");
+        fprintf(stderr, "*** [opus] invalid/corrupt comments\n");
 		err = INVALID_HEADER;
 		return err;
 	}
@@ -106,15 +106,15 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	c += 4;
 	length -= 16 + len;
 	if (fields < 0 || fields > (length >> 2)) {
-        fprintf(stderr, "invalid/corrupt comments");
+        fprintf(stderr, "*** [opus] invalid/corrupt comments\n");
 		err = INVALID_HEADER;
 		return err;
 	}
-    fprintf(stderr, "Go and read %d fields:", fields);
+    fprintf(stderr, "*** [opus] Go and read %d fields:\n", fields);
 	int i = 0;
 	for (i = 0; i < fields; i++) {
 	    if (length < 4){
-            fprintf(stderr, "invalid/corrupt comments");
+            fprintf(stderr, "*** [opus] invalid/corrupt comments\n");
 			err = INVALID_HEADER;
 			return err;
 	    }
@@ -123,7 +123,7 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
 	    length -= 4;
 	    if (len < 0 || len > length)
 	    {
-            fprintf(stderr, "invalid/corrupt comments");
+            fprintf(stderr, "*** [opus] invalid/corrupt comments\n");
 			err = INVALID_HEADER;
 			return err;
 	    }
@@ -131,7 +131,7 @@ int process_comments(char *c, int length, char *vendor, char *title,  char *arti
         char *tmp = (char *)malloc(len + 1); // we also need the ending 0
 	    strncpy(tmp, c, len);
 	    tmp[len] = 0;
-        fprintf(stderr, "Header comment:%d len:%d [%s]", i, len, tmp);
+        fprintf(stderr, "*** [opus] Header comment:%d len:%d [%s]\n", i, len, tmp);
         free(tmp);
         
 	    // keys we are looking for in the comments
