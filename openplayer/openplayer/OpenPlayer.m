@@ -132,6 +132,8 @@
     NSLog(@"CMD: stop call. state:%d", _state);
     
     if (![self isStopped]) {
+        _state = STATE_STOPPED;
+        
         _writtenPCMData = 0;
         _writtenMiliSeconds = 0;
     
@@ -142,7 +144,6 @@
         [_audio emptyBuffer];
         [_audio stop];
     }
-    _state = STATE_STOPPED;
 }
 
 -(void)seekToPercent:(float)percent{
@@ -209,7 +210,7 @@
     // block until we need data
     while ([_audio getBufferFill] > 30) {
         [NSThread sleepForTimeInterval:0.1];
-        //NSLog(@"Circular audio buffer overfill, waiting..");
+        NSLog(@"Circular audio buffer overfill, waiting..");
     }
     
     return [inputStreamConnection readData:buffer maxLength:amount];
@@ -285,7 +286,6 @@
 
 // Called by the native decoder when decoding is finished (end of source or error)
 -(void)onStop {
-    
     NSLog(@"onStop called");
     [self stop];
 }

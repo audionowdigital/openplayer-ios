@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS];
+    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_VORBIS];
 }
 
 - (void)viewDidLoad
@@ -53,16 +53,18 @@
     NSString *file_path = @"file:///Users/fmoisa/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/12F67313-D441-41FD-A502-6133C5802ED4/tmp/archangel.mp3";//[NSString stringWithFormat:@"file://%@archangel.mp3", dirPath];
     
     NSString *url1String =
-
+    @"http://revolutionradio.ru/live.ogg";// crash?
+    //@"http://arvorig-fm.online.stalig.net/live-ori.ogg";//crash link?
+    
   //  @"http://ai-radio.org:8000/radio.opus"; //stereo ok
 //    @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
-    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
+//    @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
 //    @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
 //     @"http://www.pocketmagic.net:80/tmp3/countdown.opus";
    //  @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
 
   // @"http://www.markosoft.ro/opus/countdown.opus";
-    //    @"http://www.markosoft.ro/opus/02_Archangel.opus";
+  //      @"http://www.markosoft.ro/opus/02_Archangel.opus";
    // @"http://repeater.xiph.org:8000/temporalfugue.opus";//mono stream!!
   //  @"http://repeater.xiph.org:8000/clock.opus"; //stereo ok
 //    @"http://revolutionradio.ru:8000/live.ogg"; //vorbis
