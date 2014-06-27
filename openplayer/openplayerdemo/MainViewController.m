@@ -73,10 +73,10 @@
     //http://radioserver1.delfa.net:80/256.opus";
     //http://ogg.ai-radio.org:8000/radio.ogg";
     
-//    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
+    @"http://icecast1.pulsradio.com:80/mxHD.ogg";
  //   @"http://www.markosoft.ro/opus/02_Archangel.opus";
 //    file_path;
-     @"http://revolutionradio.ru/live.ogg";
+//     @"http://revolutionradio.ru/live.ogg";
    
     NSString *url2String =
     @"http://markosoft.ro/test.ogg";

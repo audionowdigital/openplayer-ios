@@ -25,7 +25,6 @@
         _type = type;
         self.state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];
-        waitBufferCondition = [NSCondition new];
     }
     return self;
 }
@@ -217,6 +216,10 @@
     
     // block until we need data
     while ([_audio getBufferFill] > 30) {
+        
+        // if player is paused, don't cycle indefinetly
+        [self waitPlay];
+        
         [NSThread sleepForTimeInterval:0.1];
         NSLog(@"Circular audio buffer overfill, waiting..");
     }
@@ -319,20 +322,6 @@
         [waitPlayCondition wait];
     }
     [waitPlayCondition unlock];
-}
-
-
--(void)waitBuffer
-{
-    [waitBufferCondition lock];
-    
-    // block until we need data
-    while ([_audio getBufferFill] > 30) {
-        [waitBufferCondition wait];
-        NSLog(@"Circular audio buffer overfill, waiting..");
-    }
-    
-    [waitBufferCondition unlock];
 }
 
 -(int)convertSamplesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels {
