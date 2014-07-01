@@ -283,16 +283,18 @@
 
     // we get this message ONLY for READINGHEADER player state at the very begining of reading the track
     if ([self isReadingHeader]) {
-        self.state = STATE_READY_TO_PLAY;
-        dispatch_async( dispatch_get_main_queue(), ^{
-            [_playerEvents sendEvent:READY_TO_PLAY];
-        });
-        
-        _sampleRate = sampleRate;
-        _channels = channels;
         
         // init audiocontroller and pass freq and channels as parameters
         _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+        
+        _sampleRate = sampleRate;
+        _channels = channels;
+
+        self.state = STATE_READY_TO_PLAY;
+        
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [_playerEvents sendEvent:READY_TO_PLAY];
+        });
     }
     
     // we get this message for both READINGHEADER and PLAYING player states
