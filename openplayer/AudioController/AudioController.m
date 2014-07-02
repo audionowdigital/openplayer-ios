@@ -24,7 +24,6 @@ static OSStatus playbackCallback(void *inRefCon,
 								 AudioBufferList *ioData) {
     // get a pointer to our object, so we can access some audioformat properties (bytesPerFrame)
     AudioController *this = (__bridge AudioController *)inRefCon;
-    
     //a single channel: mono or interleaved stereo
     short *targetBuffer = (SInt16*)ioData->mBuffers[0].mData;
     int bytesToCopy = ioData->mBuffers[0].mDataByteSize;
@@ -32,6 +31,13 @@ static OSStatus playbackCallback(void *inRefCon,
     // Pull audio from playthrough buffer
     int32_t availableBytes;
     short *buffer = TPCircularBufferTail(&this->circbuffer, &availableBytes);
+    
+    // Radu: with the following line of code, we eliminate noise when network is slow: we feed zeros, so we clear the sound artifacts!
+    if (availableBytes == 0) {
+        memset(targetBuffer,0, bytesToCopy);
+        return noErr;
+    }
+
     // how much dow we need vs how much do we have
     int bytes = min(bytesToCopy, availableBytes);
     // push bytes

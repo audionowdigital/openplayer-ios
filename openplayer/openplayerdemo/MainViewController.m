@@ -35,7 +35,7 @@
 
 - (void)initialize
 {
-    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_OPUS enableLogs:YES];
+    player = [[OpenPlayer alloc] initWithPlayerHandler:self typeOfPlayer:PLAYER_VORBIS enableLogs:YES];
 }
 
 - (void)viewDidLoad
@@ -74,13 +74,14 @@
     // @"http://icecast.timlradio.co.uk/ar64.opus";                     // not ok
     // @"http://icecast.timlradio.co.uk/ac96.opus";                     // not ok
     // @http://radioserver1.delfa.net:80/256.opus";
+    @"http://ice01.va.audionow.com:8000/badopus.ogg";                   // bad Opus
 
     // opus recording
     // @"http://www.markosoft.ro/opus/countdown.opus";
     // @"http://www.markosoft.ro/opus/02_Archangel.opus";
     // @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
     // @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
-    @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
+    // @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
     // @"http://www.pocketmagic.net:80/tmp3/countdown.opus";
    
     
