@@ -163,6 +163,11 @@ int opusDecodeLoop(id<INativeInterface> callback) {
 						}
 						// prepare opus structures
 						st = process_header(&op, &rate, &channels, &preskip, 0);
+                        
+                        if (st == NULL) {
+							err = INVALID_HEADER;
+							break;
+						}
 					}
 					if (header == OPUS_HEADERS -1) { // second and last header, read comments
 						// err = we ignore comment errors
