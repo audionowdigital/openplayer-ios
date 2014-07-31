@@ -14,12 +14,13 @@
 {
     NSURL *sourceUrl;
     
-    NSInputStream *inputStream;
-    NSOutputStream *outputStream;
+    NSInputStream *inputStream;         // this is what we use mostly, to read data from the server
+    NSOutputStream *outputStream;       // only for HTTP GET
     
     NSMutableDictionary *returnHeaders;
     
     long srcSize;                       // source length in bytes if none . If invalid or unavailable, this is -1
+    long readoffset;
     NSString *rangeUnit;
     
     BOOL isHTTPHeaderAvailable;         // set to true when the HTTP header has been downloaded successfully
@@ -30,6 +31,8 @@
 
 -(id)initWithUrl:(NSURL *)url;
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length;
+-(long)getReadOffset;
+-(long)getSourceLength;
 -(void)closeStream;
 -(BOOL)seekTo:(float)percent;
 

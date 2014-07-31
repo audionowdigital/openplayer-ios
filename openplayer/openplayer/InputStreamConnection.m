@@ -163,6 +163,8 @@
         srcSize = [srcIntSize longValue];
     }
     
+    readoffset = offset;
+    
     isSourceInited = YES;
     if (rangeUnit != NULL) isSkipAvailable = YES;
     DLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
@@ -220,6 +222,7 @@
 
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length {
     // if we skip data, we might delay the read, wait if socket disconnected, but with a timeout
+    // we need to wait for a connected socket, before we can read any data
     double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0; // we want it in ms
     
     while ([inputStream streamStatus] != NSStreamStatusOpen &&
@@ -229,7 +232,20 @@
     }
     
     // finally read the data
-    return [inputStream read:buffer maxLength:length];
+    long read = [inputStream read:buffer maxLength:length];
+    
+    // keep track of the data read so far
+    readoffset += read;
+    
+    return read;
+}
+
+-(long)getReadOffset {
+    return readoffset;
+}
+
+-(long)getSourceLength {
+    return srcSize;
 }
 
 -(void)closeStream
