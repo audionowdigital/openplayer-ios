@@ -253,10 +253,11 @@
     _writtenPCMData += amount;
     _writtenMiliSeconds += [self convertSamplesToMs:amount];
     
-    //_writtenMiliSeconds = percent * srcSizeInSeconds * 1000;
     long length = [inputStreamConnection getSourceLength];
-    if (srcSizeInSeconds > 0 && length > 0)
-        _writtenMiliSeconds = ([inputStreamConnection getReadOffset] * srcSizeInSeconds * 1000) / length;
+    if (srcSizeInSeconds > 0 && length > 0){
+        _writtenMiliSeconds = ([inputStreamConnection getReadOffset] * srcSizeInSeconds * 1000LL) / length;
+        DLog(@"WrittenMiliSeconds: %ld, readOffset: %ld, srcSizeInSeconds: %ld, length: %ld", _writtenMiliSeconds, [inputStreamConnection getReadOffset], srcSizeInSeconds, length);
+    }
     
     // limit the sending frequency to one second, or we get playback problems
     if (_seconds != (_writtenMiliSeconds/1000)) {
