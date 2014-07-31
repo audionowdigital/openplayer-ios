@@ -255,7 +255,7 @@
     
     long length = [inputStreamConnection getSourceLength];
     if (srcSizeInSeconds > 0 && length > 0){
-        _writtenMiliSeconds = ([inputStreamConnection getReadOffset] * srcSizeInSeconds * 1000LL) / length;
+        _writtenMiliSeconds = (1000LL * [inputStreamConnection getReadOffset] * srcSizeInSeconds) / length;
         DLog(@"WrittenMiliSeconds: %ld, readOffset: %ld, srcSizeInSeconds: %ld, length: %ld", _writtenMiliSeconds, [inputStreamConnection getReadOffset], srcSizeInSeconds, length);
     }
     
