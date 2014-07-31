@@ -156,10 +156,13 @@
     
     // params: Get the range for skip
     rangeUnit = returnHeaders[@"Accept-Ranges"];
-    // params: Get the resource size
-    NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
-    srcSize = [srcIntSize longValue];
-
+    
+    if (offset == 0) {
+        // params: Get the resource size
+        NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
+        srcSize = [srcIntSize longValue];
+    }
+    
     isSourceInited = YES;
     if (rangeUnit != NULL) isSkipAvailable = YES;
     DLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
