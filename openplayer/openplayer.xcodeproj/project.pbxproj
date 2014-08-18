@@ -23,7 +23,6 @@
 /* Begin PBXBuildFile section */
 		62128DDD195038EC00D7884D /* OpenPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* OpenPlayer.m */; };
 		62128DDF1950390600D7884D /* AudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62656C0B1940D62F00F66F61 /* AudioController.m */; };
-		62128DE01950390B00D7884D /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		62128DE11950390E00D7884D /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		62128DE419504CCC00D7884D /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 62128DE219504CCC00D7884D /* TPCircularBuffer.c */; };
 		62128DE519504CDC00D7884D /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 62128DE219504CCC00D7884D /* TPCircularBuffer.c */; };
@@ -34,7 +33,6 @@
 		626F332F1952E4760074C92C /* PlayerEvents.h in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76C193DADC3009FB38C /* PlayerEvents.h */; };
 		628CE76E193DADC3009FB38C /* PlayerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 628CE76D193DADC3009FB38C /* PlayerEvents.m */; };
 		62BDC4921934704C00CF7520 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
-		9922789A1938751C0005DB1F /* StreamConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278971938751C0005DB1F /* StreamConnection.m */; };
 		9922789B1938751C0005DB1F /* OpenPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 992278991938751C0005DB1F /* OpenPlayer.m */; };
 		992278EF1938C2060005DB1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62BDC4911934704C00CF7520 /* Foundation.framework */; };
 		992278F11938C2060005DB1F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992278F01938C2060005DB1F /* CoreGraphics.framework */; };
@@ -86,8 +84,6 @@
 		62BDC48E1934704C00CF7520 /* libopenplayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopenplayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDC4911934704C00CF7520 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62BDC49F1934704C00CF7520 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		992278961938751C0005DB1F /* StreamConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamConnection.h; sourceTree = "<group>"; };
-		992278971938751C0005DB1F /* StreamConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamConnection.m; sourceTree = "<group>"; };
 		992278981938751C0005DB1F /* OpenPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPlayer.h; sourceTree = "<group>"; };
 		992278991938751C0005DB1F /* OpenPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenPlayer.m; sourceTree = "<group>"; };
 		992278EE1938C2060005DB1F /* openplayerdemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openplayerdemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,8 +205,6 @@
 		62BDC4931934704C00CF7520 /* openplayer */ = {
 			isa = PBXGroup;
 			children = (
-				992278961938751C0005DB1F /* StreamConnection.h */,
-				992278971938751C0005DB1F /* StreamConnection.m */,
 				992278981938751C0005DB1F /* OpenPlayer.h */,
 				992278991938751C0005DB1F /* OpenPlayer.m */,
 				628CE76C193DADC3009FB38C /* PlayerEvents.h */,
@@ -352,7 +346,6 @@
 				62656C0C1940D62F00F66F61 /* AudioController.m in Sources */,
 				9922789B1938751C0005DB1F /* OpenPlayer.m in Sources */,
 				99734A9A1959A59900685B57 /* InputStreamConnection.m in Sources */,
-				9922789A1938751C0005DB1F /* StreamConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +362,6 @@
 				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,
 				99734A9F195D854300685B57 /* PlayerTools.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,
-				62128DE01950390B00D7884D /* StreamConnection.m in Sources */,
 				992278FB1938C2060005DB1F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,7 +9,6 @@
 #import "OpenPlayer.h"
 #import "OpusDecoder.h"
 #import "VorbisDecoder.h"
-#import "StreamConnection.h"
 #import "AudioController.h"
 #import "InputStreamConnection.h"
 #import "PlayerTools.h"
@@ -255,16 +254,22 @@
     
     //_writtenMiliSeconds = percent * srcSizeInSeconds * 1000;
     long length = [inputStreamConnection getSourceLength];
-    if (srcSizeInSeconds > 0 && length > 0)
-        _writtenMiliSeconds = ([inputStreamConnection getReadOffset] * srcSizeInSeconds * 1000) / length;
+    if (srcSizeInSeconds > 0 && length > 0) {
+        float div = (float)[inputStreamConnection getReadOffset] / (float)length;
+        _writtenMiliSeconds = div * 1000 * srcSizeInSeconds;
+    }
+    
+    //DLog(@"Florin %ld vs backup: %ld", _writtenMiliSeconds, _miliSecondsBackup );
     
     // limit the sending frequency to one second, or we get playback problems
-    if (_seconds != (_writtenMiliSeconds/1000)) {
-        _seconds = _writtenMiliSeconds / 1000;
+    // send another message if time elapsed is more than 500msec from last event
+    // must be done as ABS to cover the case of seeking to the past.
+    if (abs(_writtenMiliSeconds - _miliSecondsBackup) > 500) {
+        _miliSecondsBackup =_writtenMiliSeconds;
         // DLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
         // send a notification of progress
         dispatch_async( dispatch_get_main_queue(), ^{
-            [_playerEvents sendEvent:PLAY_UPDATE withParam:_seconds];
+            [_playerEvents sendEvent:PLAY_UPDATE withParam:(_writtenMiliSeconds / 1000)];
         });
     }
 }

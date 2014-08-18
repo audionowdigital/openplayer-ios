@@ -38,8 +38,8 @@ typedef enum decode_status{
 
 @interface OpenPlayer : NSObject <INativeInterface, NSStreamDelegate>
 {
-    int _type, _sampleRate, _channels, _seconds;      // globals to hold the parameters for the current track
-    long _writtenPCMData, _writtenMiliSeconds;
+    int _type, _sampleRate, _channels;      // globals to hold the parameters for the current track
+    long _writtenPCMData, _writtenMiliSeconds, _miliSecondsBackup;
     
     PlayerEvents *_playerEvents;            // player events
     InputStreamConnection *inputStreamConnection;

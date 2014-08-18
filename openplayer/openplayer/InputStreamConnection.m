@@ -164,6 +164,7 @@
     }
     
     readoffset = offset;
+    DLog(@"Online seek offset:%ld", readoffset);
     
     isSourceInited = YES;
     if (rangeUnit != NULL) isSkipAvailable = YES;
@@ -187,7 +188,8 @@
     DLog(@"Seek offset:%ld", offset);
     
     if ([sourceUrl isFileURL]) {
-        
+        readoffset = offset;
+        DLog(@"Offline seek offset:%ld", readoffset);
         [inputStream setProperty:@(offset) forKey:NSStreamFileCurrentOffsetKey];
     } else if (isSkipAvailable) {
         // a strange limit we need to impose on seeking to the begining .
