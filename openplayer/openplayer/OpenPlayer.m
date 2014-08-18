@@ -252,14 +252,13 @@
     _writtenPCMData += amount;
     _writtenMiliSeconds += [self convertSamplesToMs:amount];
     
-    //_writtenMiliSeconds = percent * srcSizeInSeconds * 1000;
     long length = [inputStreamConnection getSourceLength];
+
     if (srcSizeInSeconds > 0 && length > 0) {
         float div = (float)[inputStreamConnection getReadOffset] / (float)length;
         _writtenMiliSeconds = div * 1000 * srcSizeInSeconds;
     }
     
-    //DLog(@"Florin %ld vs backup: %ld", _writtenMiliSeconds, _miliSecondsBackup );
     
     // limit the sending frequency to one second, or we get playback problems
     // send another message if time elapsed is more than 500msec from last event
