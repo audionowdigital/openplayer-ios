@@ -67,6 +67,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "62656BCA193F45B600F66F61"
+            BuildableName = "BuildLipoOpus"
+            BlueprintName = "BuildLipoOpus"
+            ReferencedContainer = "container:../libopus/libopus.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

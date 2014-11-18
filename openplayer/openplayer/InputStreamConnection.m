@@ -233,8 +233,14 @@
         [NSThread sleepForTimeInterval:0.1];
     }
     
-    // finally read the data
-    long read = [inputStream read:buffer maxLength:length];
+    long read = 0;
+    @try {
+        // finally read the data
+        read = [inputStream read:buffer maxLength:length];
+    }
+    @catch (NSException *exception) {
+        DLog(@"Exception raised when reading input stream: %@, %@", exception, exception.description);
+    }
     
     // keep track of the data read so far
     readoffset += read;
