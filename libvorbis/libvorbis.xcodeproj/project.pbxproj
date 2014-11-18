@@ -550,6 +550,10 @@
 		62656BD1193F45E000F66F61 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -564,6 +568,10 @@
 		62656BD2193F45E000F66F61 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -654,6 +662,10 @@
 		62ED4DB2193739AB00CF5BA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				DSTROOT = /tmp/vorbis.dst;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -672,6 +684,10 @@
 		62ED4DB3193739AB00CF5BA8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					armv7s,
+				);
 				DSTROOT = /tmp/vorbis.dst;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
