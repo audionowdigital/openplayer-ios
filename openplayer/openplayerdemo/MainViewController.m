@@ -8,7 +8,6 @@
 
 #import "MainViewController.h"
 
-
 @interface MainViewController ()
 
 @end
@@ -62,38 +61,57 @@
     // @http://ogg.ai-radio.org:8000/radio.ogg";
 
     // vorbis recording
-    // @"http://www.markosoft.ro/test.ogg";
+//     @"http://www.markosoft.ro/test.ogg";
     
     
     // opus live : don't forget to change player type to opus
-    // @"http://ai-radio.org:8000/radio.opus";                          // stereo ok
-    // @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
-    // @"http://repeater.xiph.org:8000/temporalfugue.opus";             // mono stream!!
+//     @"http://ai-radio.org:8000/radio.opus";                          // stereo ok
+//     @"http://ice01.va.audionow.com:8000/PowerFMJamaicaopus.ogg";
+//     @"http://repeater.xiph.org:8000/temporalfugue.opus";             // mono stream!!
     // @"http://repeater.xiph.org:8000/clock.opus";                     // stereo ok
-    // @"http://ice01.va.audionow.com:8000/radioamericaopus.ogg";       // stereo opus ok.
+//     @"http://ice01.va.audionow.com:8000/radioamericaopus.ogg";       // stereo opus ok.
     // @"http://icecast.timlradio.co.uk/ar64.opus";                     // not ok
     // @"http://icecast.timlradio.co.uk/ac96.opus";                     // not ok
-    // @http://radioserver1.delfa.net:80/256.opus";
-    //@"http://ice01.va.audionow.com:8000/badopus.ogg";                   // bad Opus
+//     @"http://radioserver1.delfa.net:80/256.opus";
+//    @"http://ice01.va.audionow.com:8000/badopus.ogg";                   // bad Opus
+    
+//    @"http://178.79.149.242/uploads/16Hz-20kHz-Exp-1f-10sec.opus";
 
     // opus recording
-    // @"http://www.markosoft.ro/opus/countdown.opus";
+//     @"http://www.markosoft.ro/opus/countdown.opus";
      @"http://www.markosoft.ro/opus/02_Archangel.opus";
-    // @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
-    // @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
-    // @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
-    // @"http://www.pocketmagic.net:80/tmp3/countdown.opus";
-   
+//     @"http://www.pocketmagic.net/tmp3/Astral_Projection_-_06_-_People_Can_Fly_Delirious_.opus";
+//     @"http://www.pocketmagic.net/tmp3/02_Archangel.opus";
+//     @"http://www.pocketmagic.net/tmp3/05_All_Nightmare_Long.opus";
+//     @"http://www.pocketmagic.net:80/tmp3/countdown.opus";
+//    @"http://www24.online-convert.com/download-file/6d3fcf0c4581d8229bc7756a9d91bfef/converted-b9f3a021.opus";
     
    
     NSString *url2String =
-    @"http://markosoft.ro/test.ogg";
+//    @"http://markosoft.ro/test.ogg";
+//     @"http://www.markosoft.ro/opus/02_Archangel.opus";
+//    @"http://revolutionradio.ru:8000/live.ogg";
+    @"http://178.79.149.242/uploads/16Hz-20kHz-Exp-1f-10sec.opus";
+//    @"http://www.markosoft.ro/opus/02_Archangel.opus";
+
 
     self.urlLabel1.text = url1String;
     self.urlLabel2.text = url2String;
     self.infoLabel.text = @"Waiting for info";
     
    //[self initNetworkCommunication:url1String];
+    
+    //init bars controller
+    self.barsController = [[BarsViewController alloc] initWithNumberOfBars:32];
+    
+    //position eq in the middle of the view
+    CGRect frame = self.barsController.frame;
+    frame.origin.x = (self.view.frame.size.width - self.barsController.frame.size.width)/2;
+    frame.origin.y = (self.view.frame.size.height - self.barsController.frame.size.height) - 20;
+    self.barsController.frame = frame;
+    
+    [self.view addSubview:self.barsController];
+    
 }
 
 -  (void)initNetworkCommunication:(NSString*)urlStr1 {
@@ -229,6 +247,10 @@
             
             self.seekBar.value = (float) progress / 154;
         });
+    }
+    if (event == PLAY_BAR_UPDATE) {
+        short * barStartPointers = (short *)[[params valueForKey:@"barStartPointers"] pointerValue];
+        [self.barsController updateBarsForArrayPointer:barStartPointers];
     }
     if (event == TRACK_INFO) {
         NSString *vendor =  (NSString *)[params objectForKey:@"vendor"];

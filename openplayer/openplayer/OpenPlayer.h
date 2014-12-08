@@ -67,6 +67,7 @@ typedef enum decode_status{
 -(BOOL)isStopped;
 -(BOOL)isReadingHeader;
 
+-(void)updatePCMDisplayForArray:(short *)arrayPointer withSize:(int)size;
 
 -(int)convertSamplesToMs:(long)bytes sampleRate:(long)sampleRate channels:(long)channels;
 -(int)convertSamplesToMs:(long)bytes;

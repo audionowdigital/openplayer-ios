@@ -16,6 +16,8 @@
 
 @implementation OpenPlayer
 
+NSTimeInterval timestamp = 0;
+
 #pragma mark - Section 1: Client interface - initialization and methods to control the Player -
 
 -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler typeOfPlayer:(int)type enableLogs:(BOOL)useLogs
@@ -222,7 +224,7 @@
     // block if paused
     [self waitPlay];
     
-    DLog(@"Read %d from input stream", amount);
+    DLog(@"Read %ld from input stream", amount);
     
     // block until we need data
     while ([_audio getBufferFill] > 30) {
@@ -268,7 +270,7 @@
         // DLog(@"Written pcm:%d sec: %d", _writtenPCMData, _seconds);
         // send a notification of progress
         dispatch_async( dispatch_get_main_queue(), ^{
-            [_playerEvents sendEvent:PLAY_UPDATE withParam:(_writtenMiliSeconds / 1000)];
+            [_playerEvents sendEvent:PLAY_UPDATE withParam:(int)(_writtenMiliSeconds / 1000)];
         });
     }
 }
@@ -294,7 +296,7 @@
     if ([self isReadingHeader]) {
         
         // init audiocontroller and pass freq and channels as parameters
-        _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels];
+        _audio = [[AudioController alloc] initWithSampleRate:sampleRate channels:channels andOpenPlayerReference:self];
         
         _sampleRate = sampleRate;
         _channels = channels;
@@ -357,5 +359,30 @@
     return [self convertSamplesToMs:bytes sampleRate:_sampleRate channels:_channels];
 }
 
+-(void)updatePCMDisplayForArray:(short *)arrayPointer withSize:(int)size {
+    
+    NSTimeInterval localTimestamp = [NSDate timeIntervalSinceReferenceDate];
+
+    if (localTimestamp - timestamp > 0.07) {
+        
+        short *barArray = (short *)malloc(sizeof(short) * 64);
+        int i,j,pace =( ( size /2 ) - 1 ) / 64;
+        
+        long sume = 0;
+        
+        for (i=0; i<64; i++) {
+            sume = 0;
+            for (j=0; j<pace; j++) {
+                sume += abs(arrayPointer[i*j]);
+            }
+            barArray[i] = (short)(sume/pace);
+        }
+        
+        [_playerEvents sendEvent:PLAY_BAR_UPDATE withArrayPointer:barArray];
+        
+        free(barArray);
+        timestamp = localTimestamp;
+    }
+}
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "TPCircularBuffer.h"
+#import "OpenPlayer.h"
 
 #ifndef max
 #define max( a, b ) ( ((a) > (b)) ? (a) : (b) )
@@ -28,11 +29,12 @@
     @public TPCircularBuffer circbuffer;
 }
 @property (readonly) AudioComponentInstance audioUnit;
+@property (weak) OpenPlayer *openPlayerReference;
 
 /* Initialize the audioUnit and allocate our own temporary buffer.
  The temporary buffer will hold the latest data coming in from the microphone,
  and will be copied to the output when this is requested. */
-- (id) initWithSampleRate:(int)sampleRate channels:(int)channels;
+- (id) initWithSampleRate:(int)sampleRate channels:(int)channels andOpenPlayerReference:(OpenPlayer *)openPlayerReference;
 /* Start the audioUnit. requested for feeding to the speakers, by use of the provided callbacks. */
 - (BOOL) start;
 /* Stop the audioUnit */
