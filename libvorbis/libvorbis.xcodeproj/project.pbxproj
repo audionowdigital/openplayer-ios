@@ -505,7 +505,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/BuildLipoVorbis\n\necho Starting to build ---------------------------\n# Step 1. Build Device and Simulator versions\nxcodebuild -target libvorbis ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target libvorbis -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\necho Doing lipo ---------------------------\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/libvorbis.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libvorbis.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libvorbis.a\"\n\necho Copy result ---------------------------\nmkdir -p \"${PROJECT_DIR}/../openplayer/libs/libvorbis\"\ncp \"${UNIVERSAL_OUTPUTFOLDER}/libvorbis.a\" \"${PROJECT_DIR}/../openplayer/libs/libvorbis/\"\n\n# Last touch. copy the header files. Just for convenience\n#cp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/usr/local/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/BuildLipoVorbis\n\necho Starting to build ---------------------------\n# Step 1. Build Device and Simulator versions\nxcodebuild -target libvorbis ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target libvorbis ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\necho Doing lipo ---------------------------\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/libvorbis.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/libvorbis.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/libvorbis.a\"\n\necho Copy result ---------------------------\nmkdir -p \"${PROJECT_DIR}/../openplayer/libs/libvorbis\"\ncp \"${UNIVERSAL_OUTPUTFOLDER}/libvorbis.a\" \"${PROJECT_DIR}/../openplayer/libs/libvorbis/\"\n\n# Last touch. copy the header files. Just for convenience\n#cp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/usr/local/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -562,6 +562,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -580,6 +581,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Release;
 		};
@@ -678,6 +680,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = vorbis;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Debug;
 		};
@@ -701,6 +704,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = vorbis;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386 x86_64";
 			};
 			name = Release;
 		};
