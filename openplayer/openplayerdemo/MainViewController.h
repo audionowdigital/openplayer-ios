@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OpenPlayer.h"
+#import "BarsViewController.h"
 
 @interface MainViewController : UIViewController <IPlayerHandler, NSStreamDelegate>
 {
@@ -26,5 +27,7 @@
 
 @property (weak, nonatomic) IBOutlet UISlider *seekBar;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@property BarsViewController *barsController;
 
 @end

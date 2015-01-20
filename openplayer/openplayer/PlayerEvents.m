@@ -21,12 +21,23 @@
     [_playerHandler onPlayerEvent:event withParams:nil];
 }
 
+-(void)sendEvent:(PlayerEvent)event withArrayPointer:(short *)barArrayPointer {
+    NSDictionary *params = [NSDictionary dictionaryWithObject:[NSValue valueWithPointer:barArrayPointer] forKey:@"barStartPointers"];
+    [_playerHandler onPlayerEvent:event withParams:params];
+}
+
 -(void)sendEvent:(PlayerEvent)event withParam:(int)param {
     NSDictionary *params = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:param] forKey:@"param"];
     [_playerHandler onPlayerEvent:event withParams:params];
 }
 
 -(void)sendEvent:(PlayerEvent)event vendor:(NSString *)vendor title:(NSString *)title artist:(NSString *)artist album:(NSString *)album date:(NSString *)date track:(NSString *)track {
+    if (!title) {
+        title = @"";
+    }
+    if (!artist) {
+        artist = @"";
+    }
     NSMutableDictionary *params = [NSMutableDictionary new];
     params[@"vendor"] = vendor;
     params[@"title"] = title;

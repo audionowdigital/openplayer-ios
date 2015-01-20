@@ -51,6 +51,7 @@
 		99FB06FF19518611001217F1 /* PlayerEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 628CE76C193DADC3009FB38C /* PlayerEvents.h */; };
 		99FB07571951B850001217F1 /* INativeInterface.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 62656BDE193F664700F66F61 /* INativeInterface.h */; };
 		99FDFD66193C807B004FE858 /* libopus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6226D982193C79E50060BDD4 /* libopus.a */; };
+		C4C384041A30896700F7E5E3 /* BarsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C384031A30896700F7E5E3 /* BarsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,6 +103,8 @@
 		99A894EA193DB06A007D3EDF /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		99A894EB193DB06A007D3EDF /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		99A894ED193DB094007D3EDF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C4C384021A30896700F7E5E3 /* BarsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarsViewController.h; sourceTree = "<group>"; };
+		C4C384031A30896700F7E5E3 /* BarsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +179,7 @@
 				627C7C88193C60D80031B485 /* libs */,
 				62BDC4931934704C00CF7520 /* openplayer */,
 				992278F41938C2060005DB1F /* openplayerdemo */,
+				C4DB6B051A31E187006376B2 /* displayLibs */,
 				62BDC4901934704C00CF7520 /* Frameworks */,
 				62BDC48F1934704C00CF7520 /* Products */,
 			);
@@ -239,6 +243,16 @@
 				992278FA1938C2060005DB1F /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C4DB6B051A31E187006376B2 /* displayLibs */ = {
+			isa = PBXGroup;
+			children = (
+				C4C384021A30896700F7E5E3 /* BarsViewController.h */,
+				C4C384031A30896700F7E5E3 /* BarsViewController.m */,
+			);
+			name = displayLibs;
+			path = openplayerdemo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,6 +373,7 @@
 				62128DDF1950390600D7884D /* AudioController.m in Sources */,
 				62128DDD195038EC00D7884D /* OpenPlayer.m in Sources */,
 				62128DE11950390E00D7884D /* PlayerEvents.m in Sources */,
+				C4C384041A30896700F7E5E3 /* BarsViewController.m in Sources */,
 				99A894EC193DB06A007D3EDF /* MainViewController.m in Sources */,
 				99734A9F195D854300685B57 /* PlayerTools.m in Sources */,
 				992278FF1938C2060005DB1F /* AppDelegate.m in Sources */,

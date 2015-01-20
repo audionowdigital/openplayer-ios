@@ -15,7 +15,8 @@ typedef enum player_event{
     READING_HEADER = 1003,      // Started to read the stream
     READY_TO_PLAY = 1004,       // Header was received, we are ready to play
     PLAY_UPDATE = 1005,         // Progress indicator, sent out periodically when playing
-    TRACK_INFO = 1006           // Progress indicator, sent out periodically when playing
+    TRACK_INFO = 1006,          // Progress indicator, sent out periodically when playing
+    PLAY_BAR_UPDATE = 1007      // Update bar event
 } PlayerEvent;
 
 @protocol IPlayerHandler
@@ -34,6 +35,7 @@ typedef enum player_event{
     -(id)initWithPlayerHandler:(id<IPlayerHandler>)handler;
     -(void)sendEvent:(PlayerEvent)event;
     -(void)sendEvent:(PlayerEvent)event withParam:(int)param;
+    -(void)sendEvent:(PlayerEvent)event withArrayPointer:(short *)barArrayPointer;
     -(void)sendEvent:(PlayerEvent)event
           vendor:(NSString *)vendor
            title:(NSString *)title

@@ -32,6 +32,16 @@ static OSStatus playbackCallback(void *inRefCon,
     int32_t availableBytes;
     short *buffer = TPCircularBufferTail(&this->circbuffer, &availableBytes);
     
+    //clone the audio buffer
+    short *cloneAudioBuffer = (short *)malloc(sizeof(short) * bytesToCopy);
+    memcpy(cloneAudioBuffer, targetBuffer, bytesToCopy);
+    
+    // run the callback on new thread
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [this.openPlayerReference updatePCMDisplayForArray:cloneAudioBuffer withSize:bytesToCopy];
+        free(cloneAudioBuffer);
+    });
+    
     // Radu: with the following line of code, we eliminate noise when network is slow: we feed zeros, so we clear the sound artifacts!
     if (availableBytes == 0) {
         memset(targetBuffer,0, bytesToCopy);
@@ -57,8 +67,10 @@ static OSStatus playbackCallback(void *inRefCon,
 /* Initialize the audioUnit and allocate our own temporary buffer.
 The temporary buffer will hold the latest data coming in from the microphone,
 and will be copied to the output when this is requested. */
-- (id) initWithSampleRate:(int)sampleRate channels:(int)channels {
+- (id) initWithSampleRate:(int)sampleRate channels:(int)channels andOpenPlayerReference:(OpenPlayer *)openPlayerReference;{
     self = [super init];
+    
+    self.openPlayerReference = openPlayerReference;
     
     // Find the default playback output unit (kAudioUnitSubType_RemoteIO on iOS/kAudioUnitSubType_DefaultOutput on Mac OS X)
     AudioComponentDescription defaultOutputDescription;
@@ -74,7 +86,7 @@ and will be copied to the output when this is requested. */
     
     // Create a new unit based on this that we'll use for output
     OSErr err = AudioComponentInstanceNew(defaultOutput, &audioUnit);
-    NSAssert1(audioUnit, @"Error creating unit: %ld", err);
+    NSAssert1(audioUnit, @"Error creating unit: %hd", err);
     
     // Set our tone rendering function on the unit
     AURenderCallbackStruct input;
@@ -86,7 +98,7 @@ and will be copied to the output when this is requested. */
                                0,
                                &input,
                                sizeof(input));
-    NSAssert1(err == noErr, @"Error setting callback: %ld", err);
+    NSAssert1(err == noErr, @"Error setting callback: %hd", err);
     
     // init audio output based on given channels and samplerate
     AudioStreamBasicDescription streamFormat;
@@ -104,7 +116,7 @@ and will be copied to the output when this is requested. */
                                 0,
                                 &streamFormat,
                                 sizeof(AudioStreamBasicDescription));
-    NSAssert1(err == noErr, @"Error setting stream format: %ld", err);
+    NSAssert1(err == noErr, @"Error setting stream format: %hd", err);
     
     // save format data to our current instance
     //_bytesPerFrame = streamFormat.mBytesPerFrame;
@@ -121,11 +133,11 @@ and will be copied to the output when this is requested. */
 - (BOOL) start {
     // Finalize parameters on the unit if any unreleased
     OSErr err = AudioUnitInitialize(audioUnit);
-    NSAssert1(err == noErr, @"Error initializing unit: %ld", err);
+    NSAssert1(err == noErr, @"Error initializing unit: %hd", err);
     if (err != noErr) return false;
     
 	OSStatus status = AudioOutputUnitStart(audioUnit);
-    NSAssert1(status == noErr, @"Error starting audioOutputUnit: %ld", status);
+    NSAssert1(status == noErr, @"Error starting audioOutputUnit: %d", status);
     if (err != noErr) return false;
     
     return true;
