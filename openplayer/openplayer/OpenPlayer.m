@@ -121,8 +121,12 @@ NSTimeInterval timestamp = 0;
         return;
     }
     
+    [waitPlayCondition lock];
+
     self.state = STATE_PLAYING;
     [waitPlayCondition signal];
+    
+    [waitPlayCondition unlock];
     
     DLog(@"Ready to play, go for stream and audio");
     
@@ -176,8 +180,9 @@ NSTimeInterval timestamp = 0;
         return;
     }
     
-    if ([self isPlaying]) {
-        [_audio pause];
+    BOOL wasPlaying = [self isPlaying];
+    if (wasPlaying) {
+        [self pause];
     }
     
     [_audio emptyBuffer];
@@ -185,8 +190,8 @@ NSTimeInterval timestamp = 0;
     [inputStreamConnection seekTo:percent];
     _writtenMiliSeconds = percent * srcSizeInSeconds * 1000;
     
-    if ([self isPlaying]) {
-        [_audio start];
+    if (wasPlaying) {
+        [self play];
     }
 }
 

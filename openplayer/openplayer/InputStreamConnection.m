@@ -38,6 +38,7 @@
 }
 
 -(BOOL)openStream:(NSStream *)stream {
+    
     [stream open];
     
     double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0; // we want it in ms
@@ -65,115 +66,120 @@
 
 - (BOOL)initSocketConnection:(long)offset
 {
-    CFReadStreamRef readStream;
-    CFWriteStreamRef writeStream;
-    
-    int port = [sourceUrl port] > 0 ? [[sourceUrl port] intValue] : 80;
-    
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)[sourceUrl host], port, &readStream, &writeStream);
-    
-    inputStream = (__bridge_transfer NSInputStream *)readStream;
-    outputStream = (__bridge_transfer NSOutputStream *)writeStream;
-    
-    if (![self openStream:outputStream]) {
-        DLog(@"Error opening output stream ! %@", [outputStream streamError]);
-        return NO;
-    }
-    
-    DLog(@"output socket stream opened");
-       
-    // do a HTTP Get on the resource we want
-    NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nHost: %@\r\nRange: bytes=%ld-\r\n\r\n",
-            [sourceUrl path], [sourceUrl host], offset];
-    
-    DLog(@"Do get for: %@", str);
-    const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
-    [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
-    // leave the outputstream open
-    
-    if (![self openStream:inputStream]) {
-        DLog(@"Error opening input stream !");
-        return NO;
-    }
-    
-    DLog(@"input socket stream opened");
-    
-    // Check HTTP response code (must be 200!) and then read HTTP Header and store useful details
-    NSMutableString *strHeader = [NSMutableString string];
-    NSInteger result;
-    int eoh = 0;
-    uint8_t ch;
-    while((result = [inputStream read:&ch maxLength:1]) != 0) {
-        if(result > 0) {
-            // add data to our string
-            [strHeader appendFormat:@"%c", ch];
-            // check ending condition
-            if (ch == '\r' || ch == '\n') eoh ++;
-            else if (eoh > 0) eoh --;
-            // if we have the header ending characters, stop
-            if (eoh == 4) {
-                DLog(@"HTTP Header received:%@", strHeader);
-                isHTTPHeaderAvailable = YES;
-                break;
-            }
-            // if there is no header, quit
-            if (eoh > 1000) {
-                DLog(@"No HTTP Header found");
-                return NO;
-            }
-        } else {
-            DLog(@"Error %@", [inputStream streamError]);
+    @synchronized(self) {
+
+        CFReadStreamRef readStream;
+        CFWriteStreamRef writeStream;
+        
+        int port = [sourceUrl port] > 0 ? [[sourceUrl port] intValue] : 80;
+        
+        CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)[sourceUrl host], port, &readStream, &writeStream);
+        //CFReadStreamSetProperty(readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+        //CFWriteStreamSetProperty(writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
+        
+        inputStream = (__bridge_transfer NSInputStream *)readStream;
+        outputStream = (__bridge_transfer NSOutputStream *)writeStream;
+        
+        if (![self openStream:outputStream]) {
+            DLog(@"Error opening output stream ! %@", [outputStream streamError]);
             return NO;
         }
-    }
-    // Check header data
-    
-    returnHeaders = [NSMutableDictionary new];
-    
-    NSArray *lines = [strHeader componentsSeparatedByString:@"\r\n"];
-    NSArray *keyvalue;
-    
-    for (NSString *line in lines) {
-        keyvalue = [line componentsSeparatedByString:@": "];
-        if (keyvalue.count == 2) {
-            [returnHeaders setObject:[keyvalue objectAtIndex:1] forKey:[keyvalue objectAtIndex:0]];
-        } else {
-            keyvalue = [line componentsSeparatedByString:@" "];
-            if ([[keyvalue objectAtIndex:0] rangeOfString:@"HTTP"].length > 0) {
-                [returnHeaders setObject:[keyvalue objectAtIndex:1] forKey:@"status"];
+        
+        DLog(@"output socket stream opened");
+        
+        // do a HTTP Get on the resource we want
+        NSString * str = [NSString stringWithFormat:@"GET %@ HTTP/1.0\r\nHost: %@\r\nRange: bytes=%ld-\r\n\r\n",
+                          [sourceUrl path], [sourceUrl host], offset];
+        
+        DLog(@"Do get for: %@", str);
+        const uint8_t * rawstring = (const uint8_t *)[str UTF8String];
+        [outputStream write:rawstring maxLength:strlen((const char *)rawstring)];
+        // leave the outputstream open
+        
+        if (![self openStream:inputStream]) {
+            DLog(@"Error opening input stream !");
+            return NO;
+        }
+        
+        DLog(@"input socket stream opened");
+        
+        // Check HTTP response code (must be 200!) and then read HTTP Header and store useful details
+        NSMutableString *strHeader = [NSMutableString string];
+        NSInteger result;
+        int eoh = 0;
+        uint8_t ch;
+        while((result = [inputStream read:&ch maxLength:1]) != 0) {
+            if(result > 0) {
+                // add data to our string
+                [strHeader appendFormat:@"%c", ch];
+                // check ending condition
+                if (ch == '\r' || ch == '\n') eoh ++;
+                else if (eoh > 0) eoh --;
+                // if we have the header ending characters, stop
+                if (eoh == 4) {
+                    DLog(@"HTTP Header received:%@", strHeader);
+                    isHTTPHeaderAvailable = YES;
+                    break;
+                }
+                // if there is no header, quit
+                if (eoh > 1000) {
+                    DLog(@"No HTTP Header found");
+                    return NO;
+                }
+            } else {
+                DLog(@"Error %@", [inputStream streamError]);
+                return NO;
             }
         }
+        // Check header data
+        
+        returnHeaders = [NSMutableDictionary new];
+        
+        NSArray *lines = [strHeader componentsSeparatedByString:@"\r\n"];
+        NSArray *keyvalue;
+        
+        for (NSString *line in lines) {
+            keyvalue = [line componentsSeparatedByString:@": "];
+            if (keyvalue.count == 2) {
+                [returnHeaders setObject:[keyvalue objectAtIndex:1] forKey:[keyvalue objectAtIndex:0]];
+            } else {
+                keyvalue = [line componentsSeparatedByString:@" "];
+                if ([[keyvalue objectAtIndex:0] rangeOfString:@"HTTP"].length > 0) {
+                    [returnHeaders setObject:[keyvalue objectAtIndex:1] forKey:@"status"];
+                }
+            }
+        }
+        
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        int httpStatus = [[formatter numberFromString:returnHeaders[@"status"]] intValue];
+        
+        if (httpStatus < 200 || httpStatus >= 300) {
+            DLog(@"HTTP status not OK");
+            return NO;
+        }
+        
+        // params: Get the range for skip
+        rangeUnit = returnHeaders[@"Accept-Ranges"];
+        
+        if (offset == 0) {
+            // params: Get the resource size
+            NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
+            srcSize = [srcIntSize longValue];
+        }
+        
+        readoffset = offset;
+        DLog(@"Online seek offset:%ld", readoffset);
+        
+        isSourceInited = YES;
+        if (rangeUnit != NULL) isSkipAvailable = YES;
+        DLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
+        
+        DLog(@"Init flags: isHTTPHeaderAvailable:%d isSkipAvailable:%d isSourceInited:%d",
+             isHTTPHeaderAvailable, isSkipAvailable, isSourceInited);
+        
+        return YES;
     }
-    
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    int httpStatus = [[formatter numberFromString:returnHeaders[@"status"]] intValue];
-    
-    if (httpStatus < 200 || httpStatus >= 300) {
-        DLog(@"HTTP status not OK");
-        return NO;
-    }
-    
-    // params: Get the range for skip
-    rangeUnit = returnHeaders[@"Accept-Ranges"];
-    
-    if (offset == 0) {
-        // params: Get the resource size
-        NSNumber * srcIntSize = [formatter numberFromString:returnHeaders[@"Content-Length"]];
-        srcSize = [srcIntSize longValue];
-    }
-    
-    readoffset = offset;
-    DLog(@"Online seek offset:%ld", readoffset);
-    
-    isSourceInited = YES;
-    if (rangeUnit != NULL) isSkipAvailable = YES;
-    DLog(@"HTTP Header data: Content size:%ld Skip-Range:%@" , srcSize, rangeUnit);
-    
-    DLog(@"Init flags: isHTTPHeaderAvailable:%d isSkipAvailable:%d isSourceInited:%d",
-          isHTTPHeaderAvailable, isSkipAvailable, isSourceInited);
-    
-    return YES;
 }
 
 
@@ -223,29 +229,33 @@
 }
 
 -(long)readData:(uint8_t *)buffer maxLength:(NSUInteger) length {
-    // if we skip data, we might delay the read, wait if socket disconnected, but with a timeout
-    // we need to wait for a connected socket, before we can read any data
-    double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0; // we want it in ms
     
-    while ([inputStream streamStatus] != NSStreamStatusOpen &&
-           (long)([NSDate timeIntervalSinceReferenceDate] * 1000.0 - startTime) < kTimeout) {
-        DLog(@"readData wait with timeout");
-        [NSThread sleepForTimeInterval:0.1];
+    @synchronized(self) {
+        
+        // if we skip data, we might delay the read, wait if socket disconnected, but with a timeout
+        // we need to wait for a connected socket, before we can read any data
+        double startTime = [NSDate timeIntervalSinceReferenceDate] * 1000.0; // we want it in ms
+        
+        while ([inputStream streamStatus] != NSStreamStatusOpen &&
+               (long)([NSDate timeIntervalSinceReferenceDate] * 1000.0 - startTime) < kTimeout) {
+            DLog(@"readData wait with timeout");
+            [NSThread sleepForTimeInterval:0.1];
+        }
+        
+        long read = 0;
+        @try {
+            // finally read the data
+            read = [inputStream read:buffer maxLength:length];
+        }
+        @catch (NSException *exception) {
+            DLog(@"Exception raised when reading input stream: %@, %@", exception, exception.description);
+        }
+        
+        // keep track of the data read so far
+        readoffset += read;
+        
+        return read;
     }
-    
-    long read = 0;
-    @try {
-        // finally read the data
-        read = [inputStream read:buffer maxLength:length];
-    }
-    @catch (NSException *exception) {
-        DLog(@"Exception raised when reading input stream: %@, %@", exception, exception.description);
-    }
-    
-    // keep track of the data read so far
-    readoffset += read;
-    
-    return read;
 }
 
 -(long)getReadOffset {
@@ -258,13 +268,16 @@
 
 -(void)closeStream
 {
-    [outputStream close];
-    [inputStream close];
-    
-    outputStream = nil;
-    inputStream = nil;
-    
-    isSourceInited = NO;
+    @synchronized(self) {
+        
+        [outputStream close];
+        [inputStream close];
+        
+        outputStream = nil;
+        inputStream = nil;
+        
+        isSourceInited = NO;
+    }
 }
 
 
