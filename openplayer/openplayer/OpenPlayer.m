@@ -13,6 +13,11 @@
 #import "InputStreamConnection.h"
 #import "PlayerTools.h"
 
+@interface OpenPlayer () {
+    BOOL disableSendEvents;
+}
+
+@end
 
 @implementation OpenPlayer
 
@@ -27,6 +32,7 @@ NSTimeInterval timestamp = 0;
         _type = type;
         self.state = STATE_STOPPED;
         waitPlayCondition = [NSCondition new];
+        disableSendEvents = NO;
         LOGS_ENABLED = useLogs;
     }
     return self;
@@ -73,42 +79,45 @@ NSTimeInterval timestamp = 0;
             return;
         }
         
-        int result;
+        int result = DECODE_ERROR;
         
         if (_type == PLAYER_OPUS )
             result = opusDecodeLoop(self);
         else if (_type == PLAYER_VORBIS)
             result = vorbisDecodeLoop(self);
         
-        // send events on main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-
-            switch (result) {
-                
-                case SUCCESS:
-                    DLog(@"Successfully finished decoding");
-                    [_playerEvents sendEvent:PLAYING_FINISHED];
-                    break;
-                
-                case INVALID_HEADER:
-                    DLog(@"Invalid header error received");
-                    [_playerEvents sendEvent:PLAYING_FAILED];
-                    break;
-                    
-                case DECODE_ERROR:
-                    DLog(@"Decoding error received");
-                    [_playerEvents sendEvent:PLAYING_FAILED];
-                    break;
-                
-                case DATA_ERROR:
-                    DLog(@"Decoding data error received");
-                    [_playerEvents sendEvent:PLAYING_FAILED];
-                    break;
-            }
+        if (!disableSendEvents) {
             
-            [self stop];
-        });
-        
+            // send events on main thread
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                switch (result) {
+                        
+                    case SUCCESS:
+                        DLog(@"Successfully finished decoding");
+                        [_playerEvents sendEvent:PLAYING_FINISHED];
+                        break;
+                        
+                    case INVALID_HEADER:
+                        DLog(@"Invalid header error received");
+                        [_playerEvents sendEvent:PLAYING_FAILED];
+                        break;
+                        
+                    case DECODE_ERROR:
+                        DLog(@"Decoding error received");
+                        [_playerEvents sendEvent:PLAYING_FAILED];
+                        break;
+                        
+                    case DATA_ERROR:
+                        DLog(@"Decoding data error received");
+                        [_playerEvents sendEvent:PLAYING_FAILED];
+                        break;
+                }
+                
+                [self stop];
+            });
+            
+        }
     });
 }
 
@@ -158,6 +167,14 @@ NSTimeInterval timestamp = 0;
         // keep the state change before close stream to avoid race condition which may call stop one more time from onStop() callback, which causes a crash in Audio Controller
         self.state = STATE_STOPPED;
     
+        // if stop is called from the UI thread (it means that stop button was pressed), we don't want events from
+        // this player anymore (the input stream is closed and released and the decoder loop will exit imediatelly);
+        // otwerwise the events of the stopping player decoder loop will interfere with the events of the new started
+        // stream!
+        if ([NSThread currentThread] == [NSThread mainThread]) {
+            disableSendEvents = YES;
+        }
+        
         [inputStreamConnection closeStream];
         inputStreamConnection = nil;
         
