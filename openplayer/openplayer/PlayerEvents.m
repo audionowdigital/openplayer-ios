@@ -32,19 +32,27 @@
 }
 
 -(void)sendEvent:(PlayerEvent)event vendor:(NSString *)vendor title:(NSString *)title artist:(NSString *)artist album:(NSString *)album date:(NSString *)date track:(NSString *)track {
-    if (!title) {
-        title = @"";
-    }
-    if (!artist) {
-        artist = @"";
-    }
+
     NSMutableDictionary *params = [NSMutableDictionary new];
-    params[@"vendor"] = vendor;
-    params[@"title"] = title;
-    params[@"artist"] = artist;
-    params[@"album"] = album;
-    params[@"date"] = date;
-    params[@"track"] = track;
+    
+    if (vendor != nil) {
+        params[@"vendor"] = vendor;
+    }
+    if (title != nil) {
+        params[@"title"] = title;
+    }
+    if (artist != nil) {
+        params[@"artist"] = artist;
+    }
+    if (album != nil) {
+        params[@"album"] = album;
+    }
+    if (date != nil) {
+        params[@"date"] = date;
+    }
+    if (track != nil) {
+        params[@"track"] = track;
+    }
     [_playerHandler onPlayerEvent:event withParams:params];
 }
 
