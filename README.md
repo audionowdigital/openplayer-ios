@@ -1,5 +1,4 @@
-OpenPlayer for iOS
-==================
+#OpenPlayer for iOS
 
 OpenPlayer is an Objective C library developed by AudioNow Digital, for playing OPUS and VORBIS audio files in your mobile applications. 
 
@@ -8,8 +7,7 @@ You can use it for playing local files or network streams.
 OpenPlayer delivers great performance, by using native codec implementation. It has been designed to decode OPUS and VORBIS content within an OGG Wrapper.
 
 
-Guick Start
-==================
+#Quick Start
 
 Run OpenPlayerDemo scheme to see an example of usage.
 
@@ -17,36 +15,40 @@ Build library with BuildOpenPlayer scheme. Take library from products folder and
 
 You need a IPlayerHandler object to handle the media event comming from library.
 
-To create an OpenPlayer instance, use:
+**1 To create an OpenPlayer instance, use: **
 
-OpenPlayer *player = [[OpenPlayer alloc] initWithPlayerHandler:playerHandler typeOfPlayer:PLAYER_OPUS enableLogs:NO];
+`OpenPlayer *player = [[OpenPlayer alloc] initWithPlayerHandler:playerHandler typeOfPlayer:PLAYER_OPUS enableLogs:NO];`
 
-To initialize the player with a VORBIS or OPUS source, use:
+**2 To initialize the player with a VORBIS or OPUS source, use: **
 
-[player setDataSource:url withSize:FILE_LENGTH_SECONDS];
+`[player setDataSource:url withSize:FILE_LENGTH_SECONDS];`
 
-Note: FILE_LENGTH_SECONDS is necessary for media files, for computing progress and allowing media seek. If you are decoding a live stream, you will need to use FILE_LENGTH_SECONDS = -1.
+**Note:** FILE_LENGTH_SECONDS is necessary for media files, for computing progress and allowing media seek. If you are decoding a live stream, you will need to use FILE_LENGTH_SECONDS = -1.
 
-The IPlayerHandler object needs to implement the following method to respond to events comming from the library
+**3 The IPlayerHandler object needs to implement the following method to respond to events comming from the library **
 
--(void)onPlayerEvent:(PlayerEvent) event withParams:(NSDictionary *)params;
+`-(void)onPlayerEvent:(PlayerEvent) event withParams:(NSDictionary *)params;`
 
 
-Player Events
-==================
-
+#Player Events
 OpenPlayer is an event-based library. The events that will be fired in the decoding process are the following:
 
-READING_HEADER - triggered when the library starts to read the OGG header of the stream
-TRACK_INFO - while reading the OGG Header, the library will parse track information. This event is triggered when track information is available.
-READY_TO_PLAY - called after the stream has been prepared. At this point, you can call player.play() in order to start playback
-PLAY_UPDATE - use this trigger for play progress
-PLAYING_FAILED - there has been a problem while decoding the stream.
-PLAYING_FINISHED - player reached the end of the stream
+-  `READING_HEADER` - triggered when the library starts to read the OGG header of the stream
+-  `TRACK_INFO` - while reading the OGG Header, the library will parse track information. This event is triggered when track information is available.
+-  `READY_TO_PLAY` - called after the stream has been prepared. At this point, you can call `player.play()` in order to start playback
+-  `PLAY_UPDATE` - use this trigger for play progress
+-  `PLAYING_FAILED` - there has been a problem while decoding the stream.
+-  `PLAYING_FINISHED` - player reached the end of the stream
+
+
+#Android Version
+OpenPlayer has also been developed for Android platform. You can find it here:
+
+
 
 
 License
-==================
+-------
 
 © 2014 AudioNow® Digital, LLC.
 
