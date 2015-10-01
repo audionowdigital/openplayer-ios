@@ -13,19 +13,19 @@ Run OpenPlayerDemo scheme to see an example of usage.
 
 Build library with BuildOpenPlayer scheme. Take library from products folder and import it in your project.
 
-You need a IPlayerHandler object to handle the media event comming from library.
+You need a IPlayerHandler object to handle the media events comming from library.
 
-**1 To create an OpenPlayer instance, use: **
+**1 To create an OpenPlayer instance, use:**
 
 `OpenPlayer *player = [[OpenPlayer alloc] initWithPlayerHandler:playerHandler typeOfPlayer:PLAYER_OPUS enableLogs:NO];`
 
-**2 To initialize the player with a VORBIS or OPUS source, use: **
+**2 To initialize the player with a VORBIS or OPUS source, use:**
 
 `[player setDataSource:url withSize:FILE_LENGTH_SECONDS];`
 
 **Note:** FILE_LENGTH_SECONDS is necessary for media files, for computing progress and allowing media seek. If you are decoding a live stream, you will need to use FILE_LENGTH_SECONDS = -1.
 
-**3 The IPlayerHandler object needs to implement the following method to respond to events comming from the library **
+**3 The IPlayerHandler object needs to implement the following method to respond to events comming from the library**
 
 `-(void)onPlayerEvent:(PlayerEvent) event withParams:(NSDictionary *)params;`
 
@@ -44,7 +44,7 @@ OpenPlayer is an event-based library. The events that will be fired in the decod
 #Android Version
 OpenPlayer has also been developed for Android platform. You can find it here:
 
-
+https://github.com/audionowdigital/openplayer-android
 
 
 License
